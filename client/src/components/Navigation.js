@@ -1,0 +1,74 @@
+import React, { Component } from "react";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import HomeIcon from "@material-ui/icons/Home";
+import PersonIcon from "@material-ui/icons/Person";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import { Link, withRouter } from "react-router-dom";
+import TimelineIcon from "@material-ui/icons/Timeline";
+
+//https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue
+
+class Navigation extends Component {
+  state = {
+    value: 0,
+    pathMap: ["/landing", "/cities", "/profile", "/mytinerary"]
+  };
+
+  componentWillReceiveProps(newProps) {
+    const { pathname } = newProps.location;
+    const { pathMap } = this.state;
+
+    const value = pathMap.indexOf(pathname);
+
+    if (value > -1) {
+      this.setState({
+        value
+      });
+    }
+  }
+
+  handleChange = (event, value) => {
+    this.setState({ value });
+    console.log(value);
+  };
+  render() {
+    const { value, pathMap } = this.state;
+
+    return (
+      <BottomNavigation
+        value={value + 1}
+        onChange={this.handleChange}
+        showLabels
+      >
+        >
+        <BottomNavigationAction
+          label="Home"
+          icon={<HomeIcon />}
+          component={Link}
+          to={pathMap[0]}
+        />
+        <BottomNavigationAction
+          label="Cities"
+          icon={<LocationCityIcon />}
+          component={Link}
+          to={pathMap[1]}
+        />
+        <BottomNavigationAction
+          label="Profile"
+          icon={<PersonIcon />}
+          component={Link}
+          to={pathMap[2]}
+        />
+        <BottomNavigationAction
+          label="MYtinerary"
+          icon={<TimelineIcon />}
+          component={Link}
+          to={pathMap[3]}
+        />
+      </BottomNavigation>
+    );
+  }
+}
+
+export default withRouter(Navigation);
