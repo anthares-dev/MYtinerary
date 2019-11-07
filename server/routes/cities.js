@@ -12,10 +12,28 @@ router.get("/test", (req, res) => {
 router.get("/all", (req, res) => {
   cityModel
     .find({})
-    .then(files => {
-      res.send(files);
+    .then(cities => {
+      res.send(cities);
     })
     .catch(err => console.log(err));
+});
+
+/*create a route in cities*/
+router.post("/", (req, res) => {
+  const newCity = new cityModel({
+    name: req.body.name,
+    country: req.body.country
+  });
+  newCity
+    .save()
+    .then(city => {
+      res.send(city);
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .send("Server error - are you trying to add the same city?");
+    });
 });
 
 module.exports = router;

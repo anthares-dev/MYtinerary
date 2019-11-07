@@ -5,7 +5,7 @@ node_modules/
 /resources
 /.pnp
 .pnp.js
-/server/keys.js
+keys.js
 
 # testing
 /coverage

@@ -10,6 +10,7 @@ const citySchema = new mongoose.Schema({
     type: String,
     required: true
   }
+  //versionKey: false ----> https://stackoverflow.com/questions/12495891/what-is-the-v-field-in-mongoose
 });
 
 //name if module is the singular of how the database is called
