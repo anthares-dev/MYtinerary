@@ -21,28 +21,11 @@ code {
 
 .nav {
   height: 8vh;
-  width: 100%;
+  width: 100vw;
   bottom: 0;
   position: fixed;
 }
 
 .logo {
-  width: 100%;
-}
-
-img.circled-right {
-  max-width: 35%;
-  height: auto;
-}
-
-img.nav-icons {
-  max-width: 15%;
-  height: auto;
-}
-
-.col-bet {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  width: 90vw;
 }

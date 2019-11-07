@@ -1,11 +1,24 @@
+// EXPRESS:
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 5000;
 
-// middlewares:
+// MONGOOSE:
+const mongoose = require("mongoose");
+const db = require("./keys").mongoURI;
 
+// middlewares:
 const bodyParser = require("body-parser");
 const cors = require("cors");
+
+mongoose
+  .connect(db, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("Connection to Mongo DB established"))
+  .catch(err => console.log(err));
 
 app.use(bodyParser.json());
 app.use(
@@ -15,7 +28,7 @@ app.use(
 );
 app.use(cors());
 
-//
+//MAIN:
 app.listen(port, () => {
   console.log("Server is running on " + port + "port");
 });
