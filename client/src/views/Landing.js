@@ -1,26 +1,39 @@
 import React, { Fragment } from "react";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowRightOutlinedIcon from "@material-ui/icons/KeyboardArrowRightOutlined";
-import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, withRouter } from "react-router-dom";
+import CitySlider from "../components/CitySlider";
 
-const useStyles = makeStyles(theme => ({
-  button: {
-    margin: theme.spacing(2)
-  }
-}));
+//https://reactjsexample.com/infinite-carousel-for-react/
+// https://g787543.github.io/infinite-react-carousel/
 
 function Landing() {
+  const useStyles = makeStyles(theme => ({
+    button: {
+      margin: theme.spacing(2)
+    }
+  }));
+
   const classes = useStyles();
+
+  const settings = {
+    arrows: true,
+    arrowsBlock: false,
+    centerMode: false,
+    dots: true,
+    dotsScroll: 2,
+    initialSlide: true,
+    rows: 2,
+    slidesToShow: 2,
+    wheelScroll: 2
+  };
   return (
     <Fragment>
-      <CssBaseline />
       <Container maxWidth="sm">
         <Typography component="div">
           <Grid
@@ -38,15 +51,9 @@ function Landing() {
                   alt="MYtinerary Logo"
                 />
               </a>
-              <Box fontSize="h5.fontSize" m={2}>
-                Find your perfect trip, designed by insiders who know and log
-                their cities.
-              </Box>
-            </Grid>
-
-            <Grid item xs={12}>
-              <Box fontSize="h5.fontSize" m={1}>
-                Start Browsing
+              <Box fontSize="h7.fontSize" mb={3}>
+                Find your perfect trip, designed by insiders <br />
+                who know and love their cities.
               </Box>
               <Fab
                 color="default"
@@ -59,26 +66,12 @@ function Landing() {
               </Fab>
             </Grid>
 
-            <Grid item xs={12}>
-              <Box fontSize="h6.fontSize" m={1}>
-                Want to build your own MYtinerary?
-              </Box>
-              <Button
-                variant="contained"
-                to="/login"
-                className={classes.button}
-                component={Link}
-              >
-                Log in
-              </Button>
-              <Button
-                variant="contained"
-                to="/account"
-                className={classes.button}
-                component={Link}
-              >
-                Create Account
-              </Button>
+            <Grid item xs={12} className="city-slider">
+              <span fontSize="h6.fontSize" m={1}>
+                Popular MYtineraries
+              </span>
+
+              <CitySlider />
             </Grid>
           </Grid>
         </Typography>

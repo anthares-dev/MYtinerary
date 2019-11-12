@@ -14,18 +14,49 @@ code {
 
 .app {
   height: 100vh;
-  padding-top: 3vh;
   background-color: white;
   text-align: center;
 }
 
-.nav {
+.header {
+  background-color: white;
+  height: 10vh;
+  width: 100vw;
+  top: 0;
+  padding: 1vh 0;
+  position: fixed;
+}
+
+/* depreceted 
+.nav { 
   height: 8vh;
   width: 100vw;
   bottom: 0;
   position: fixed;
 }
+*/
+
+.views {
+  padding-top: 10vh;
+  height: auto;
+  width: 100vw;
+}
 
 .logo {
-  width: 90vw;
+  width: 80vw;
+}
+
+.city-slider {
+  width: 100vw;
+  bottom: 0;
+  padding: 0vh 0;
+  position: fixed;
+}
+
+.slider-card {
+  max-width: 30vw;
+}
+
+.slider-media {
+  height: 25vh;
 }

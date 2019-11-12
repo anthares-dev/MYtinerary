@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 const cityModel = require("../model/cityModel");
-
+import "~slick-carousel/slick/slick.css";
+import "~slick-carousel/slick/slick-theme.css";
 /*test*/
 router.get("/test", (req, res) => {
   res.send({ msg: "Cities test route." });
