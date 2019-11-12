@@ -7,6 +7,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Slider from "react-slick";
+// https://www.npmjs.com/package/react-slick-slider
+// https://stackoverflow.com/questions/55515207/react-slick-slider-map-not-showing-slides
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 export default class CitySlider extends Component {
@@ -22,8 +24,7 @@ export default class CitySlider extends Component {
   //The componentDidMount() method fires when the component can be accessed and update the cities frequently every 60 secs.
   componentDidMount() {
     this.fetchCities();
-
-    this.timer = setInterval(() => this.fetchCities(), 60000);
+    //this.timer = setInterval(() => this.fetchCities(), 60000);
   }
   //fetches everything every five seconds by starting a timer in componentDidMount() and cleaning up in componentWillUnmount():
   componentWillUnmount() {
@@ -44,33 +45,29 @@ export default class CitySlider extends Component {
       .catch(e => console.log(e));
   };
 
-  sliders() {
+  sliders = () => {
     return this.state.cities.map(item => (
       <Card className="slider-card">
         <CardActionArea>
           <CardMedia
-            image="../images/homeIcon.png"
+            image={item.img}
             title={item.country}
             className="slider-media"
           />
-          <CardContent>
-            <Typography gutterBottom variant="h6" component="h2">
-              {item.name}
-            </Typography>
-          </CardContent>
+
+          <Typography fontSize="h8.fontSize">{item.name}</Typography>
         </CardActionArea>
       </Card>
     ));
-  }
+  };
 
   render() {
     var settings = {
       dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      rows: 2
+      rows: 2,
+      slidesPerRow: 2,
+      initialSlide: 1,
+      centerPadding: "8px"
     };
 
     return <Slider {...settings}>{this.sliders()}</Slider>;

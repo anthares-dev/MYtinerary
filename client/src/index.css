@@ -48,15 +48,20 @@ code {
 
 .city-slider {
   width: 100vw;
-  bottom: 0;
+  bottom: 2vh;
   padding: 0vh 0;
   position: fixed;
 }
 
 .slider-card {
-  max-width: 30vw;
+  max-width: 43vw;
+  margin: 0 1vw 0.5vh 1vw;
 }
 
 .slider-media {
-  height: 25vh;
+  height: 15vh;
+}
+
+.slider-text {
+  height: 5vh;
 }

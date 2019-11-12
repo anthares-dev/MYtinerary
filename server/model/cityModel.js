@@ -9,6 +9,10 @@ const citySchema = new mongoose.Schema({
   country: {
     type: String,
     required: true
+  },
+  img: {
+    type: String,
+    required: true
   }
   //versionKey: false ----> https://stackoverflow.com/questions/12495891/what-is-the-v-field-in-mongoose
 });

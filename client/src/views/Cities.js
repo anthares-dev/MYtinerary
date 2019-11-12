@@ -18,7 +18,7 @@ export default class Cities extends Component {
   componentDidMount() {
     this.fetchCities();
 
-    this.timer = setInterval(() => this.fetchCities(), 60000);
+    //this.timer = setInterval(() => this.fetchCities(), 60000);
   }
   //fetches everything every five seconds by starting a timer in componentDidMount() and cleaning up in componentWillUnmount():
   componentWillUnmount() {

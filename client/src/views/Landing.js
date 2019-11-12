@@ -51,7 +51,7 @@ function Landing() {
                   alt="MYtinerary Logo"
                 />
               </a>
-              <Box fontSize="h7.fontSize" mb={3}>
+              <Box fontSize="h7.fontSize" mb={2}>
                 Find your perfect trip, designed by insiders <br />
                 who know and love their cities.
               </Box>
@@ -67,9 +67,9 @@ function Landing() {
             </Grid>
 
             <Grid item xs={12} className="city-slider">
-              <span fontSize="h6.fontSize" m={1}>
+              <Box fontSize="h7.fontSize" textAlign="left" mb={1}>
                 Popular MYtineraries
-              </span>
+              </Box>
 
               <CitySlider />
             </Grid>
