@@ -43,28 +43,9 @@ class Navigation extends Component {
       >
         >
         <BottomNavigationAction
-          label="Home"
-          icon={<HomeIcon />}
+          icon={<HomeIcon fontSize="large" />}
           component={Link}
           to={pathMap[0]}
-        />
-        <BottomNavigationAction
-          label="Cities"
-          icon={<LocationCityIcon />}
-          component={Link}
-          to={pathMap[1]}
-        />
-        <BottomNavigationAction
-          label="Profile"
-          icon={<PersonIcon />}
-          component={Link}
-          to={pathMap[2]}
-        />
-        <BottomNavigationAction
-          label="MYtinerary"
-          icon={<TimelineIcon />}
-          component={Link}
-          to={pathMap[3]}
         />
       </BottomNavigation>
     );

@@ -42,6 +42,7 @@ function Landing() {
             direction="column"
             justify="flex-start"
             alignItems="center"
+            className="landing"
           >
             <Grid item xs={12}>
               <a href="#">

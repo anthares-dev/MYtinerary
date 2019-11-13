@@ -1,7 +1,7 @@
 import React from "react";
 import Landing from "./views/Landing";
 import Cities from "./views/Cities";
-import Navigation from "./components/Navigation";
+
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MYtinerary from "./views/Mytinerary";
@@ -19,11 +19,11 @@ export default function App() {
         </div>
         <div className="views">
           <Switch>
-            <Route path="/Landing" component={Landing} />
-            <Route path="/Cities" component={Cities} />
-            <Route path="/Mytinerary" component={MYtinerary} />
-            <Route path="/Login" component={Login} />
-            <Route path="/Account" component={Account} />
+            <Route path="/landing" component={Landing} />
+            <Route path="/cities" component={Cities} />
+            <Route path="/mytinerary" component={MYtinerary} />
+            <Route path="/login" component={Login} />
+            <Route path="/account" component={Account} />
           </Switch>
         </div>
       </div>

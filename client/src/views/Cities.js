@@ -1,6 +1,15 @@
 import React, { Component, Fragment } from "react";
-// import QuoteList from "../components/QuoteList";
+
 import axios from "axios";
+import Navigation from "../components/Navigation";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
+import Input from "@material-ui/core/Input";
+
+import Container from "@material-ui/core/Container";
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 export default class Cities extends Component {
@@ -46,7 +55,6 @@ export default class Cities extends Component {
   };
 
   render() {
-    const title = "My cities!";
     var cities = this.state.cities.filter(item => {
       return (
         item.name
@@ -59,17 +67,33 @@ export default class Cities extends Component {
 
     return (
       <Fragment>
-        <h2>{title}</h2>
-        <p>{this.state.isFetching ? "Fetching cities..." : ""}</p>
-        <input type="search" onChange={this.filterList} />
-        <ul>
-          {cities.map(item => (
-            <li key={item._id}>
-              {item.name}, {item.country}
-            </li>
-          ))}
-          ;
-        </ul>
+        <Container maxWidth="sm">
+          <Typography component="div">
+            <p>{this.state.isFetching ? "Fetching cities..." : ""}</p>
+
+            <Input
+              autoFocus="true"
+              placeholder="Filter our current cities"
+              onChange={this.filterList}
+              fullWidth="true"
+            />
+            {cities.map(item => (
+              <Card className="card">
+                <CardActionArea>
+                  <CardMedia
+                    image={item.img}
+                    title={item.country}
+                    className="card-media"
+                  />
+                  <Typography fontSize="h8.fontSize">{item.name}</Typography>
+                </CardActionArea>
+              </Card>
+            ))}
+          </Typography>
+        </Container>
+        <div className="nav">
+          <Navigation />
+        </div>
       </Fragment>
     );
   }
