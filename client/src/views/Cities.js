@@ -82,10 +82,20 @@ class Cities extends Component {
   }
 }
 
+// here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
-  error: state.cities.error,
+  error: state.cities.error, // cities is the name given in rootReducer.js to citiesReducer
   cities: state.cities.cities,
   pending: state.cities.pending
 });
 
+// I don't need a const mapDispatchToProps here because I'm already dispatching my action "fecthCities" here below as second argument
+
+/* TO check
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCities
+  };
+};
+*/
 export default connect(mapStateToProps, { fetchCities })(Cities);

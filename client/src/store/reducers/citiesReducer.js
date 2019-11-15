@@ -11,7 +11,8 @@ import {
 const initialState = {
   pending: false,
   cities: [],
-  error: null
+  error: null,
+  search: ""
 };
 
 function citiesReducer(state = initialState, action) {
@@ -33,6 +34,7 @@ function citiesReducer(state = initialState, action) {
         pending: false,
         error: action.error
       };
+
     default:
       // the dispatched action is not in this reducer, return the state unchanged
       return state;

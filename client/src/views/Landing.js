@@ -20,7 +20,7 @@ function Landing() {
             container
             spacing={4}
             direction="column"
-            justify="flex-start"
+            justify="flex-start" //! da cambiare in space-bet e controllare
             alignItems="center"
             className="landing"
           >
@@ -51,8 +51,9 @@ function Landing() {
               <Box fontSize="h7.fontSize" textAlign="left" mb={1}>
                 Popular MYtineraries
               </Box>
-
-              <CitySlider />
+              <CitySlider /> //! ultimo elemento del mio view che deve rimanere
+              fisso al bottom - lo sto facendo via css ma meglio usare
+              materialUI
             </Grid>
           </Grid>
         </Typography>
