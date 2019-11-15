@@ -1,52 +1,40 @@
 import React, { Component, Fragment } from "react";
-
-import axios from "axios";
 import Navigation from "../components/Navigation";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
-
 import Container from "@material-ui/core/Container";
+import { connect } from "react-redux"; // connect component to  redux store.
+import { fetchCities } from "../store/actions/citiesActions";
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
-export default class Cities extends Component {
+// https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
+
+class Cities extends Component {
   constructor(props) {
     super(props);
-    this.timer = null;
     this.state = {
-      isFetching: false,
+      pending: "",
       cities: [],
+      error: "",
       search: ""
     };
   }
 
-  //The componentDidMount() method fires when the component can be accessed and update the cities frequently every 60 secs.
   componentDidMount() {
-    this.fetchCities();
-
-    //this.timer = setInterval(() => this.fetchCities(), 60000);
-  }
-  //fetches everything every five seconds by starting a timer in componentDidMount() and cleaning up in componentWillUnmount():
-  componentWillUnmount() {
-    this.timer = null;
+    const { fetchCities } = this.props;
+    fetchCities();
+    console.log(this.props);
   }
 
-  // The fetchcities() method takes care of updating state.isFetching by initializing it to true when it starts and setting it back to false when receiving the cities:
-  fetchCities = () => {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.setState({
-      ...this.state,
-      isFetching: true
+      cities: nextProps.cities
     });
-    axios
-      .get("http://localhost:5000/cities/all")
-      .then(response =>
-        this.setState({ cities: response.data, isFetching: false })
-      )
-      .catch(e => console.log(e));
-  };
+  }
 
   filterList = event => {
     this.setState({
@@ -59,26 +47,21 @@ export default class Cities extends Component {
       return (
         item.name
           .toLowerCase()
-          .charAt(0)
+          //.charAt(0)
           .search(this.state.search) !== -1
       );
     });
-    console.log(this.state.cities);
 
     return (
       <Fragment>
         <Container maxWidth="sm">
           <Typography component="div">
-            <p>{this.state.isFetching ? "Fetching cities..." : ""}</p>
-
             <Input
-              autoFocus="true"
               placeholder="Filter our current cities"
               onChange={this.filterList}
-              fullWidth="true"
             />
             {cities.map(item => (
-              <Card className="card">
+              <Card className="card" key={item._id}>
                 <CardActionArea>
                   <CardMedia
                     image={item.img}
@@ -98,3 +81,11 @@ export default class Cities extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  error: state.cities.error,
+  cities: state.cities.cities,
+  pending: state.cities.pending
+});
+
+export default connect(mapStateToProps, { fetchCities })(Cities);

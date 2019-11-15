@@ -1,11 +1,9 @@
-import React, { Component, Fragment } from "react";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import React, { Fragment } from "react";
+import TimelineIcon from "@material-ui/icons/Timeline";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 import { Link, withRouter } from "react-router-dom";
-import TimelineIcon from "@material-ui/icons/Timeline";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
@@ -81,6 +79,13 @@ function Header() {
             <LocationCityIcon />
           </ListItemIcon>
           <ListItemText primary="Cities" />
+        </ListItem>
+
+        <ListItem button component={Link} to="/itineraries" key="3">
+          <ListItemIcon>
+            <TimelineIcon />
+          </ListItemIcon>
+          <ListItemText primary="Itineraries" />
         </ListItem>
       </List>
       <Divider />

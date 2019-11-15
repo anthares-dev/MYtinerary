@@ -5,7 +5,6 @@ import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowRightOutlinedIcon from "@material-ui/icons/KeyboardArrowRightOutlined";
 import Box from "@material-ui/core/Box";
-import { makeStyles } from "@material-ui/core/styles";
 import { Link, withRouter } from "react-router-dom";
 import CitySlider from "../components/CitySlider";
 
@@ -13,25 +12,6 @@ import CitySlider from "../components/CitySlider";
 // https://g787543.github.io/infinite-react-carousel/
 
 function Landing() {
-  const useStyles = makeStyles(theme => ({
-    button: {
-      margin: theme.spacing(2)
-    }
-  }));
-
-  const classes = useStyles();
-
-  const settings = {
-    arrows: true,
-    arrowsBlock: false,
-    centerMode: false,
-    dots: true,
-    dotsScroll: 2,
-    initialSlide: true,
-    rows: 2,
-    slidesToShow: 2,
-    wheelScroll: 2
-  };
   return (
     <Fragment>
       <Container maxWidth="sm">

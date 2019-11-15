@@ -26,7 +26,7 @@ code {
   padding: 0.5vh 0;
 
   z-index: 1;
-  position: sticky;
+  position: fixed;
 }
 
 .nav {
@@ -40,10 +40,11 @@ code {
 .views {
   height: auto;
   width: 100vw;
-
+  margin: 8vh 0;
   padding-bottom: 2vh;
 }
 
+/* LANDING PAGE */
 .logo {
   width: 80vw;
 }
@@ -68,11 +69,12 @@ code {
   height: 5vh;
 }
 
+/* CITIES PAGE */
 .card {
   margin: 2vh auto 0 auto;
   max-width: 100vw;
 }
 
 .card-media {
-  height: 15vh;
+  height: 18vh;
 }

@@ -21,7 +21,7 @@ export default function App() {
           <Switch>
             <Route path="/landing" component={Landing} />
             <Route path="/cities" component={Cities} />
-            <Route path="/mytinerary" component={MYtinerary} />
+            <Route path="/itineraries" component={MYtinerary} />
             <Route path="/login" component={Login} />
             <Route path="/account" component={Account} />
           </Switch>
