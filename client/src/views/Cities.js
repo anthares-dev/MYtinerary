@@ -1,101 +1,132 @@
 import React, { Component, Fragment } from "react";
 import Navigation from "../components/Navigation";
+import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import { connect } from "react-redux"; // connect component to  redux store.
 import { fetchCities } from "../store/actions/citiesActions";
+import { bindActionCreators } from "redux";
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 // https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
+//---> https://daveceddia.com/where-fetch-data-redux/
 
 class Cities extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      pending: "",
-      cities: [],
-      error: "",
-      search: ""
+      searchTerm: ""
     };
+    this.handleChange = this.handleChange.bind(this);
   }
-
   componentDidMount() {
-    const { fetchCities } = this.props;
-    fetchCities();
+    this.props.fetchCities(); // call the function inside my prop
+
     console.log(this.props);
+    console.log(this.state);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    this.setState({
-      cities: nextProps.cities
-    });
-  }
+  handleChange = event => {
+    console.log(event.target);
+    console.log(this.state);
 
-  filterList = event => {
     this.setState({
-      search: event.target.value.toLowerCase()
+      searchTerm: event.target.value.toLowerCase()
     });
   };
 
   render() {
-    var cities = this.state.cities.filter(item => {
-      return (
-        item.name
-          .toLowerCase()
-          //.charAt(0)
-          .search(this.state.search) !== -1
-      );
-    });
+    console.log(this.state.currentlyDisplayed);
 
-    return (
-      <Fragment>
-        <Container maxWidth="sm">
-          <Typography component="div">
-            <Input
-              placeholder="Filter our current cities"
-              onChange={this.filterList}
-            />
-            {cities.map(item => (
-              <Card className="card" key={item._id}>
-                <CardActionArea>
-                  <CardMedia
-                    image={item.img}
-                    title={item.country}
-                    className="card-media"
-                  />
-                  <Typography fontSize="h8.fontSize">{item.name}</Typography>
-                </CardActionArea>
-              </Card>
-            ))}
-          </Typography>
-        </Container>
-        <div className="nav">
-          <Navigation />
-        </div>
-      </Fragment>
-    );
+    if (this.props.error) {
+      return <div>Error! {this.props.message}</div>;
+    }
+
+    if (this.props.pending) {
+      return (
+        <Fragment>
+          <Container maxWidth="sm">
+            <Typography component="div">
+              <Input
+                placeholder="Filter our current cities"
+                onChange={this.handleChange}
+                value={this.searchTerm}
+              />
+
+              <Box mt={4}>
+                <CircularProgress color="primary" />
+              </Box>
+            </Typography>
+          </Container>
+          <div className="nav">
+            <Navigation />
+          </div>
+        </Fragment>
+      );
+    }
+
+    if (this.props.cities) {
+      return (
+        <Fragment>
+          <Container maxWidth="sm">
+            <Typography component="div">
+              <Input
+                placeholder="Filter our current cities"
+                onChange={this.handleChange}
+              />
+              {this.props.cities
+                .filter(
+                  city =>
+                    city.name
+                      .toLowerCase()
+                      //.charAt(0)
+                      .indexOf(this.state.searchTerm) !== -1
+                )
+
+                .map(item => (
+                  <Card className="card" key={item._id}>
+                    <CardActionArea>
+                      <CardMedia
+                        image={item.img}
+                        title={item.country}
+                        className="card-media"
+                      />
+                      <Typography fontSize="h8.fontSize">
+                        {item.name}
+                      </Typography>
+                    </CardActionArea>
+                  </Card>
+                ))}
+            </Typography>
+          </Container>
+          <div className="nav">
+            <Navigation />
+          </div>
+        </Fragment>
+      );
+    }
   }
 }
 
 // here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
-  error: state.cities.error, // cities is the name given in rootReducer.js to citiesReducer
-  cities: state.cities.cities,
-  pending: state.cities.pending
+  error: state.citiesRed.error, // cities is the name given in rootReducer.js to citiesReducer
+  cities: state.citiesRed.cities,
+  pending: state.citiesRed.pending
 });
 
-// I don't need a const mapDispatchToProps here because I'm already dispatching my action "fecthCities" here below as second argument
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      fetchCities: fetchCities
+    },
+    dispatch
+  );
 
-/* TO check
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchCities
-  };
-};
-*/
-export default connect(mapStateToProps, { fetchCities })(Cities);
+export default connect(mapStateToProps, mapDispatchToProps)(Cities);

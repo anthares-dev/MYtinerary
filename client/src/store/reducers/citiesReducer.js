@@ -11,28 +11,31 @@ import {
 const initialState = {
   pending: false,
   cities: [],
-  error: null,
-  search: ""
+  error: null
 };
 
 function citiesReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_CITIES_PENDING:
+      // Mark the state as "loading" so we can show a spinner or something
+      // Also, reset any errors. We're starting fresh.
       return {
         ...state,
         pending: true
       };
     case FETCH_CITIES_SUCCESS:
+      // All done: set pending "false".
+      // Also, replace the items with the ones from the server
       return {
         ...state,
         pending: false,
-        cities: action.cities
+        cities: action.payload
       };
     case FETCH_CITIES_ERROR:
       return {
         ...state,
         pending: false,
-        error: action.error
+        error: action.payload
       };
 
     default:
