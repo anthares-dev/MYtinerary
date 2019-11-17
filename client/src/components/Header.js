@@ -67,7 +67,7 @@ function Header() {
       onKeyDown={toggleDrawer(side, false)}
     >
       <List>
-        <ListItem button component={Link} to="/landing" key="1">
+        <ListItem button component={Link} to="/" key="1">
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>

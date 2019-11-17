@@ -24,7 +24,6 @@ code {
   width: 100vw;
   top: 0;
   padding: 0.5vh 0;
-
   z-index: 1;
   position: fixed;
 }
@@ -38,12 +37,13 @@ code {
 }
 
 .views {
-  height: auto;
   width: 100vw;
   margin: 8vh 0;
+  height: auto;
 }
 
 /* LANDING PAGE */
+
 .logo {
   width: 80vw;
 }
@@ -76,4 +76,25 @@ code {
 
 .card-media {
   height: 18vh;
+}
+
+/* ITINERARIES PAGE */
+
+.image-profile {
+  width: 128;
+  height: 128;
+}
+.img-profile {
+  margin: auto;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.MuiCardHeader-root {
+  text-align: left;
+}
+
+.MuiCardHeader-title .MuiTypography-body2 {
+  font-weight: 600;
 }

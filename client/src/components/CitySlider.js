@@ -14,27 +14,15 @@ import Slider from "react-slick";
 class CitySlider extends Component {
   constructor(props) {
     super(props);
-    this.timer = null;
-    this.state = {
-      cities: []
-    };
+    this.state = {};
   }
 
   componentDidMount() {
-    const { fetchCities } = this.props;
-    fetchCities();
-    console.log(this.props);
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-    this.setState({
-      cities: nextProps.cities
-    });
+    this.props.fetchCities();
   }
 
   sliders = () => {
-    return this.state.cities.map(item => (
+    return this.props.cities.map(item => (
       <Card className="slider-card" key={item._id}>
         <CardActionArea>
           <CardMedia
@@ -42,7 +30,6 @@ class CitySlider extends Component {
             title={item.country}
             className="slider-media"
           />
-
           <Typography fontSize="h8.fontSize">{item.name}</Typography>
         </CardActionArea>
       </Card>
@@ -63,9 +50,9 @@ class CitySlider extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.cities.error,
-  cities: state.cities.cities,
-  pending: state.cities.pending
+  error: state.citiesRed.error,
+  cities: state.citiesRed.cities,
+  pending: state.citiesRed.pending
 });
 
 export default connect(mapStateToProps, { fetchCities })(CitySlider);

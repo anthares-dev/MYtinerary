@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { Link, withRouter } from "react-router-dom";
 
 import { connect } from "react-redux"; // connect component to  redux store.
 import { fetchCities } from "../store/actions/citiesActions";
@@ -23,18 +24,15 @@ class Cities extends Component {
     this.state = {
       searchTerm: ""
     };
-    this.handleChange = this.handleChange.bind(this);
   }
   componentDidMount() {
     this.props.fetchCities(); // call the function inside my prop
 
     console.log(this.props);
-    console.log(this.state);
   }
 
   handleChange = event => {
     console.log(event.target);
-    console.log(this.state);
 
     this.setState({
       searchTerm: event.target.value.toLowerCase()
@@ -42,8 +40,6 @@ class Cities extends Component {
   };
 
   render() {
-    console.log(this.state.currentlyDisplayed);
-
     if (this.props.error) {
       return <div>Error! {this.props.message}</div>;
     }
@@ -83,22 +79,20 @@ class Cities extends Component {
               {this.props.cities
                 .filter(
                   city =>
-                    city.name
-                      .toLowerCase()
-                      //.charAt(0)
-                      .indexOf(this.state.searchTerm) !== -1
+                    city.name.toLowerCase().indexOf(this.state.searchTerm) === 0
                 )
-
-                .map(item => (
-                  <Card className="card" key={item._id}>
+                .map(city => (
+                  <Card className="card" key={city._id}>
                     <CardActionArea>
                       <CardMedia
-                        image={item.img}
-                        title={item.country}
+                        image={city.img}
+                        title={city.country}
                         className="card-media"
+                        component={Link}
+                        to={"/" + city._id}
                       />
                       <Typography fontSize="h8.fontSize">
-                        {item.name}
+                        {city.name}
                       </Typography>
                     </CardActionArea>
                   </Card>
