@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
-const citySchema = new mongoose.Schema({
-  name: {
+const activitySchema = new mongoose.Schema({
+  city_id: {
     type: String,
-    required: true,
-    unique: true
+    required: true
   },
-  country: {
+  itinerary_id: {
+    type: String,
+    required: true
+  },
+  title: {
     type: String,
     required: true
   },
@@ -15,8 +17,9 @@ const citySchema = new mongoose.Schema({
     type: String,
     required: true
   }
+
   //versionKey: false ----> https://stackoverflow.com/questions/12495891/what-is-the-v-field-in-mongoose
 });
 
 //name if module is the singular of how the database is called
-module.exports = mongoose.model("city", citySchema);
+module.exports = mongoose.model("activity", activitySchema);

@@ -1,17 +1,22 @@
-import React, { Fragment } from "react";
+/*----- MATERIAL UI -----*/
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Fab from "@material-ui/core/Fab";
 import KeyboardArrowRightOutlinedIcon from "@material-ui/icons/KeyboardArrowRightOutlined";
 import Box from "@material-ui/core/Box";
+
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
+
+/*----- COMPONENTS/ACTIONS -----*/
 import CitySlider from "../components/CitySlider";
 
 //https://reactjsexample.com/infinite-carousel-for-react/
 // https://g787543.github.io/infinite-react-carousel/
 
-function Landing() {
+const Landing = () => {
   return (
     <Fragment>
       <Container maxWidth="sm">
@@ -58,6 +63,6 @@ function Landing() {
       </Container>
     </Fragment>
   );
-}
+};
 
 export default withRouter(Landing);

@@ -25,7 +25,7 @@ code {
   top: 0;
   padding: 0.5vh 0;
   z-index: 1;
-  position: fixed;
+  position: sticky;
 }
 
 .nav {
@@ -38,7 +38,8 @@ code {
 
 .views {
   width: 100vw;
-  margin: 8vh 0;
+  margin-bottom: 8vh;
+  padding-bottom: 1vh;
   height: auto;
 }
 
@@ -46,6 +47,7 @@ code {
 
 .logo {
   width: 80vw;
+  margin-bottom: 2vh;
 }
 
 .city-slider {
@@ -97,4 +99,17 @@ code {
 
 .MuiCardHeader-title .MuiTypography-body2 {
   font-weight: 600;
+}
+
+.activity_slider {
+  margin-top: 1vh;
+  margin-bottom: 2vh;
+}
+
+.activity_card {
+  max-width: 45vw;
+}
+
+.activity_card-media {
+  height: 18vh;
 }

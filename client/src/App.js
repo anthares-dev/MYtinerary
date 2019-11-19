@@ -1,32 +1,58 @@
-import React from "react";
+/*----- MATERIAL UI -----*/
+import CssBaseline from "@material-ui/core/CssBaseline";
+
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux"; // connect component to  redux store.
+
+/*----- VIEWS -----*/
 import Landing from "./views/Landing";
 import Cities from "./views/Cities";
-
-import Header from "./components/Header";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import MYtineraries from "./views/Mytineraries";
 import Login from "./views/Login";
 import Account from "./views/Account";
-import CssBaseline from "@material-ui/core/CssBaseline";
 
-export default function App() {
-  return (
-    <Router>
-      <div className="app">
-        <CssBaseline />
-        <div className="header">
-          <Header />
+/*----- COMPONENTS/ACTIONS -----*/
+import Header from "./components/Header";
+import { fetchCities } from "./store/actions/citiesActions";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    this.props.fetchCities();
+  }
+
+  render() {
+    return (
+      <Router>
+        <div className="app">
+          <CssBaseline />
+          <div className="header">
+            <Header />
+          </div>
+          <div className="views">
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/cities" component={Cities} />
+              <Route path="/cities/:name/:_id" component={MYtineraries} />
+              <Route path="/login" component={Login} />
+              <Route path="/account" component={Account} />
+            </Switch>
+          </div>
         </div>
-        <div className="views">
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/cities" component={Cities} />
-            <Route path="/:city_id" component={MYtineraries} />
-            <Route path="/login" component={Login} />
-            <Route path="/account" component={Account} />
-          </Switch>
-        </div>
-      </div>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
+
+// const mapDispatchToProps = () => {
+//   return {
+//     fetchCities: fetchCities
+//   };
+// };
+
+export default connect(null, { fetchCities })(App);

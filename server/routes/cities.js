@@ -18,6 +18,28 @@ router.get("/all", (req, res) => {
     .catch(err => console.log(err));
 });
 
+//this is how I implement a city route by specific city
+router.get("/:_id", (req, res) => {
+  let cityRequested = req.params._id;
+  cityModel
+    .findOne({ _id: cityRequested })
+    .then(city => {
+      res.send(city);
+    })
+    .catch(err => console.log(err));
+});
+
+//this is how I implement a city route by specific city
+router.get("/city/:name", (req, res) => {
+  let cityRequested = req.params.name;
+  cityModel
+    .findOne({ name: cityRequested })
+    .then(city => {
+      res.send(city);
+    })
+    .catch(err => console.log(err));
+});
+
 /*create a route in cities*/
 router.post("/", (req, res) => {
   const newCity = new cityModel({

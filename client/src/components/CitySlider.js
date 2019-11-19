@@ -7,6 +7,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Slider from "react-slick";
+import { Link, withRouter } from "react-router-dom";
 // https://www.npmjs.com/package/react-slick-slider
 // https://stackoverflow.com/questions/55515207/react-slick-slider-map-not-showing-slides
 
@@ -17,20 +18,18 @@ class CitySlider extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    this.props.fetchCities();
-  }
-
   sliders = () => {
-    return this.props.cities.map(item => (
-      <Card className="slider-card" key={item._id}>
+    return this.props.cities.map(city => (
+      <Card className="slider-card" key={city._id}>
         <CardActionArea>
           <CardMedia
-            image={item.img}
-            title={item.country}
+            image={city.img}
+            title={city.country}
             className="slider-media"
+            component={Link}
+            to={"/cities/" + city.name + "/" + city._id}
           />
-          <Typography fontSize="h8.fontSize">{item.name}</Typography>
+          <Typography fontSize="h8.fontSize">{city.name}</Typography>
         </CardActionArea>
       </Card>
     ));
@@ -55,4 +54,4 @@ const mapStateToProps = state => ({
   pending: state.citiesRed.pending
 });
 
-export default connect(mapStateToProps, { fetchCities })(CitySlider);
+export default connect(mapStateToProps)(CitySlider);

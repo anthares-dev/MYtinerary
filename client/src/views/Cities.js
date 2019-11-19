@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import Navigation from "../components/Navigation";
+/*----- MATERIAL UI -----*/
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -8,11 +7,17 @@ import Typography from "@material-ui/core/Typography";
 import Input from "@material-ui/core/Input";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { Link, withRouter } from "react-router-dom";
 
-import { connect } from "react-redux"; // connect component to  redux store.
-import { fetchCities } from "../store/actions/citiesActions";
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component, Fragment } from "react";
+import { Link, withRouter } from "react-router-dom";
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux"; // connect component to  redux store.
+import { createStore, applyMiddleware } from "redux";
+
+/*----- COMPONENTS/ACTIONS -----*/
+import Navigation from "../components/Navigation";
+import { fetchCities } from "../store/actions/citiesActions";
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 // https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
@@ -25,21 +30,17 @@ class Cities extends Component {
       searchTerm: ""
     };
   }
-  componentDidMount() {
-    this.props.fetchCities(); // call the function inside my prop
-
-    console.log(this.props);
-  }
 
   handleChange = event => {
     console.log(event.target);
-
     this.setState({
       searchTerm: event.target.value.toLowerCase()
     });
   };
 
   render() {
+    console.log(this.props.cities);
+
     if (this.props.error) {
       return <div>Error! {this.props.message}</div>;
     }
@@ -89,7 +90,7 @@ class Cities extends Component {
                         title={city.country}
                         className="card-media"
                         component={Link}
-                        to={"/" + city._id}
+                        to={"/cities/" + city.name + "/" + city._id}
                       />
                       <Typography fontSize="h8.fontSize">
                         {city.name}
@@ -108,6 +109,7 @@ class Cities extends Component {
   }
 }
 
+//CALLING THE STORE!!!
 // here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
   error: state.citiesRed.error, // cities is the name given in rootReducer.js to citiesReducer
@@ -115,12 +117,4 @@ const mapStateToProps = state => ({
   pending: state.citiesRed.pending
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchCities: fetchCities
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(Cities);
+export default connect(mapStateToProps)(Cities);

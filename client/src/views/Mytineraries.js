@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import Navigation from "../components/Navigation";
+/*----- MATERIAL UI -----*/
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -7,25 +6,30 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux"; // connect component to  redux store.
-import { fetchCities } from "../store/actions/citiesActions";
-import { bindActionCreators } from "redux";
 
+/*----- COMPONENTS/ACTIONS -----*/
+import Navigation from "../components/Navigation";
 import ItininerariesList from "../components/ItinerariesList";
+import { fetchItineraries } from "../store/actions/itinerariesActions";
+import { fetchActivities } from "../store/actions/activitiesActions";
 
 class MYtineraries extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
   }
 
   componentDidMount() {
-    this.props.fetchCities(); // call the function inside my prop
-
-    console.log(this.props);
+    console.log("did mount");
+    this.props.fetchItineraries();
+    this.props.fetchActivities();
   }
 
   render() {
+    console.log(this.props.activities);
+
     return (
       <Fragment>
         <Container maxWidth="sm">
@@ -46,7 +50,10 @@ class MYtineraries extends Component {
             <Box fontSize="h7.fontSize" textAlign="left" mb="3">
               Available MYtineraries:
             </Box>
-            <ItininerariesList />
+            <ItininerariesList
+              itineraries={this.props.itineraries}
+              activities={this.props.activities}
+            />
           </Typography>
         </Container>
 
@@ -59,19 +66,28 @@ class MYtineraries extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let id = ownProps.match.params.city_id;
+  //let name = ownProps.match.params.name;
+  let path = window.location.pathname;
+
+  console.log(path.substring(path.lastIndexOf("/") + 1));
   return {
-    city: state.citiesRed.cities.find(city => city._id === id)
-    //https://www.youtube.com/watch?v=CZ2qGtAnhoE&list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG&index=40
+    cities: state.citiesRed.cities,
+    city: state.citiesRed.cities.find(
+      city => "/cities/" + city.name + "/" + city._id === path
+    ),
+
+    itineraries: state.itinerariesRed.itineraries,
+    activities: state.activitiesRed.activities
+    //city: state.citiesRed.cities.find(city => city._id === id)
   };
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      fetchCities: fetchCities
-    },
-    dispatch
-  );
+// const mapDispatchToProps = () => {
+//   return {
+//     fetchItineraries: fetchItineraries
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MYtineraries);
+export default connect(mapStateToProps, { fetchItineraries, fetchActivities })(
+  MYtineraries
+);
