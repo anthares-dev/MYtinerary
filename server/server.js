@@ -34,6 +34,8 @@ app.use("/itineraries", require("./routes/itineraries"));
 
 app.use("/activities", require("./routes/activities"));
 
+app.use("/users", require("./routes/users"));
+
 //MAIN:
 app.listen(port, () => {
   console.log("Server is running on " + port + "port");

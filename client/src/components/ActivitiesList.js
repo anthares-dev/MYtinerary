@@ -9,7 +9,7 @@ import { Link, withRouter } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 
-const ActivitiesList = (activities, itinerary_id) => {
+const ActivitiesList = ({ activities, itineraryId }) => {
   var settings = {
     centerPadding: "60px",
     slidesToShow: 1,
@@ -17,12 +17,12 @@ const ActivitiesList = (activities, itinerary_id) => {
     centerMode: true
   };
 
-  const activitiesPerItinerary = activities.activities.filter(
-    activit => activit.itinerary_id === "5dd3e7921c9d440000bc0fd0"
+  var activitiesPerItinerary = activities.filter(
+    activit => activit.itinerary_id === itineraryId
   );
 
   console.log(activities);
-  console.log(itinerary_id);
+  //console.log(itineraryId);
 
   return (
     <Fragment>

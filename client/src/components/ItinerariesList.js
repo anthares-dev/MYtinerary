@@ -70,11 +70,7 @@ const useStyles = makeStyles(theme => ({
 
 const ItininerariesList = ({ itineraries, activities }) => {
   const classes = useStyles();
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const [expandedId, setExpandedId] = React.useState(-1);
 
   let path = window.location.pathname;
   let currentId = path.substring(path.lastIndexOf("/") + 1); // take the last part of the URL
@@ -86,9 +82,13 @@ const ItininerariesList = ({ itineraries, activities }) => {
   console.log(itineraries);
   console.log(activities);
 
+  const handleExpandClick = i => {
+    setExpandedId(expandedId === i ? -1 : i);
+  };
+
   return (
     <Fragment>
-      {itinerariesPerCity.map(itinerary => (
+      {itinerariesPerCity.map((itinerary, i) => (
         <Card className={classes.card} key={itinerary._id}>
           <CardHeader
             avatar={
@@ -165,20 +165,20 @@ const ItininerariesList = ({ itineraries, activities }) => {
             </IconButton>
             <IconButton
               className={clsx(classes.expand, {
-                [classes.expandOpen]: expanded
+                [classes.expandOpen]: expandedId
               })}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
+              onClick={() => handleExpandClick(i)}
+              aria-expanded={expandedId === i}
               aria-label="show more"
             >
               <ExpandMoreIcon />
             </IconButton>
           </CardActions>
-          <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
             <CardContent>
               <ActivitiesList
                 activities={activities}
-                itinerary_id={itinerary._id}
+                itineraryId={itinerary._id}
               />
             </CardContent>
           </Collapse>

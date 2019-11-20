@@ -11,8 +11,8 @@ import { connect } from "react-redux"; // connect component to  redux store.
 import Landing from "./views/Landing";
 import Cities from "./views/Cities";
 import MYtineraries from "./views/Mytineraries";
-import Login from "./views/Login";
-import Account from "./views/Account";
+import SignIn from "./views/SignIn";
+import SignUp from "./views/SignUp";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import Header from "./components/Header";
@@ -39,8 +39,8 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route exact path="/cities" component={Cities} />
               <Route path="/cities/:name/:_id" component={MYtineraries} />
-              <Route path="/login" component={Login} />
-              <Route path="/account" component={Account} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/signin" component={SignIn} />
             </Switch>
           </div>
         </div>

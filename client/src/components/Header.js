@@ -126,8 +126,12 @@ function Header() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={handleClose}>Create Account</MenuItem>
-              <MenuItem onClick={handleClose}>Login</MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/signup">
+                Create Account
+              </MenuItem>
+              <MenuItem onClick={handleClose} component={Link} to="/signin">
+                Login
+              </MenuItem>
             </Menu>
           </div>
         </Grid>
