@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../middlewares/auth");
 
 const cityModel = require("../model/cityModel");
 
@@ -9,7 +10,7 @@ router.get("/test", (req, res) => {
 });
 
 /*get all cities*/
-router.get("/all", (req, res) => {
+router.get("/all", auth, (req, res) => {
   cityModel
     .find({})
     .then(cities => {
@@ -41,7 +42,7 @@ router.get("/city/:name", (req, res) => {
 });
 
 /*create a route in cities*/
-router.post("/", (req, res) => {
+router.post("/", auth, (req, res) => {
   const newCity = new cityModel({
     name: req.body.name,
     country: req.body.country,

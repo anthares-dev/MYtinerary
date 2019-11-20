@@ -1,9 +1,65 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcryptjs");
+const config = require("config");
+const jwt = require("jsonwebtoken");
 
-const userModel = require("../model/userModel");
+//! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
+
+//* User Model
+const User = require("../model/userModel");
+
+//* @route   POST /users
+//* @desc    Register new user user
+//* @access  Public
+router.post("/", (req, res) => {
+  const { name, email, password } = req.body;
+
+  //* Simple validation
+  if (!name || !email || !password) {
+    return res.status(400).json({ msg: "Please enter all fields" });
+  }
+
+  //* Check for existing user
+  User.findOne({ email: email }).then(user => {
+    if (user) return res.status(400).json({ msg: "User already exists" });
+
+    const newUser = new User({
+      name,
+      email,
+      password
+    });
+
+    //* Create salt & hash
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(newUser.password, salt, (err, hash) => {
+        if (err) throw err;
+        newUser.password = hash;
+        newUser.save().then(user => {
+          jwt.sign(
+            { id: user.id },
+            config.get("jwtSecret"),
+            { expiresIn: 3600 },
+            (err, token) => {
+              if (err) throw err;
+              res.json({
+                token,
+                user: {
+                  id: user.id,
+                  name: user.name,
+                  email: user.email
+                }
+              });
+            }
+          );
+        });
+      });
+    });
+  });
+});
 
 /*get all users*/
+/*
 router.get("/all", (req, res) => {
   userModel
     .find({})
@@ -12,26 +68,7 @@ router.get("/all", (req, res) => {
     })
     .catch(err => console.log(err));
 });
-
-/*create a route in users*/
-router.post("/", (req, res) => {
-  const newUser = new userModel({
-    userName: req.body.userName,
-    password: req.body.password,
-    email: req.body.email,
-    image: req.body.image
-  });
-  newUser
-    .save()
-    .then(user => {
-      res.send(user);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send("Server error - are you trying to add the same city?");
-    });
-});
+*/
 
 /*
 router.post("/", (req, res, next) => {
