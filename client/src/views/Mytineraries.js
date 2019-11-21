@@ -13,20 +13,20 @@ import { connect } from "react-redux"; // connect component to  redux store.
 /*----- COMPONENTS/ACTIONS -----*/
 import Navigation from "../components/Navigation";
 import ItininerariesList from "../components/ItinerariesList";
-//import { fetchCities } from "../store/actions/citiesActions";
 import { fetchItineraries } from "../store/actions/itinerariesActions";
 import { fetchActivities } from "../store/actions/activitiesActions";
 
 class MYtineraries extends Component {
   componentDidMount() {
     console.log("did mount");
-    //this.props.fetchCities();
     this.props.fetchItineraries();
     this.props.fetchActivities();
   }
 
   render() {
+    console.log(this.props.itineraries);
     console.log(this.props.activities);
+    console.log(this.props.match.params._id);
 
     return (
       <Fragment>

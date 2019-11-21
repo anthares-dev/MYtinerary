@@ -1,7 +1,9 @@
 //creating my three actions: loading fetch, fetch success or fetch error
-export const FETCH_ITINERARIES_PENDING = "FETCH_ITINERARIES_PENDING";
-export const FETCH_ITINERARIES_SUCCESS = "FETCH_ITINERARIES_SUCCESS";
-export const FETCH_ITINERARIES_ERROR = "FETCH_ITINERARIES_ERROR";
+import {
+  FETCH_ITINERARIES_PENDING,
+  FETCH_ITINERARIES_SUCCESS,
+  FETCH_ITINERARIES_ERROR
+} from "./typesActions";
 
 export function fetchItinerariesPending() {
   return {
@@ -27,8 +29,8 @@ export function fetchItineraries() {
   console.log("inside action");
   return dispatch => {
     dispatch(fetchItinerariesPending());
-    console.log("before fetch");
-    fetch("/API/itineraries/all")
+
+    fetch("/api/itineraries")
       .then(res => {
         console.log("fetched");
         if (res.ok) {
@@ -36,6 +38,7 @@ export function fetchItineraries() {
         }
       })
       .then(json => {
+        console.log(json);
         dispatch(fetchItinerariesSuccess(json));
         return json;
       })

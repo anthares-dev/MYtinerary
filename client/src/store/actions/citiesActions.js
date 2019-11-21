@@ -1,7 +1,10 @@
 //creating my three actions: loading fetch, fetch success or fetch error
-export const FETCH_CITIES_PENDING = "FETCH_CITIES_PENDING";
-export const FETCH_CITIES_SUCCESS = "FETCH_CITIES_SUCCESS";
-export const FETCH_CITIES_ERROR = "FETCH_CITIES_ERROR";
+
+import {
+  FETCH_CITIES_PENDING,
+  FETCH_CITIES_SUCCESS,
+  FETCH_CITIES_ERROR
+} from "./typesActions";
 
 export function fetchCitiesPending() {
   return {

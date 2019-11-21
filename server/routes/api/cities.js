@@ -13,40 +13,40 @@ router.get("/test", (req, res) => {
 //* @route   GET api/cities
 //* @desc    Get all Cities
 //* @access  Public
+// http://localhost:5000/cities/
+
 router.get("/", (req, res) => {
   //console.log("all");
   cityModel
     .find()
     .sort({}) // I can decide if sort cities
     .then(cities => {
-      console.log(cities);
-
+      //console.log(cities);
       res.send(cities);
     })
     .catch(err => console.log(err));
 });
 
-// http://localhost:5000/cities/all
-
-//* @route   GET /:_id
-//* @desc    City per ID
+//* @route   GET api/cities/:_id
+//* @desc    Get city per ID
 //* @access  Public
+// http://localhost:5000/api/cities/:_id
+// example: http://localhost:5000/cities/5dc2e1781c9d440000f2d6b9
+
 router.get("/:_id", (req, res) => {
-  let cityRequested = req.params._id;
   cityModel
-    .findOne({ _id: cityRequested })
+    .findById(req.params._id)
     .then(city => {
       res.send(city);
     })
     .catch(err => console.log(err));
 });
 
-// http://localhost:5000/cities/_id
-// example: http://localhost:5000/cities/5dc2e1781c9d440000f2d6b9
-
-//* @route   GET /city/:name
-//* @desc    City per Name
+//* @route   GET api/cities/city/:name
+//* @desc    Get city per Name
 //* @access  Public
+// http://localhost:5000/cities/city/:name
+// example: http://localhost:5000/cities/city/Barcelona
 router.get("/city/:name", (req, res) => {
   let cityRequested = req.params.name;
   cityModel
@@ -57,12 +57,11 @@ router.get("/city/:name", (req, res) => {
     .catch(err => console.log(err));
 });
 
-// http://localhost:5000/cities/city/name
-// example: http://localhost:5000/cities/city/Barcelona
-
 //* @route   POST api/cities
 //* @desc    Create a city
 //* @access  Public
+// http://localhost:5000/cities/
+
 router.post("/", (req, res) => {
   const newCity = new cityModel({
     name: req.body.name, // the name comes from the request of the body
@@ -75,18 +74,25 @@ router.post("/", (req, res) => {
       res.send(city);
     })
     .catch(err => {
-      res
-        .status(500)
-        .send("Server error - maybe are you trying to add the same city?");
+      res.status(500).send(err.message);
     });
 });
 
-//* @route   DELETE /:_id
+//* @route   DELETE api/cities/:id
 //* @desc    Delete a city per ID
-//* @access  Private
-router.delete("/:_id", auth, (req, res) => {
-  let cityRequested = req.params._id;
-  cityModel.findOne({ _id: cityRequested }).then(city => {
+//* @access  Public
+router.delete("/:_id", (req, res) => {
+  cityModel
+    .findById(req.params._id)
+    .then(city => {
+      city.remove().then(() => res.json({ success: true }));
+    })
+    .catch(err => res.status(404).json({ success: false }));
+});
+
+/*
+router.delete("/:_id", (req, res) => {
+  cityModel.findById(req.params._id).then(city => {
     if (!city) {
       return res.status(404).send("City not found");
     }
@@ -99,5 +105,7 @@ router.delete("/:_id", auth, (req, res) => {
     });
   });
 });
+
+*/
 
 module.exports = router;

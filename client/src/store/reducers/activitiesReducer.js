@@ -5,7 +5,7 @@ import {
   FETCH_ACTIVITIES_PENDING,
   FETCH_ACTIVITIES_SUCCESS,
   FETCH_ACTIVITIES_ERROR
-} from "../actions/activitiesActions";
+} from "../actions/typesActions";
 
 //defining the initial state
 const initialState = {

@@ -1,10 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middlewares/auth");
 
 const itineraryModel = require("../../models/itineraryModel");
 
-/*get all itineraries*/
-router.get("/all", (req, res) => {
+//* @route   GET api/itineraries
+//* @desc    Get all Itineraries
+//* @access  Public
+// http://localhost:5000/itineraries/
+router.get("/", (req, res) => {
   itineraryModel
     .find({})
     .then(itineraries => {
@@ -13,7 +17,10 @@ router.get("/all", (req, res) => {
     .catch(err => console.log(err));
 });
 
-//this is how I implement a itin route by specific city
+//* @route   GET api/itineraries/:city_id
+//* @desc    Get itineraries per city
+//* @access  Public
+// http://localhost:5000/api/itineraries/:city_id
 router.get("/:city_id", (req, res) => {
   let itineraryRequestedId = req.params.city_id;
   itineraryModel

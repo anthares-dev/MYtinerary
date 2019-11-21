@@ -1,7 +1,9 @@
 //creating my three actions: loading fetch, fetch success or fetch error
-export const FETCH_ACTIVITIES_PENDING = "FETCH_ACTIVITIES_PENDING";
-export const FETCH_ACTIVITIES_SUCCESS = "FETCH_ACTIVITIES_SUCCESS";
-export const FETCH_ACTIVITIES_ERROR = "FETCH_ACTIVITIES_ERROR";
+import {
+  FETCH_ACTIVITIES_PENDING,
+  FETCH_ACTIVITIES_SUCCESS,
+  FETCH_ACTIVITIES_ERROR
+} from "../actions/typesActions";
 
 export function fetchActivitiesPending() {
   return {
@@ -28,7 +30,7 @@ export function fetchActivities() {
   return dispatch => {
     dispatch(fetchActivitiesPending());
     console.log("before fetch");
-    fetch("/API/activities/all")
+    fetch("/api/activities")
       .then(res => {
         console.log("fetched");
         if (res.ok) {

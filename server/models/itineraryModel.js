@@ -32,8 +32,6 @@ const itinerarySchema = new mongoose.Schema({
     type: Array,
     required: true
   }
-  //versionKey: false ----> https://stackoverflow.com/questions/12495891/what-is-the-v-field-in-mongoose
 });
 
-//name if module is the singular of how the database is called
 module.exports = mongoose.model("itinerary", itinerarySchema);

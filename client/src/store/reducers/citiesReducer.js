@@ -1,11 +1,10 @@
 //with below import i am retrieving my actions from the CityAction file,
 // and I am passing them to the reducer
-
 import {
   FETCH_CITIES_PENDING,
   FETCH_CITIES_SUCCESS,
   FETCH_CITIES_ERROR
-} from "../actions/citiesActions";
+} from "../actions/typesActions";
 
 //defining the initial state
 const initialState = {

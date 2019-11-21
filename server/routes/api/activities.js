@@ -1,10 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middlewares/auth");
 
 const activityModel = require("../../models/activityModel");
 
-/*get all itineraries*/
-router.get("/all", (req, res) => {
+//* @route   GET api/activities
+//* @desc    Get all Activities
+//* @access  Public
+// http://localhost:5000/activities/
+
+router.get("/", (req, res) => {
   activityModel
     .find({})
     .then(activity => {
@@ -12,18 +17,5 @@ router.get("/all", (req, res) => {
     })
     .catch(err => console.log(err));
 });
-
-/*
-//this is how I implement a itin route by specific city
-router.get("/:city_id", (req, res) => {
-  let itineraryRequestedId = req.params.city_id;
-  activityModel
-    .findOne({ city_id: itineraryRequestedId })
-    .then(activity => {
-      res.send(activity);
-    })
-    .catch(err => console.log(err));
-});
-*/
 
 module.exports = router;

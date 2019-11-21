@@ -5,7 +5,7 @@ import {
   FETCH_ITINERARIES_PENDING,
   FETCH_ITINERARIES_SUCCESS,
   FETCH_ITINERARIES_ERROR
-} from "../actions/itinerariesActions";
+} from "../actions/typesActions";
 
 //defining the initial state
 const initialState = {

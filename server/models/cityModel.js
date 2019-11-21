@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const citySchema = new mongoose.Schema({
   name: {
@@ -19,4 +18,5 @@ const citySchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model("city", citySchema);
-// name if module is the singular of how the database is called
+// named "city" as singular name of how the database is called
+// if the database is not yet created in Mongo, It will be automatically created with name "cities" in the moment I post a new city

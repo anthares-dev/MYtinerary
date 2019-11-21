@@ -41,12 +41,14 @@ app.use(cors());
 
 //* Use Routers
 
-app.use("/API/cities", require("./routes/API/cities"));
+app.use("/api/cities", require("./routes/api/cities"));
 
-app.use("/API/itineraries", require("./routes/API/itineraries"));
+app.use("/api/itineraries", require("./routes/api/itineraries"));
 
-app.use("/API/activities", require("./routes/API/activities"));
+app.use("/api/itineraries", require("./routes/api/itineraries"));
 
-app.use("/API/users", require("./routes/API/users"));
+app.use("/api/activities", require("./routes/api/activities"));
 
-app.use("/API/auth", require("./routes/API/auth"));
+app.use("/api/users", require("./routes/api/users"));
+
+app.use("/api/auth", require("./routes/api/auth"));
