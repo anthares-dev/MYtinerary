@@ -28,10 +28,10 @@ class Navigation extends Component {
 
   handleChange = (event, value) => {
     this.setState({ value });
-    console.log(value);
+    //console.log(value);
   };
   render() {
-    console.log(this.props);
+    //console.log(this.props);
 
     const { value, pathMap } = this.state;
 

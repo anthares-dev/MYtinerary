@@ -25,12 +25,12 @@ export function fetchActivitiesError(error) {
   };
 }
 
-export function fetchActivities() {
-  console.log("inside action activity");
+export function fetchActivities(city_id) {
+  //console.log("inside action activity");
   return dispatch => {
     dispatch(fetchActivitiesPending());
-    console.log("before fetch");
-    fetch("/api/activities")
+    //console.log("before fetch");
+    fetch("/api/activities/" + city_id)
       .then(res => {
         console.log("fetched");
         if (res.ok) {

@@ -69,6 +69,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
   const classes = useStyles();
   const [expandedId, setExpandedId] = React.useState(-1);
 
+  /*
   let path = window.location.pathname;
   let currentId = path.substring(path.lastIndexOf("/") + 1); // take the last part of the URL
 
@@ -78,6 +79,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
 
   console.log(itineraries);
   console.log(activities);
+  */
 
   const handleExpandClick = i => {
     setExpandedId(expandedId === i ? -1 : i);
@@ -85,7 +87,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
 
   return (
     <Fragment>
-      {itinerariesPerCity.map((itinerary, i) => (
+      {itineraries.map((itinerary, i) => (
         <Card className={classes.card} key={itinerary._id}>
           <CardHeader
             avatar={

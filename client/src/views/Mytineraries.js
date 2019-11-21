@@ -13,19 +13,20 @@ import { connect } from "react-redux"; // connect component to  redux store.
 /*----- COMPONENTS/ACTIONS -----*/
 import Navigation from "../components/Navigation";
 import ItininerariesList from "../components/ItinerariesList";
+//import { fetchCities } from "../store/actions/citiesActions";
 import { fetchItineraries } from "../store/actions/itinerariesActions";
 import { fetchActivities } from "../store/actions/activitiesActions";
 
 class MYtineraries extends Component {
   componentDidMount() {
     console.log("did mount");
-    this.props.fetchItineraries();
-    this.props.fetchActivities();
+    //this.props.fetchCities(this.props.match.params._id);
+    this.props.fetchItineraries(this.props.match.params._id);
+    this.props.fetchActivities(this.props.match.params._id);
   }
 
   render() {
     console.log(this.props.itineraries);
-    console.log(this.props.activities);
     console.log(this.props.match.params._id);
 
     return (
@@ -67,12 +68,10 @@ const mapStateToProps = (state, ownProps) => {
   //let name = ownProps.match.params.name;
   let path = window.location.pathname;
 
-  console.log(path.substring(path.lastIndexOf("/") + 1));
+  //console.log(path.substring(path.lastIndexOf("/") + 1));
   return {
     cities: state.citiesRed.cities,
-    city: state.citiesRed.cities.find(
-      city => "/cities/" + city.name + "/" + city._id === path
-    ),
+    city: state.citiesRed.cities.find(city => "/cities/" + city._id === path),
 
     itineraries: state.itinerariesRed.itineraries,
     activities: state.activitiesRed.activities

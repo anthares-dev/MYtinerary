@@ -18,4 +18,19 @@ router.get("/", (req, res) => {
     .catch(err => console.log(err));
 });
 
+//* @route   GET api/activities/:city_id
+//* @desc    Get activities per city_id
+//* @access  Public
+// http://localhost:5000/activities/:city_id
+
+router.get("/:city_id", (req, res) => {
+  let itineraryRequestedId = req.params.city_id;
+  activityModel
+    .find({ city_id: itineraryRequestedId })
+    .then(activity => {
+      res.send(activity);
+    })
+    .catch(err => console.log(err));
+});
+
 module.exports = router;

@@ -36,8 +36,8 @@ class Cities extends Component {
   };
 
   render() {
-    console.log(this.props.cities);
-    console.log(this.props.error);
+    //console.log(this.props.cities);
+    //console.log(this.props.error);
 
     if (this.props.error) {
       return <div>Error!</div>;
@@ -88,7 +88,7 @@ class Cities extends Component {
                         title={city.country}
                         className="card-media"
                         component={Link}
-                        to={"/cities/" + city.name + "/" + city._id}
+                        to={"/cities/" + city._id}
                       />
                       <Typography fontSize="h8.fontSize">
                         {city.name}

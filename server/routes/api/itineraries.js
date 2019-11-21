@@ -24,7 +24,7 @@ router.get("/", (req, res) => {
 router.get("/:city_id", (req, res) => {
   let itineraryRequestedId = req.params.city_id;
   itineraryModel
-    .findOne({ city_id: itineraryRequestedId })
+    .find({ city_id: itineraryRequestedId })
     .then(itinerary => {
       res.send(itinerary);
     })

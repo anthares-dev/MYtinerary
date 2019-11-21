@@ -45,7 +45,7 @@ app.use("/api/cities", require("./routes/api/cities"));
 
 app.use("/api/itineraries", require("./routes/api/itineraries"));
 
-app.use("/api/itineraries", require("./routes/api/itineraries"));
+app.use("/api/itineraries/:city_id", require("./routes/api/itineraries"));
 
 app.use("/api/activities", require("./routes/api/activities"));
 

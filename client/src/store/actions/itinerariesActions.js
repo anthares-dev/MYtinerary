@@ -25,12 +25,12 @@ export function fetchItinerariesError(error) {
   };
 }
 
-export function fetchItineraries() {
+export function fetchItineraries(city_id) {
   console.log("inside action");
   return dispatch => {
     dispatch(fetchItinerariesPending());
 
-    fetch("/api/itineraries")
+    fetch("/api/itineraries/" + city_id)
       .then(res => {
         console.log("fetched");
         if (res.ok) {

@@ -32,10 +32,10 @@ export function fetchCities() {
   console.log("inside action");
   return dispatch => {
     dispatch(fetchCitiesPending());
-    console.log("before fetch");
-    fetch("/api/cities")
+    //console.log("before fetch");
+    fetch("/api/cities/")
       .then(res => {
-        console.log("fetched");
+        //console.log("fetched");
         if (res.ok) {
           return res.json();
         }
