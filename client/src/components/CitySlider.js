@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; // connect component to  redux store.
-import { fetchCities } from "../store/actions/citiesActions";
-import axios from "axios";
+
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Slider from "react-slick";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 // https://www.npmjs.com/package/react-slick-slider
 // https://stackoverflow.com/questions/55515207/react-slick-slider-map-not-showing-slides
 
@@ -36,6 +35,7 @@ class CitySlider extends Component {
   };
 
   render() {
+    console.log(this.props.cities);
     var settings = {
       dots: true,
       rows: 2,

@@ -1,29 +1,27 @@
 const express = require("express");
 const router = express.Router();
 
-const activityModel = require("../model/activityModel");
+const itineraryModel = require("../../models/itineraryModel");
 
 /*get all itineraries*/
 router.get("/all", (req, res) => {
-  activityModel
+  itineraryModel
     .find({})
-    .then(activity => {
-      res.send(activity);
+    .then(itineraries => {
+      res.send(itineraries);
     })
     .catch(err => console.log(err));
 });
 
-/*
 //this is how I implement a itin route by specific city
 router.get("/:city_id", (req, res) => {
   let itineraryRequestedId = req.params.city_id;
-  activityModel
+  itineraryModel
     .findOne({ city_id: itineraryRequestedId })
-    .then(activity => {
-      res.send(activity);
+    .then(itinerary => {
+      res.send(itinerary);
     })
     .catch(err => console.log(err));
 });
-*/
 
 module.exports = router;

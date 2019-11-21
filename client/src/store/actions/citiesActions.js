@@ -26,10 +26,13 @@ export function fetchCitiesError(error) {
 // I am preparing my fetch to retrieve the cities list
 
 export function fetchCities() {
+  console.log("inside action");
   return dispatch => {
     dispatch(fetchCitiesPending());
-    return fetch("http://localhost:5000/cities/all")
+    console.log("before fetch");
+    fetch("/api/cities")
       .then(res => {
+        console.log("fetched");
         if (res.ok) {
           return res.json();
         }
@@ -39,6 +42,7 @@ export function fetchCities() {
         return json;
       })
       .catch(err => {
+        console.log("error");
         dispatch(fetchCitiesError(err));
       });
   };

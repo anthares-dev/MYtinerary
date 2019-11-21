@@ -22,6 +22,7 @@ function citiesReducer(state = initialState, action) {
       return {
         ...state,
         pending: true
+        //error: null
       };
     case FETCH_CITIES_SUCCESS:
       // All done: set pending "false".
@@ -30,8 +31,11 @@ function citiesReducer(state = initialState, action) {
         ...state,
         pending: false,
         cities: action.payload
+        //error: null
       };
     case FETCH_CITIES_ERROR:
+      console.log("error");
+
       return {
         ...state,
         pending: false,

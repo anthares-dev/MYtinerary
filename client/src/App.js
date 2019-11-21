@@ -2,9 +2,8 @@
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Component, useEffect } from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- VIEWS -----*/
@@ -19,9 +18,6 @@ import Header from "./components/Header";
 import { fetchCities } from "./store/actions/citiesActions";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
   componentDidMount() {
     this.props.fetchCities();
   }

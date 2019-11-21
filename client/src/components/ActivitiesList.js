@@ -1,11 +1,10 @@
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Component, Fragment } from "react";
+import React, { Fragment } from "react";
 import Typography from "@material-ui/core/Typography";
 import Slider from "react-slick";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import { Link, withRouter } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
 

@@ -28,7 +28,7 @@ export function fetchItineraries() {
   return dispatch => {
     dispatch(fetchItinerariesPending());
     console.log("before fetch");
-    fetch("http://localhost:5000/itineraries/all")
+    fetch("/API/itineraries/all")
       .then(res => {
         console.log("fetched");
         if (res.ok) {

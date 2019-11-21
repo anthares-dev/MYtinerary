@@ -13,16 +13,14 @@ import { connect } from "react-redux"; // connect component to  redux store.
 /*----- COMPONENTS/ACTIONS -----*/
 import Navigation from "../components/Navigation";
 import ItininerariesList from "../components/ItinerariesList";
+//import { fetchCities } from "../store/actions/citiesActions";
 import { fetchItineraries } from "../store/actions/itinerariesActions";
 import { fetchActivities } from "../store/actions/activitiesActions";
 
 class MYtineraries extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     console.log("did mount");
+    //this.props.fetchCities();
     this.props.fetchItineraries();
     this.props.fetchActivities();
   }
@@ -88,6 +86,7 @@ const mapStateToProps = (state, ownProps) => {
 //   };
 // };
 
-export default connect(mapStateToProps, { fetchItineraries, fetchActivities })(
-  MYtineraries
-);
+export default connect(mapStateToProps, {
+  fetchItineraries,
+  fetchActivities
+})(MYtineraries);

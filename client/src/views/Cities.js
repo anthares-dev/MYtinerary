@@ -10,14 +10,11 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
-import { Link, withRouter } from "react-router-dom";
-import { bindActionCreators } from "redux";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
-import { createStore, applyMiddleware } from "redux";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import Navigation from "../components/Navigation";
-import { fetchCities } from "../store/actions/citiesActions";
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 // https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
@@ -40,9 +37,10 @@ class Cities extends Component {
 
   render() {
     console.log(this.props.cities);
+    console.log(this.props.error);
 
     if (this.props.error) {
-      return <div>Error! {this.props.message}</div>;
+      return <div>Error!</div>;
     }
 
     if (this.props.pending) {

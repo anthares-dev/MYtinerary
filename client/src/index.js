@@ -13,7 +13,8 @@ import thunk from "redux-thunk";
    or to dispatch only if a certain condition is met.
     It incorporates the methods dispatch and getState as parameters.
     */
-import throttle from "lodash.throttle";
+
+// import throttle from "lodash.throttle";
 
 /*----- COMPONENTS/REDUCER -----*/
 import "./index.css";
@@ -21,6 +22,7 @@ import * as serviceWorker from "./serviceWorker";
 import App from "./App";
 import rootReducer from "./store/reducers/rootReducer";
 
+/*
 //SAVING STORE and not fetch it everytime
 // https://stackoverflow.com/questions/52161128/react-redux-state-is-lost-at-page-refresh
 const loadState = () => {
@@ -56,6 +58,12 @@ store.subscribe(
   throttle(() => {
     saveState(store.getState());
   }, 1000)
+);
+
+*/
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(thunk))
 );
 
 ReactDOM.render(

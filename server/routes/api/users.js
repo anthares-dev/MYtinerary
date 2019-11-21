@@ -7,10 +7,10 @@ const jwt = require("jsonwebtoken");
 //! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
 
 //* User Model
-const User = require("../model/userModel");
+const User = require("../../models/userModel");
 
 //* @route   POST /users
-//* @desc    Register new user user
+//* @desc    Register new user
 //* @access  Public
 router.post("/", (req, res) => {
   const { name, email, password } = req.body;
@@ -43,9 +43,9 @@ router.post("/", (req, res) => {
             (err, token) => {
               if (err) throw err;
               res.json({
-                token,
+                token: token,
                 user: {
-                  id: user.id,
+                  id: user._id,
                   name: user.name,
                   email: user.email
                 }
@@ -57,6 +57,8 @@ router.post("/", (req, res) => {
     });
   });
 });
+
+// http://localhost:5000/users
 
 /*get all users*/
 /*

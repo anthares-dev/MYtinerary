@@ -35,7 +35,7 @@ class Navigation extends Component {
 
     const { value, pathMap } = this.state;
 
-    if (this.props.match.path == "/cities/:name/:_id") {
+    if (this.props.match.path === "/cities/:name/:_id") {
       return (
         <BottomNavigation
           value={value + 1}

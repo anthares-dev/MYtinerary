@@ -28,7 +28,7 @@ export function fetchActivities() {
   return dispatch => {
     dispatch(fetchActivitiesPending());
     console.log("before fetch");
-    fetch("http://localhost:5000/activities/all")
+    fetch("/API/activities/all")
       .then(res => {
         console.log("fetched");
         if (res.ok) {
