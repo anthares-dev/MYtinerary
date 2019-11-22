@@ -26,7 +26,7 @@ class CitySlider extends Component {
             title={city.country}
             className="slider-media"
             component={Link}
-            to={"/cities/" + city.name + "/" + city._id}
+            to={"/cities/" + city._id}
           />
           <Typography fontSize="h8.fontSize">{city.name}</Typography>
         </CardActionArea>

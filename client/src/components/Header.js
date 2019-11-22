@@ -5,6 +5,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
 import { Link, withRouter } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -16,10 +17,17 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import { connect, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/actions/authActions";
+import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
+  avatar: {
+    width: 35,
+    height: 35
+  },
   list: {
     width: 200
   },
@@ -31,6 +39,11 @@ const useStyles = makeStyles({
 
 function Header() {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const user = useSelector(state => state.auth.user);
+
+  const dispatch = useDispatch();
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -102,6 +115,36 @@ function Header() {
     </div>
   );
 
+  const authLinks = (
+    <div>
+      <MenuItem onClick="disabled">
+        {user ? `Welcome ${user.name} ` : ""}
+      </MenuItem>
+      <Divider />
+      <MenuItem component={Link} to="/profile">
+        Profile
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          dispatch(logout());
+          handleClose();
+        }}
+      >
+        Logout
+      </MenuItem>
+    </div>
+  );
+
+  const guestLinks = (
+    <div>
+      <MenuItem onClick={handleClose} component={Link} to="/signup">
+        Create Account
+      </MenuItem>
+      <MenuItem onClick={handleClose} component={Link} to="/signin">
+        Login
+      </MenuItem>
+    </div>
+  );
   return (
     <Fragment>
       <Grid
@@ -117,7 +160,15 @@ function Header() {
               aria-haspopup="true"
               onClick={handleClick}
             >
-              {<AccountCircleIcon fontSize="large" color="disabled" />}
+              {isAuthenticated && user.img ? (
+                <Avatar
+                  alt={user.name}
+                  src={user.img}
+                  className={classes.avatar}
+                />
+              ) : (
+                <AccountCircleIcon fontSize="large" color="disabled" />
+              )}
             </Button>
             <Menu
               id="simple-menu"
@@ -126,17 +177,11 @@ function Header() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              //! I have to hide the sign up and login button if is
-              authenticated and show the profile
-              <MenuItem onClick={handleClose} component={Link} to="/signup">
-                Create Account
-              </MenuItem>
-              <MenuItem onClick={handleClose} component={Link} to="/signin">
-                Login
-              </MenuItem>
+              {isAuthenticated ? authLinks : guestLinks}
             </Menu>
           </div>
         </Grid>
+
         <Grid item xs={3}>
           <div>
             <Button onClick={toggleDrawer("right", true)}>
@@ -157,4 +202,4 @@ function Header() {
   );
 }
 
-export default withRouter(Header);
+export default connect()(Header);

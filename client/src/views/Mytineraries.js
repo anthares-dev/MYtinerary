@@ -21,10 +21,6 @@ import { logout } from "../store/actions/authActions";
 import PropTypes from "prop-types";
 
 class MYtineraries extends Component {
-  static propTypes = {
-    logout: PropTypes.func.isRequired
-  };
-
   componentDidMount() {
     console.log("did mount");
     //this.props.fetchCities(this.props.match.params._id);
@@ -40,7 +36,6 @@ class MYtineraries extends Component {
       <Fragment>
         <Container maxWidth="sm">
           <Typography component="div">
-            <Button onClick={this.props.logout}>Logout</Button>
             <Card className="card" key={this.props.city._id}>
               <CardActionArea>
                 <CardMedia
@@ -95,6 +90,5 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   fetchItineraries,
-  fetchActivities,
-  logout
+  fetchActivities
 })(MYtineraries);

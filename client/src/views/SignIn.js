@@ -54,12 +54,11 @@ class SignIn extends Component {
         this.setState({ msg: null });
       }
     }
-    /*
+
     //* If authenticated, go to landing page
     if (isAuthenticated) {
       window.location.replace("/");
     }
-    */
   }
 
   onchange = e => {
@@ -146,7 +145,7 @@ class SignIn extends Component {
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
