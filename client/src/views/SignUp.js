@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -13,12 +13,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link, withRouter } from "react-router-dom";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { connect } from "react-redux"; // connect component to  redux store.
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+
+import PropTypes from "prop-types";
+import { register } from "../store/actions/authActions";
+import { clearErrors } from "../store/actions/errorActions";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" to="https://material-ui.com/">
         MYtineraries
       </Link>{" "}
       {new Date().getFullYear()}
@@ -27,137 +33,184 @@ function Copyright() {
   );
 }
 
-const useStyles = makeStyles(theme => ({
-  "@global": {
-    body: {
-      backgroundColor: theme.palette.common.white
+class SignUp extends Component {
+  state = {
+    name: "",
+    email: "",
+    password: "",
+    msg: null
+  };
+
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    error: PropTypes.object.isRequired,
+    register: PropTypes.func.isRequired,
+    clearErrors: PropTypes.func.isRequired
+  };
+
+  componentDidUpdate(prevProps) {
+    const { error, isAuthenticated } = this.props;
+    if (error !== prevProps.error) {
+      //* Check for register error
+      if (error.id === "REGISTER_FAIL") {
+        this.setState({ msg: error.msg.msg });
+      } else {
+        this.setState({ msg: null });
+      }
     }
-  },
-  paper: {
-    marginTop: theme.spacing(0),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center"
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.primary.main
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3)
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2)
+
+    //* If authenticated, go to landing page
+    if (isAuthenticated) {
+      window.location.replace("/");
+    }
   }
-}));
 
-function SignUp() {
-  const classes = useStyles();
+  onchange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
 
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <img
-        className="logo"
-        src={require("../images/MYtineraryLogo.png")}
-        alt="MYtinerary Logo"
-      />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
-        <form className={classes.form} noValidate>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                autoComplete="username"
-                name="username"
-                variant="outlined"
-                required
-                fullWidth
-                id="username"
-                label="Username"
-                autoFocus
-              />
+  onSubmit = e => {
+    //* Clear errors
+    this.props.clearErrors();
+
+    e.preventDefault();
+
+    const { name, email, password } = this.state;
+
+    //* Create user Object
+    const newUser = {
+      name,
+      email,
+      password
+    };
+
+    //* Attempt to register
+    this.props.register(newUser);
+  };
+
+  render() {
+    return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <img
+          className="logo"
+          src={require("../images/MYtineraryLogo.png")}
+          alt="MYtinerary Logo"
+        />
+        <div className="paper">
+          <Avatar className="avatar">
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h4">
+            Sign up
+          </Typography>
+          {this.state.msg ? (
+            <Box component="p" variant="h4">
+              {this.state.msg}!{" "}
+            </Box>
+          ) : null}
+          <form className="form" noValidate onSubmit={this.onSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  autoComplete="name"
+                  name="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="name"
+                  label="Name"
+                  autoFocus
+                  onChange={this.onchange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={this.onchange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={this.onchange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <input
+                  accept="image/*"
+                  className="imput"
+                  style={{ display: "none" }}
+                  id="raised-button-file"
+                  multiple
+                  type="file"
+                />
+                <label htmlFor="raised-button-file">
+                  <Button
+                    variant="contained"
+                    component="span"
+                    className="button"
+                    color="default"
+                    startIcon={<CloudUploadIcon />}
+                  >
+                    Upload your photo profile
+                  </Button>
+                </label>{" "}
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
+                  label="I want to receive updates via email."
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-              />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className="submit"
+            >
+              Sign Up
+            </Button>
+
+            <Grid container justify="flex-end">
+              <Grid item>
+                <Box component={Link} to="/signin" variant="body2">
+                  Already have an account? Sign in
+                </Box>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <input
-                accept="image/*"
-                className={classes.input}
-                style={{ display: "none" }}
-                id="raised-button-file"
-                multiple
-                type="file"
-              />
-              <label htmlFor="raised-button-file">
-                <Button
-                  variant="contained"
-                  component="span"
-                  className={classes.button}
-                  color="default"
-                  startIcon={<CloudUploadIcon />}
-                >
-                  Upload your photo profile
-                </Button>
-              </label>{" "}
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive updates via email."
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign Up
-          </Button>
-          <Grid container justify="flex-end">
-            <Grid item>
-              <Box component={Link} to="/signin" variant="body2">
-                Already have an account? Sign in
-              </Box>
-            </Grid>
-          </Grid>
-        </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+          </form>
+        </div>
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Container>
+    );
+  }
 }
 
-export default withRouter(SignUp);
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error
+});
+
+export default connect(mapStateToProps, { register, clearErrors })(SignUp);

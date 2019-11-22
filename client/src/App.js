@@ -16,10 +16,12 @@ import SignUp from "./views/SignUp";
 /*----- COMPONENTS/ACTIONS -----*/
 import Header from "./components/Header";
 import { fetchCities } from "./store/actions/citiesActions";
+import { loadUser } from "./store/actions/authActions";
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchCities();
+    this.props.loadUser();
   }
 
   render() {
@@ -51,4 +53,4 @@ class App extends Component {
 //   };
 // };
 
-export default connect(null, { fetchCities })(App);
+export default connect(null, { fetchCities, loadUser })(App);

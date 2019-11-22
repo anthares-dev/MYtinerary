@@ -126,6 +126,8 @@ function Header() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
+              //! I have to hide the sign up and login button if is
+              authenticated and show the profile
               <MenuItem onClick={handleClose} component={Link} to="/signup">
                 Create Account
               </MenuItem>

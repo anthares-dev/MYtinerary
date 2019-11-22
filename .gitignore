@@ -5,8 +5,8 @@ node_modules/
 /resources
 /.pnp
 .pnp.js
-config/keys.js
-config/default.json
+/server/config
+
 
 # testing
 /coverage

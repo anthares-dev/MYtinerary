@@ -5,6 +5,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Button from "@material-ui/core/Button";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
@@ -16,8 +17,14 @@ import ItininerariesList from "../components/ItinerariesList";
 //import { fetchCities } from "../store/actions/citiesActions";
 import { fetchItineraries } from "../store/actions/itinerariesActions";
 import { fetchActivities } from "../store/actions/activitiesActions";
+import { logout } from "../store/actions/authActions";
+import PropTypes from "prop-types";
 
 class MYtineraries extends Component {
+  static propTypes = {
+    logout: PropTypes.func.isRequired
+  };
+
   componentDidMount() {
     console.log("did mount");
     //this.props.fetchCities(this.props.match.params._id);
@@ -33,6 +40,7 @@ class MYtineraries extends Component {
       <Fragment>
         <Container maxWidth="sm">
           <Typography component="div">
+            <Button onClick={this.props.logout}>Logout</Button>
             <Card className="card" key={this.props.city._id}>
               <CardActionArea>
                 <CardMedia
@@ -87,5 +95,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default connect(mapStateToProps, {
   fetchItineraries,
-  fetchActivities
+  fetchActivities,
+  logout
 })(MYtineraries);
