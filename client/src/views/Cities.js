@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Navigation from "../components/Navigation";
+import Navbar from "../components/Navbar";
 
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 // https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
@@ -59,8 +59,8 @@ class Cities extends Component {
               </Box>
             </Typography>
           </Container>
-          <div className="nav">
-            <Navigation />
+          <div className="navbar">
+            <Navbar />
           </div>
         </Fragment>
       );
@@ -98,8 +98,8 @@ class Cities extends Component {
                 ))}
             </Typography>
           </Container>
-          <div className="nav">
-            <Navigation />
+          <div className="navbar">
+            <Navbar />
           </div>
         </Fragment>
       );

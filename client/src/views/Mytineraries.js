@@ -12,7 +12,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Navigation from "../components/Navigation";
+import Navbar from "../components/Navbar";
 import ItininerariesList from "../components/ItinerariesList";
 //import { fetchCities } from "../store/actions/citiesActions";
 import { fetchItineraries } from "../store/actions/itinerariesActions";
@@ -59,8 +59,8 @@ class MYtineraries extends Component {
           </Typography>
         </Container>
 
-        <div className="nav">
-          <Navigation />
+        <div className="navbar">
+          <Navbar />
         </div>
       </Fragment>
     );

@@ -7,7 +7,7 @@ import { Link, withRouter } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 //https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue
 
-class Navigation extends Component {
+class Navbar extends Component {
   state = {
     value: 0,
     pathMap: ["/", "/cities"]
@@ -75,4 +75,4 @@ class Navigation extends Component {
   }
 }
 
-export default withRouter(Navigation);
+export default withRouter(Navbar);

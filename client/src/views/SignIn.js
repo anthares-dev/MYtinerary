@@ -17,19 +17,6 @@ import { connect } from "react-redux";
 import { login } from "../store/actions/authActions";
 import { clearErrors } from "../store/actions/errorActions";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="https://material-ui.com/">
-        MYtineraries
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 class SignIn extends Component {
   state = {
     email: "",
@@ -157,9 +144,6 @@ class SignIn extends Component {
             </Grid>
           </form>
         </div>
-        <Box mt={8}>
-          <Copyright />
-        </Box>
       </Container>
     );
   }

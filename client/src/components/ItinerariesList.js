@@ -32,8 +32,7 @@ import ActivitiesList from "../components/ActivitiesList";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    maxWidth: 345,
-    marginBottom: 15
+    marginBottom: 35
   },
   media: {
     height: 0,

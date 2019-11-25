@@ -20,19 +20,6 @@ import PropTypes from "prop-types";
 import { register } from "../store/actions/authActions";
 import { clearErrors } from "../store/actions/errorActions";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" to="https://material-ui.com/">
-        MYtineraries
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 class SignUp extends Component {
   state = {
     name: "",
@@ -200,9 +187,6 @@ class SignUp extends Component {
             </Grid>
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
       </Container>
     );
   }

@@ -38,8 +38,8 @@ const Landing = () => {
                 />
               </a>
               <Box fontSize="h7.fontSize">
-                Find your perfect trip, designed by insiders <br />
-                who know and love their cities.
+                Find your perfect trip, designed by insiders who know and love
+                their cities.
               </Box>
               <Fab
                 color="default"

@@ -18,8 +18,8 @@ class CitySlider extends Component {
   }
 
   sliders = () => {
-    return this.props.cities.map(city => (
-      <Card className="slider-card" key={city._id}>
+    return this.props.cities.map((city, i) => (
+      <Card className="slider-card" key={i}>
         <CardActionArea>
           <CardMedia
             image={city.img}

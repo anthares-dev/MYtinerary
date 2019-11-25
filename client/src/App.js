@@ -14,7 +14,7 @@ import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Header from "./components/Header";
+import Appbar from "./components/Appbar";
 import { fetchCities } from "./store/actions/citiesActions";
 import { loadUser } from "./store/actions/authActions";
 
@@ -29,8 +29,8 @@ class App extends Component {
       <Router>
         <div className="app">
           <CssBaseline />
-          <div className="header">
-            <Header />
+          <div className="appbar">
+            <Appbar />
           </div>
           <div className="views">
             <Switch>
