@@ -14,7 +14,7 @@ const storage = multer.diskStorage({
     cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
   }
 });
-/*
+
 const fileFilter = (req, file, cb) => {
   // reject file
   console.log(file);
@@ -31,20 +31,14 @@ const fileFilter = (req, file, cb) => {
     cb(new Error("You can upload only jpeg, jpg and png files"), false);
   }
 };
-*/
+
 const upload = multer({
   storage: storage,
   limits: {
     fileSize: 1024 * 1024 * 5 // max 5 MB
-  }
-  //fileFilter: fileFilter
+  },
+  fileFilter: fileFilter
 });
-
-/*
-const headers = {
-  headers: { "content-type": "multipart/form-data" }
-};
-*/
 
 //! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
 
@@ -55,10 +49,7 @@ const User = require("../../models/userModel");
 //* @desc    Register new user (SIGN-UP)
 //* @access  Public
 router.post("/", upload.single("userImage"), (req, res) => {
-  console.log("in");
-  console.log(req.name);
-
-  console.log(req.file.path);
+  console.log(req.file);
 
   const { name, email, password } = req.body;
   const userImage = req.file.path;
@@ -79,14 +70,14 @@ router.post("/", upload.single("userImage"), (req, res) => {
       userImage
     });
 
-    //* Create salt & hash and save in MongoDB
+    //* Create salt & hash
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
         if (err) throw err;
         newUser.password = hash;
         newUser.save().then(user => {
           jwt.sign(
-            { id: user._id },
+            { id: user.id },
             config.get("jwtSecret"),
             { expiresIn: 3600 },
             (err, token) => {

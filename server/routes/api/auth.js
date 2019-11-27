@@ -11,7 +11,7 @@ const auth = require("../../middlewares/auth");
 const User = require("../../models/userModel");
 
 //* @route   POST /auth
-//* @desc    Auth user
+//* @desc    Auth user (LOG-IN)
 //* @access  Public
 router.post("/", (req, res) => {
   const { email, password } = req.body;

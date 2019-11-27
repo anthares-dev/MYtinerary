@@ -117,9 +117,7 @@ function Appbar() {
 
   const authLinks = (
     <div>
-      <MenuItem onClick="disabled">
-        {user ? `Welcome ${user.name} ` : ""}
-      </MenuItem>
+      <MenuItem>{user ? `Welcome ${user.name} ` : ""}</MenuItem>
       <Divider />
       <MenuItem component={Link} to="/profile">
         Profile
@@ -160,10 +158,10 @@ function Appbar() {
               aria-haspopup="true"
               onClick={handleClick}
             >
-              {isAuthenticated && user.img ? (
+              {isAuthenticated && user.userImage ? (
                 <Avatar
                   alt={user.name}
-                  src={user.img}
+                  src={user.userImage}
                   className={classes.avatar}
                 />
               ) : (

@@ -71,6 +71,14 @@ class SignIn extends Component {
     this.props.login(user);
   };
 
+  onSignIn = googleUser => {
+    var profile = googleUser.getBasicProfile();
+    console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log("Name: " + profile.getName());
+    console.log("Image URL: " + profile.getImageUrl());
+    console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+  };
+
   render() {
     return (
       <Container component="main" maxWidth="xs">
@@ -93,53 +101,55 @@ class SignIn extends Component {
             </Box>
           ) : null}
           <form className="form" noValidate onSubmit={this.onSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={this.onchange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-              onChange={this.onchange}
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className="submit"
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link to="#" variant="body2">
-                  Forgot password?
-                </Link>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  onChange={this.onchange}
+                />
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  onChange={this.onchange}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className="submit"
+                >
+                  Sign In with email address
+                </Button>
+              </Grid>
+              <Grid item xs={12}>
                 <Box component={Link} to="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Box>
+              </Grid>
+              <Grid item xs={12}>
+                <Box variant="body1">Do you wanna access with Google?</Box>
+                <div className="g-signin2" data-onsuccess="onSignIn"></div>
               </Grid>
             </Grid>
           </form>

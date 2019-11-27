@@ -25,6 +25,7 @@ class SignUp extends Component {
     name: "",
     email: "",
     password: "",
+    selectedFile: [],
     msg: null
   };
 
@@ -58,20 +59,39 @@ class SignUp extends Component {
     });
   };
 
+  fileSelectorHandler = e => {
+    console.log(e.target.files[0]);
+    this.setState({
+      selectedFile: e.target.files[0]
+    });
+  };
+
   onSubmit = e => {
     //* Clear errors
     this.props.clearErrors();
 
     e.preventDefault();
 
-    const { name, email, password } = this.state;
+    const newUser = new FormData();
+    newUser.append("name", this.state.name);
+    newUser.append("email", this.state.email);
+    newUser.append("password", this.state.password);
+    newUser.append("userImage", this.state.selectedFile);
 
+    //const { name, email, password } = this.state;
+
+    /*
     //* Create user Object
     const newUser = {
       name,
       email,
       password
+    
     };
+*/
+    console.log(this.state);
+    console.log(new FormData());
+    console.log(newUser);
 
     //* Attempt to register
     this.props.register(newUser);
@@ -144,8 +164,9 @@ class SignUp extends Component {
                   className="imput"
                   style={{ display: "none" }}
                   id="raised-button-file"
-                  multiple
                   type="file"
+                  name="file"
+                  onChange={this.fileSelectorHandler}
                 />
                 <label htmlFor="raised-button-file">
                   <Button
@@ -157,29 +178,21 @@ class SignUp extends Component {
                   >
                     Upload your photo profile
                   </Button>
-                </label>{" "}
+                </label>
               </Grid>
               <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive updates via email."
-                />
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className="submit"
+                >
+                  Sign Up
+                </Button>
               </Grid>
-            </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className="submit"
-            >
-              Sign Up
-            </Button>
 
-            <Grid container justify="flex-end">
-              <Grid item>
+              <Grid item xs={12}>
                 <Box component={Link} to="/signin" variant="body2">
                   Already have an account? Sign in
                 </Box>
