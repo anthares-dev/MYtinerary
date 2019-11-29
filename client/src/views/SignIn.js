@@ -71,6 +71,7 @@ class SignIn extends Component {
     this.props.login(user);
   };
 
+  /*
   onSignIn = googleUser => {
     var profile = googleUser.getBasicProfile();
     console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -78,6 +79,7 @@ class SignIn extends Component {
     console.log("Image URL: " + profile.getImageUrl());
     console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
   };
+  */
 
   render() {
     return (
@@ -149,7 +151,7 @@ class SignIn extends Component {
               </Grid>
               <Grid item xs={12}>
                 <Box variant="body1">Do you wanna access with Google?</Box>
-                <div className="g-signin2" data-onsuccess="onSignIn"></div>
+                <Box className="g-signin2" href="/user/auth/google"></Box>
               </Grid>
             </Grid>
           </form>

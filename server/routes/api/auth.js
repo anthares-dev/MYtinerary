@@ -4,6 +4,33 @@ const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middlewares/auth");
+const passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
+const keys = require("../../config");
+const User = require("../../models/userModel");
+
+// Google Strategy
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: keys.GOOGLE.clientID,
+      clientSecret: keys.GOOGLE.clientSecret,
+      callbackURL: "/user/auth/google/callback"
+    },
+    function(accessToken, refreshToken, profile, cb) {
+      console.log(JSON.stringify(profile));
+      console.log(JSON.stringify(profile.displayName));
+      const newUser = new User({
+        email: profile.emails[0].value,
+        name: profile.displayName,
+        userImage: profile.photos[0]
+        // token: accessToken
+      });
+
+      return cb(null, newUser);
+    }
+  )
+);
 
 //! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
 
@@ -59,4 +86,36 @@ router.get("/user", auth, (req, res) => {
     .then(user => res.json(user));
 });
 
+//* @route   GET /auth/google
+//* @desc    Auth user data with Google
+router.get(
+  "/",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+//* @desc    Callback route for google to redirect to
+router.get(
+  "/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  function(req, res) {
+    console.log(res);
+
+    // Successful authentication, redirect home.
+    res.redirect("/");
+    // res.redirect("/profile");
+  }
+);
+
+/*
+app.get("/user", (req, res) => {
+  console.log("getting user data!");
+  res.send(user);
+});
+
+app.get("/auth/logout", (req, res) => {
+  console.log("logging out!");
+  user = {};
+  res.redirect("/");
+});
+*/
 module.exports = router;

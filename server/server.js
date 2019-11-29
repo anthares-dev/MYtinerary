@@ -6,6 +6,10 @@ const app = express();
 //* Body parser middleware
 const bodyParser = require("body-parser");
 const cors = require("cors");
+//* Passport authentication
+const passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
+const keys = require("./config");
 
 //! MONGOOSE:
 const mongoose = require("mongoose");
@@ -41,6 +45,8 @@ app.use("/uploads", express.static("uploads"));
 
 app.use(cors());
 
+app.use(passport.initialize());
+
 //* Use Routers
 
 app.use("/api/cities", require("./routes/api/cities"));
@@ -54,3 +60,13 @@ app.use("/api/activities", require("./routes/api/activities"));
 app.use("/api/users", require("./routes/api/users"));
 
 app.use("/api/auth", require("./routes/api/auth"));
+
+app.use("/user/auth/google", require("./routes/api/auth"));
+
+passport.serializeUser((user, cb) => {
+  cb(null, user);
+});
+
+passport.deserializeUser((user, cb) => {
+  cb(null, user);
+});
