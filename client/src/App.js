@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- VIEWS -----*/
@@ -17,6 +17,9 @@ import SignUp from "./views/SignUp";
 import Appbar from "./components/Appbar";
 import { fetchCities } from "./store/actions/citiesActions";
 import { loadUser } from "./store/actions/authActions";
+
+/*----- RESOURCES -----*/
+// https://codeburst.io/getting-started-with-react-router-5c978f70df91
 
 class App extends Component {
   componentDidMount() {
@@ -33,24 +36,16 @@ class App extends Component {
             <Appbar />
           </div>
           <div className="views">
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/cities" component={Cities} />
-              <Route path="/cities/:_id" component={MYtineraries} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/signin" component={SignIn} />
-            </Switch>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/cities" component={Cities} />
+            <Route path="/cities/:_id" component={MYtineraries} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
           </div>
         </div>
       </Router>
     );
   }
 }
-
-// const mapDispatchToProps = () => {
-//   return {
-//     fetchCities: fetchCities
-//   };
-// };
 
 export default connect(null, { fetchCities, loadUser })(App);

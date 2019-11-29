@@ -4,10 +4,10 @@ const auth = require("../../middlewares/auth");
 
 const itineraryModel = require("../../models/itineraryModel");
 
-//* @route   GET api/itineraries
+//* @route   GET api/itineraries/
 //* @desc    Get all Itineraries
 //* @access  Public
-// http://localhost:5000/itineraries/
+// http://localhost:5000/api/itineraries/
 router.get("/", (req, res) => {
   itineraryModel
     .find({})

@@ -5,7 +5,6 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-import Button from "@material-ui/core/Button";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
@@ -14,38 +13,33 @@ import { connect } from "react-redux"; // connect component to  redux store.
 /*----- COMPONENTS/ACTIONS -----*/
 import Navbar from "../components/Navbar";
 import ItininerariesList from "../components/ItinerariesList";
-//import { fetchCities } from "../store/actions/citiesActions";
 import { fetchItineraries } from "../store/actions/itinerariesActions";
 import { fetchActivities } from "../store/actions/activitiesActions";
-import { logout } from "../store/actions/authActions";
-import PropTypes from "prop-types";
 
 class MYtineraries extends Component {
   componentDidMount() {
     console.log("did mount");
-    //this.props.fetchCities(this.props.match.params._id);
     this.props.fetchItineraries(this.props.match.params._id);
     this.props.fetchActivities(this.props.match.params._id);
   }
 
   render() {
-    console.log(this.props.itineraries);
+    const { city, itineraries, activities } = this.props;
+    console.log(itineraries);
     console.log(this.props.match.params._id);
 
     return (
       <Fragment>
         <Container maxWidth="sm">
           <Typography component="div">
-            <Card className="card" key={this.props.city._id}>
+            <Card className="card" key={city._id}>
               <CardActionArea>
                 <CardMedia
-                  image={this.props.city.img}
-                  title={this.props.city.country}
+                  image={city.img}
+                  title={city.country}
                   className="card-media"
                 />
-                <Typography fontSize="h8.fontSize">
-                  {this.props.city.name}
-                </Typography>
+                <Typography fontSize="h8.fontSize">{city.name}</Typography>
               </CardActionArea>
             </Card>
 
@@ -53,8 +47,8 @@ class MYtineraries extends Component {
               Available MYtineraries:
             </Box>
             <ItininerariesList
-              itineraries={this.props.itineraries}
-              activities={this.props.activities}
+              itineraries={itineraries}
+              activities={activities}
             />
           </Typography>
         </Container>
@@ -78,15 +72,8 @@ const mapStateToProps = (state, ownProps) => {
 
     itineraries: state.itinerariesRed.itineraries,
     activities: state.activitiesRed.activities
-    //city: state.citiesRed.cities.find(city => city._id === id)
   };
 };
-
-// const mapDispatchToProps = () => {
-//   return {
-//     fetchItineraries: fetchItineraries
-//   };
-// };
 
 export default connect(mapStateToProps, {
   fetchItineraries,

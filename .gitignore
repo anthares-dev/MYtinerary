@@ -1,21 +1,23 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-node_modules/
+## dependencies
+
+# node_modules/ ignore all sub folders with named node_modules
+node_modules/ 
 /resources
 /.pnp
 .pnp.js
-/server/config
-/server/old-notused
+config/
+old-notused/
 
 
-# testing
+## testing
 /coverage
 
-# production
+## production
 /build
 
-# misc
+## misc
 .DS_Store
 .env.local
 .env.development.local

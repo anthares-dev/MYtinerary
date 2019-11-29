@@ -1,18 +1,27 @@
+//! This is the entry point of my React application,
+//! this is the place where I've the store and make it accessible to all components.
+
 /*----- REACT -----*/
 import React from "react";
 
-/*----- DEPENCIES -----*/
+/*----- DEPENDECIES -----*/
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { Provider } from "react-redux"; //wrap my App and apply Redux with its store
-import thunk from "redux-thunk";
-/* Redux Thunk middleware allows you to write action creators
- that return a function instead of an action.
-  The thunk can be used to delay the dispatch of an action,
-   or to dispatch only if a certain condition is met.
-    It incorporates the methods dispatch and getState as parameters.
-    */
+import thunk from "redux-thunk"; // Middleware
+/*
+With a basic Redux store, you can only do simple synchronous updates by dispatching an action. 
+Middleware extend the stores abilities,
+and let you write asynchronous (async) logic 
+(eg. fetching information from external sources) that interacts with the store. 
+
+Redux Thunk middleware allows you to write action creators
+that return a function instead of an action.
+The thunk can be used to delay the dispatch of an action,
+or to dispatch only if a certain condition is met.
+It incorporates the methods dispatch and getState as parameters.
+*/
 
 // import throttle from "lodash.throttle";
 
@@ -61,6 +70,7 @@ store.subscribe(
 );
 
 */
+//* The store is just an object that houses and tracks the state of our application.
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))

@@ -1,10 +1,14 @@
-import React, { Component } from "react";
+/*----- MATERIAL UI -----*/
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import HomeIcon from "@material-ui/icons/Home";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+/*----- RESOURCES -----*/
 //https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue
 
 class Navbar extends Component {
@@ -75,4 +79,4 @@ class Navbar extends Component {
   }
 }
 
-export default withRouter(Navbar);
+export default withRouter(Navbar); // I need to puth withRouter() because Navbar component is not included in the Router in App.js

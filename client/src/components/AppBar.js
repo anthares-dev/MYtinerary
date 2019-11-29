@@ -1,11 +1,8 @@
-import React, { Fragment } from "react";
+/*----- MATERIAL UI -----*/
 import TimelineIcon from "@material-ui/icons/Timeline";
 import HomeIcon from "@material-ui/icons/Home";
 import PersonIcon from "@material-ui/icons/Person";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
-import { Link, withRouter } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -17,11 +14,17 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { connect, useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { logout } from "../store/actions/authActions";
+import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
 import { makeStyles } from "@material-ui/core/styles";
+
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { connect, useSelector, useDispatch } from "react-redux";
+
+/*----- COMPONENTS/ACTIONS -----*/
+import { logout } from "../store/actions/authActions";
 
 const useStyles = makeStyles({
   avatar: {

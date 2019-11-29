@@ -1,22 +1,22 @@
-import React, { Component } from "react";
+/*----- MATERIAL UI -----*/
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link, withRouter } from "react-router-dom";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import { connect } from "react-redux"; // connect component to  redux store.
-import SnackbarContent from "@material-ui/core/SnackbarContent";
 
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux"; // connect component to  redux store.
 import PropTypes from "prop-types";
+
+/*----- COMPONENTS/ACTIONS -----*/
 import { register } from "../store/actions/authActions";
 import { clearErrors } from "../store/actions/errorActions";
 
@@ -49,7 +49,7 @@ class SignUp extends Component {
 
     //* If authenticated, go to landing page
     if (isAuthenticated) {
-      window.location.replace("/");
+      this.props.history.push("/");
     }
   }
 
@@ -78,10 +78,10 @@ class SignUp extends Component {
     newUser.append("password", this.state.password);
     newUser.append("userImage", this.state.selectedFile);
 
+    // using json:
     //const { name, email, password } = this.state;
-
     /*
-    //* Create user Object
+    // Create user Object
     const newUser = {
       name,
       email,
@@ -161,7 +161,7 @@ class SignUp extends Component {
               <Grid item xs={12}>
                 <input
                   accept="image/*"
-                  className="imput"
+                  className="input"
                   style={{ display: "none" }}
                   id="raised-button-file"
                   type="file"

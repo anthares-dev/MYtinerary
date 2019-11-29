@@ -1,12 +1,17 @@
-//with below import i am retrieving my actions from the CityAction file,
-// and I am passing them to the reducer
+//! Reducer is a function, to, in a sense, read the action type and decide how to update the store based on the type.
+/*
+The Reducer function takes two arguments:
+“state”, and “action”, and uses this information to determine the new state.
+*/
+
+//* with below import i am retrieving my actions from the CityAction file, and I am passing them to the reducer
 import {
   FETCH_CITIES_PENDING,
   FETCH_CITIES_SUCCESS,
   FETCH_CITIES_ERROR
 } from "../actions/typesActions";
 
-//defining the initial state
+//* defining the initial state
 const initialState = {
   pending: false,
   cities: [],

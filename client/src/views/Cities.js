@@ -12,13 +12,20 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
+/*
+Connect will help you to dispatch and subscribe to the store at the same time.
+It takes two parameters: “mapStateToProps” and “mapDispatchToProps”.
+They are both functions that are mapping your store or your actions
+and taking or dispatching only the one that you want.
+*/
 
 /*----- COMPONENTS/ACTIONS -----*/
 import Navbar from "../components/Navbar";
 
+/*----- RESOURCES -----*/
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
 // https://dev.to/markusclaus/fetching-data-from-an-api-using-reactredux-55ao
-//---> https://daveceddia.com/where-fetch-data-redux/
+// https://daveceddia.com/where-fetch-data-redux/
 
 class Cities extends Component {
   constructor(props) {
@@ -36,14 +43,15 @@ class Cities extends Component {
   };
 
   render() {
-    //console.log(this.props.cities);
-    //console.log(this.props.error);
+    const { error, pending, cities } = this.props;
+    //console.log(cities);
+    //console.log(error);
 
-    if (this.props.error) {
-      return <div>Error!</div>;
+    if (error) {
+      return <Fragment>Error!</Fragment>;
     }
 
-    if (this.props.pending) {
+    if (pending) {
       return (
         <Fragment>
           <Container maxWidth="sm">
@@ -59,14 +67,14 @@ class Cities extends Component {
               </Box>
             </Typography>
           </Container>
-          <div className="navbar">
+          <Box className="navbar">
             <Navbar />
-          </div>
+          </Box>
         </Fragment>
       );
     }
 
-    if (this.props.cities) {
+    if (cities) {
       return (
         <Fragment>
           <Container maxWidth="sm">
@@ -75,7 +83,7 @@ class Cities extends Component {
                 placeholder="Filter our current cities"
                 onChange={this.handleChange}
               />
-              {this.props.cities
+              {cities
                 .filter(
                   city =>
                     city.name.toLowerCase().indexOf(this.state.searchTerm) === 0

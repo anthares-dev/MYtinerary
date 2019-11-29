@@ -8,12 +8,13 @@ import Box from "@material-ui/core/Box";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import CitySlider from "../components/CitySlider";
 
-//https://reactjsexample.com/infinite-carousel-for-react/
+/*----- RESOURCES -----*/
+// https://reactjsexample.com/infinite-carousel-for-react/
 // https://g787543.github.io/infinite-react-carousel/
 
 const Landing = () => {
@@ -30,13 +31,11 @@ const Landing = () => {
             className="landing"
           >
             <Grid item xs={12}>
-              <a href="#">
-                <img
-                  className="logo"
-                  src={require("../images/MYtineraryLogo.png")}
-                  alt="MYtinerary Logo"
-                />
-              </a>
+              <img
+                className="logo"
+                src={require("../images/MYtineraryLogo.png")}
+                alt="MYtinerary Logo"
+              />
               <Box fontSize="h7.fontSize">
                 Find your perfect trip, designed by insiders who know and love
                 their cities.
@@ -65,4 +64,4 @@ const Landing = () => {
   );
 };
 
-export default withRouter(Landing);
+export default Landing;

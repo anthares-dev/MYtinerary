@@ -1,6 +1,5 @@
 /*----- MATERIAL UI -----*/
 import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
@@ -18,13 +17,12 @@ import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
 import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
-
 import ScheduleOutlinedIcon from "@material-ui/icons/ScheduleOutlined";
 import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
+import { makeStyles } from "@material-ui/core/styles";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment } from "react";
-
 import clsx from "clsx";
 
 /*----- COMPONENTS/ACTIONS -----*/

@@ -1,24 +1,39 @@
-//! EXPRESS:
-const express = require("express");
+//! My entry point and the file executed by the back end server.
+
+const express = require("express"); //? web application framework for Node.js and designed to build web applications and APIs
 const app = express();
 
-//! middlewares:
-//* Body parser middleware
-const bodyParser = require("body-parser");
-const cors = require("cors");
-//* Passport authentication
-const passport = require("passport");
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("./config");
+//* middlewares: are used to do something before a request is processed
+const bodyParser = require("body-parser"); // I want the form data to be available in req.body https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
 
-//! MONGOOSE:
-const mongoose = require("mongoose");
-const config = require("config");
-//* DB Config
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+
+const cors = require("cors");
+app.use(cors()); // policy set up on the server that allows to serve third party origins
+
+
+const port = process.env.PORT || 5000;
+/*
+When hosting my application on another service (like Heroku, Nodejitsu, and AWS),
+my host may independently configure the process.env.PORT variable for me;
+after all, my script runs in their environment.
+So process.env.PORT || 5000 means: whatever is in the environment variable PORT, or 5000 if there's nothing there.
+*/
+app.listen(port, () => {
+  console.log("Server is running on port " + port);
+});
+
+const mongoose = require("mongoose"); //? library to help me manage my data structures and interactions in MongoDB
+const config = require("config"); // 
 const db = config.get("mongoURI");
 //const db = require("./keys").mongoURI;
 
-//* Connect to Mongo
+//* Connecting to Mongo:
 mongoose
   .connect(db, {
     useNewUrlParser: true,
@@ -28,26 +43,28 @@ mongoose
   .then(() => console.log("Connection to Mongo DB established"))
   .catch(err => console.log(err));
 
-const port = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log("Server is running on " + port + "port");
-});
 
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: true
-  })
-);
+
+
+
+
+//* Passport authentication
+const passport = require("passport");
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
+const keys = require("./config");
+
 
 app.use("/uploads", express.static("uploads"));
 
-app.use(cors());
-
 app.use(passport.initialize());
 
-//* Use Routers
+
+
+//* Using Routers defined in ./routes/api/
+/*
+app.use("api route", require("realtive path to the file where the route methods are defined"))
+*/
 
 app.use("/api/cities", require("./routes/api/cities"));
 
@@ -62,11 +79,3 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 
 app.use("/user/auth/google", require("./routes/api/auth"));
-
-passport.serializeUser((user, cb) => {
-  cb(null, user);
-});
-
-passport.deserializeUser((user, cb) => {
-  cb(null, user);
-});

@@ -1,16 +1,20 @@
-import React, { Component } from "react";
-import { connect } from "react-redux"; // connect component to  redux store.
-
+/*----- MATERIAL UI -----*/
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
-import Slider from "react-slick";
+
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component } from "react";
+import { connect } from "react-redux"; // connect component to  redux store.
 import { Link } from "react-router-dom";
+import Slider from "react-slick";
+
+/*----- RESOURCES -----*/
 // https://www.npmjs.com/package/react-slick-slider
 // https://stackoverflow.com/questions/55515207/react-slick-slider-map-not-showing-slides
-
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
+
 class CitySlider extends Component {
   constructor(props) {
     super(props);

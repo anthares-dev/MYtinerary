@@ -1,19 +1,21 @@
-import React, { Component } from "react";
+/*----- MATERIAL UI -----*/
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { Link, withRouter } from "react-router-dom";
+
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+
+/*----- COMPONENTS/ACTIONS -----*/
 import { login } from "../store/actions/authActions";
 import { clearErrors } from "../store/actions/errorActions";
 
@@ -44,7 +46,12 @@ class SignIn extends Component {
 
     //* If authenticated, go to landing page
     if (isAuthenticated) {
-      window.location.replace("/");
+      this.props.history.push("/");
+      /* To navigate programmatically we need to take the help of history object
+         which is passed by the react-router. There is a push method available in the history object
+         by using the push method we are redirecting the user to the Home page
+         whenever a user submits the form.
+      */
     }
   }
 
@@ -71,15 +78,20 @@ class SignIn extends Component {
     this.props.login(user);
   };
 
-  /*
   onSignIn = googleUser => {
     var profile = googleUser.getBasicProfile();
     console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log("Name: " + profile.getName());
     console.log("Image URL: " + profile.getImageUrl());
     console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+    const user = {
+      email: profile.getEmail()
+    };
+
+    // Attempt to login
+    this.props.login(user);
   };
-  */
 
   render() {
     return (
@@ -151,7 +163,11 @@ class SignIn extends Component {
               </Grid>
               <Grid item xs={12}>
                 <Box variant="body1">Do you wanna access with Google?</Box>
-                <Box className="g-signin2" href="/user/auth/google"></Box>
+                <Box
+                  className="g-signin2"
+                  href="/user/auth/google"
+                  data-onsuccess="onSignIn"
+                ></Box>
               </Grid>
             </Grid>
           </form>

@@ -20,22 +20,43 @@ passport.use(
     function(accessToken, refreshToken, profile, cb) {
       console.log(JSON.stringify(profile));
       console.log(JSON.stringify(profile.displayName));
+      const image = profile.photos[0].value.substring(
+        0,
+        profile.photos[0].value.indexOf("?")
+      );
+
       const newUser = new User({
         email: profile.emails[0].value,
         name: profile.displayName,
-        userImage: profile.photos[0]
+        userImage: image
         // token: accessToken
       });
 
-      return cb(null, newUser);
+      // Check for existing user
+      User.findOne({
+        email: profile.emails[0].value
+      }).then(user => {
+        if (user) {
+          // Return user
+          done(null, user);
+        } else {
+          // Create user
+          new User(newUser).save().then(user => done(null, user));
+        }
+      });
     }
   )
 );
 
-//! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
 
-//* User Model
-const User = require("../../models/userModel");
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => done(null, user));
+});
+
+//! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
 
 //* @route   POST /auth
 //* @desc    Auth user (LOG-IN)
