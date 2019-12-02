@@ -6,6 +6,11 @@ const app = express();
 //* middlewares: are used to do something before a request is processed
 const bodyParser = require("body-parser"); // I want the form data to be available in req.body https://medium.com/@adamzerner/how-bodyparser-works-247897a93b90
 
+const passport = require("passport");
+require("./config/passport");
+app.use(passport.initialize());
+//app.use(passport.session());
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -42,14 +47,7 @@ mongoose
   .then(() => console.log("Connection to Mongo DB established"))
   .catch(err => console.log(err));
 
-//* Passport authentication
-const passport = require("passport");
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("./config");
-
 app.use("/uploads", express.static("uploads"));
-
-app.use(passport.initialize());
 
 //* Using Routers defined in ./routes/api/
 //? app.use("api route", require("realtive path to the file where the route methods are defined"))
@@ -63,29 +61,3 @@ app.use("/api/itineraries/:city_id", require("./routes/api/itineraries"));
 app.use("/api/activities", require("./routes/api/activities"));
 
 app.use("/api/users", require("./routes/api/users"));
-
-// app.use("/user/auth/google", require("./routes/api/auth"));
-
-/* GET Google Authentication API. */
-/*
-router.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
-
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/", session: false }),
-  function(req, res) {
-    user = req.user;
-    db.User.create(user)
-      .then(data => console.log("this is your data: ", data))
-      .catch(err => console.log(err));
-    console.log(req.user);
-    var token = req.user.token;
-    console.log(token);
-    //res.redirect("http://localhost:3000/paths");
-    res.redirect("http://localhost:3000?token=" + token);
-  }
-);
-*/

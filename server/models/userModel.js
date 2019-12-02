@@ -2,40 +2,49 @@ const mongoose = require("mongoose");
 // var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
-  googleID: {
-    type: String
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    unique: true,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  userImage: {
-    type: String
-  },
-  register_date: {
-    type: Date,
-    default: Date.now
+  auth: {
+    local: {
+      name: {
+        type: String
+      },
+      email: {
+        type: String,
+        unique: true
+      },
+      password: {
+        type: String
+      },
+      userImage: {
+        type: String
+      },
+      register_date: {
+        type: Date,
+        default: Date.now
+      }
+    },
+    google: {
+      id: {
+        type: String
+      },
+      token: {
+        type: String
+      },
+      email: {
+        type: String
+      },
+      name: {
+        type: String
+      },
+      image: {
+        type: String
+      },
+      register_date: {
+        type: Date,
+        default: Date.now
+      }
+    }
   }
 });
-
-/*
-UserSchema.methods.generateHash = function(password) {
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-};
-
-UserSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.password);
-};
-*/
 
 //database name is users - here I named it as singular of the database name
 module.exports = mongoose.model("user", UserSchema);

@@ -5,7 +5,10 @@ const jwt = require("jsonwebtoken"); //  Jason Web Token
 const config = require("config"); // for taking keys from config folder
 const multer = require("multer");
 const auth = require("../../middlewares/auth"); // for making the calls private
-const userModel = require("../../models/userModel");
+const passport = require("passport");
+const keys = require("../../config/keys");
+
+const userModel = require("../../models/userModel"); // loading userModel
 
 //* MULTER CONFIGURATION for Image Upload
 // https://www.youtube.com/watch?v=srPXMt1Q0nY
@@ -64,23 +67,23 @@ router.post("/", upload.single("userImage"), (req, res) => {
   }
 
   //* Check for existing user (using mongoose findOne)
-  userModel.findOne({ email: email }).then(user => {
+  userModel.findOne({ "auth.local.email": email }).then(user => {
     if (user) return res.status(400).json({ msg: "User already exists" });
 
     // if user doesnìt exist, then create a new user
     const newUser = new userModel({
-      name,
-      email,
-      password, //? the password is plain and need to be hashed before sending it to database
-      userImage
+      "auth.local.name": name,
+      "auth.local.email": email,
+      "auth.local.password": password, //? the password is plain and need to be hashed before sending it to database
+      "auth.local.userImage": userImage
     });
 
     //* Create salt & hash, create JWT (Jason Web Token), save all in MongoDB and Sing In the new user
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
+      bcrypt.hash(newUser.auth.local.password, salt, (err, hash) => {
         //take the plain password newUser.password and pass to salt
         if (err) throw err;
-        newUser.password = hash;
+        newUser.auth.local.password = hash;
         newUser.save().then(user => {
           // creating and assigning the token
           jwt.sign(
@@ -90,14 +93,15 @@ router.post("/", upload.single("userImage"), (req, res) => {
             (err, token) => {
               if (err) throw err;
               res.json({
-                // our response
+                // our response that will showed in our state under auth
                 token: token,
                 user: {
                   id: user._id,
-                  name: user.name,
-                  email: user.email,
-                  password: user.password,
-                  userImage: "http://localhost:5000/" + user.userImage
+                  name: user.auth.local.name,
+                  email: user.auth.local.email,
+                  password: user.auth.local.password,
+                  userImage:
+                    "http://localhost:5000/" + user.auth.local.userImage
                 }
               });
             }
@@ -107,6 +111,32 @@ router.post("/", upload.single("userImage"), (req, res) => {
     });
   });
 });
+
+//! GOOGLE authentication
+// https://medium.com/@melikalbasi/how-to-implement-passport-with-google-in-your-mern-stack-app-8c2171717d86
+// the routes to get the request form the client and authenticate though Google using Passport
+//* @route   GET /api/users/auth/google
+//* @desc    Auth with Google
+//* @access  Private
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+
+  // controllare se l'utente esiste gia in mongo sotto google
+  // poi sotto local
+  // e alla fine registri utente in gogole mongo
+);
+
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google"),
+  (req, res) => {
+    let token = jwt.sign({ id: req.user._id }, keys.session.cookieKey, {
+      expiresIn: "24h"
+    });
+    res.redirect("http://localhost:3000?token=" + token);
+  }
+);
 
 //* @route   POST api/users/auth
 //* @desc    Auth user (LOG-IN)
@@ -161,7 +191,7 @@ router.get("/auth/user", auth, (req, res) => {
     .then(user => res.json(user)); // sending the user minus the pass
 });
 
-//this part is not for application purpouses but for tests in POSTMAN
+//! this part is not for application purpouses but for tests in POSTMAN
 
 //* @route   POST api/users/
 //* @desc    Get all users (for POSTMAN)

@@ -35,6 +35,7 @@ class SignIn extends Component {
   };
 
   componentDidMount() {
+    // This method will get the query param token from the URL during initialization and set it in local storage.
     var query = queryString.parse(this.props.location.search);
     if (query.token) {
       window.localStorage.setItem("jwt", query.token);
@@ -54,14 +55,14 @@ class SignIn extends Component {
     }
 
     //* If authenticated, go to landing page
-    if (isAuthenticated) {
-      this.props.history.push("/");
-      /* To navigate programmatically we need to take the help of history object
+    // if (isAuthenticated) {
+    //this.props.history.push("/");
+    /* To navigate programmatically we need to take the help of history object
          which is passed by the react-router. There is a push method available in the history object
          by using the push method we are redirecting the user to the Home page
          whenever a user submits the form.
       */
-    }
+    // }
   }
 
   onchange = e => {
@@ -173,7 +174,14 @@ class SignIn extends Component {
               <Grid item xs={12}>
                 <Box variant="body1">Do you wanna access with Google?</Box>
                 <Box>
-                  <a href="/auth/google" className="button">
+                  <a
+                    className="button"
+                    data-onsuccess="onSignIn"
+                    onClick={() =>
+                      (window.location =
+                        "http://localhost:5000/api/users/auth/google")
+                    }
+                  >
                     <div>
                       <span className="svgIcon t-popup-svg">
                         <svg
