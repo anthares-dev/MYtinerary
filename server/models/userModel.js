@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 // var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
+  googleID: {
+    type: String
+  },
   name: {
     type: String,
     required: true
@@ -35,5 +38,4 @@ UserSchema.methods.validPassword = function(password) {
 */
 
 //database name is users - here I named it as singular of the database name
-
 module.exports = mongoose.model("user", UserSchema);

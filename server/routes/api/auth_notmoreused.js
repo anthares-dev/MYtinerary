@@ -10,6 +10,8 @@ const keys = require("../../config");
 const User = require("../../models/userModel");
 
 // Google Strategy
+
+/*
 passport.use(
   new GoogleStrategy(
     {
@@ -56,9 +58,11 @@ passport.deserializeUser((id, done) => {
   User.findById(id).then(user => done(null, user));
 });
 
+*/
+
 //! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
 
-//* @route   POST /auth
+//* @route   POST api/auth
 //* @desc    Auth user (LOG-IN)
 //* @access  Public
 router.post("/", (req, res) => {
@@ -98,6 +102,7 @@ router.post("/", (req, res) => {
   });
 });
 
+// check for the current user, get the current user data by using the tokem jwt is stateless, not using sessions, not storing, just sending code, decoding and sending the response, so we need a way to constantly valide the
 //* @route   GET /auth/user
 //* @desc    Auth user data
 //* @access  Private
@@ -107,6 +112,7 @@ router.get("/user", auth, (req, res) => {
     .then(user => res.json(user));
 });
 
+/*
 //* @route   GET /auth/google
 //* @desc    Auth user data with Google
 router.get(
@@ -126,7 +132,7 @@ router.get(
     // res.redirect("/profile");
   }
 );
-
+*/
 /*
 app.get("/user", (req, res) => {
   console.log("getting user data!");

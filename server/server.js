@@ -1,4 +1,4 @@
-//! My entry point and the file executed by the back end server.
+// My entry point and the file executed by the back end server.
 
 const express = require("express"); //? web application framework for Node.js and designed to build web applications and APIs
 const app = express();
@@ -16,7 +16,6 @@ app.use(
 const cors = require("cors");
 app.use(cors()); // policy set up on the server that allows to serve third party origins
 
-
 const port = process.env.PORT || 5000;
 /*
 When hosting my application on another service (like Heroku, Nodejitsu, and AWS),
@@ -29,8 +28,8 @@ app.listen(port, () => {
 });
 
 const mongoose = require("mongoose"); //? library to help me manage my data structures and interactions in MongoDB
-const config = require("config"); // 
-const db = config.get("mongoURI");
+const config = require("config"); //
+const db = config.get("mongoURI"); // taking keys from default.json inside config folder
 //const db = require("./keys").mongoURI;
 
 //* Connecting to Mongo:
@@ -43,28 +42,17 @@ mongoose
   .then(() => console.log("Connection to Mongo DB established"))
   .catch(err => console.log(err));
 
-
-
-
-
-
-
 //* Passport authentication
 const passport = require("passport");
 var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const keys = require("./config");
 
-
 app.use("/uploads", express.static("uploads"));
 
 app.use(passport.initialize());
 
-
-
 //* Using Routers defined in ./routes/api/
-/*
-app.use("api route", require("realtive path to the file where the route methods are defined"))
-*/
+//? app.use("api route", require("realtive path to the file where the route methods are defined"))
 
 app.use("/api/cities", require("./routes/api/cities"));
 
@@ -76,6 +64,28 @@ app.use("/api/activities", require("./routes/api/activities"));
 
 app.use("/api/users", require("./routes/api/users"));
 
-app.use("/api/auth", require("./routes/api/auth"));
+// app.use("/user/auth/google", require("./routes/api/auth"));
 
-app.use("/user/auth/google", require("./routes/api/auth"));
+/* GET Google Authentication API. */
+/*
+router.get(
+  "/auth/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", { failureRedirect: "/", session: false }),
+  function(req, res) {
+    user = req.user;
+    db.User.create(user)
+      .then(data => console.log("this is your data: ", data))
+      .catch(err => console.log(err));
+    console.log(req.user);
+    var token = req.user.token;
+    console.log(token);
+    //res.redirect("http://localhost:3000/paths");
+    res.redirect("http://localhost:3000?token=" + token);
+  }
+);
+*/

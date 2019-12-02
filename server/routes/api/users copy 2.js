@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs"); // for hashing the plain password
-const jwt = require("jsonwebtoken"); //  Jason Web Token
-const config = require("config"); // for taking keys from config folder
+const bcrypt = require("bcryptjs");
+const config = require("config");
+const jwt = require("jsonwebtoken");
+// for image upload https://www.youtube.com/watch?v=srPXMt1Q0nY
 const multer = require("multer");
-const auth = require("../../middlewares/auth"); // for making the calls private
-const userModel = require("../../models/userModel");
 
-//* MULTER CONFIGURATION for Image Upload
-// https://www.youtube.com/watch?v=srPXMt1Q0nY
+//* MULTER CONFIGURATION
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
     cb(null, "./uploads/");
@@ -43,7 +41,12 @@ const upload = multer({
   fileFilter: fileFilter
 });
 
-// following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
+//! following this video https://www.youtube.com/watch?v=USaB1adUHM0&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=9
+
+//* User Model
+const userModel = require("../../models/userModel");
+
+// NORMAL REGISTER ROUTE
 
 //* @route   POST api/users
 //* @desc    Register new user (SIGN-UP)
@@ -55,7 +58,7 @@ router.post("/", upload.single("userImage"), (req, res) => {
   //console.log(req.name);
   //console.log(req.file.path);
 
-  const { name, email, password } = req.body; //? for getting data from the body
+  const { name, email, password, id, googleID } = req.body;
   const userImage = req.file.path;
 
   //* Simple validation
@@ -63,40 +66,36 @@ router.post("/", upload.single("userImage"), (req, res) => {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
-  //* Check for existing user (using mongoose findOne)
+  //* Check for existing user
   userModel.findOne({ email: email }).then(user => {
     if (user) return res.status(400).json({ msg: "User already exists" });
 
-    // if user doesnìt exist, then create a new user
     const newUser = new userModel({
       name,
       email,
-      password, //? the password is plain and need to be hashed before sending it to database
+      password,
       userImage
     });
 
-    //* Create salt & hash, create JWT (Jason Web Token), save all in MongoDB and Sing In the new user
+    //* Create salt & hash, save in MongoDB and login
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(newUser.password, salt, (err, hash) => {
-        //take the plain password newUser.password and pass to salt
         if (err) throw err;
         newUser.password = hash;
         newUser.save().then(user => {
-          // creating and assigning the token
           jwt.sign(
-            { id: user._id }, // payload we want to add to the token - better the ID then other sensitives informations https://jwt.io/
-            config.get("jwtSecret"), // taking the keys from default.json
-            { expiresIn: 3600 }, // 1 hour
+            // onece registred, make the login
+            { id: user._id },
+            config.get("jwtSecret"),
+            { expiresIn: 3600 },
             (err, token) => {
               if (err) throw err;
               res.json({
-                // our response
                 token: token,
                 user: {
                   id: user._id,
                   name: user.name,
                   email: user.email,
-                  password: user.password,
                   userImage: "http://localhost:5000/" + user.userImage
                 }
               });
@@ -107,61 +106,6 @@ router.post("/", upload.single("userImage"), (req, res) => {
     });
   });
 });
-
-//* @route   POST api/users/auth
-//* @desc    Auth user (LOG-IN)
-//* @access  Public
-router.post("/auth", (req, res) => {
-  const { email, password } = req.body;
-
-  //* Simple validation
-  if (!email || !password) {
-    return res.status(400).json({ msg: "Please enter all fields" });
-  }
-
-  //* Check for existing user (if find the email but user is different)
-  userModel.findOne({ email: email }).then(user => {
-    if (!user) return res.status(400).json({ msg: "User does not exist" });
-
-    //* Validate password (comparing the plain text password and the hashed one)
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
-      // if match then create a token
-      jwt.sign(
-        { id: user.id },
-        config.get("jwtSecret"),
-        { expiresIn: 3600 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({
-            token,
-            user: {
-              id: user.id,
-              name: user.name,
-              email: user.email,
-              password: user.password
-            }
-          });
-        }
-      );
-    });
-  });
-});
-
-// Check for the current user: get the current user's data by using the token.
-/* We need a way to constantly valide the token because jwt is stateless, cannot using sessions,
- not storing data, just sending code, decoding and sending the response.*/
-//* @route   GET /api/users/auth
-//* @desc    Auth user data
-//* @access  Private
-router.get("/auth/user", auth, (req, res) => {
-  userModel
-    .findById(req.user.id)
-    .select("-password") // not returning the password
-    .then(user => res.json(user)); // sending the user minus the pass
-});
-
-//this part is not for application purpouses but for tests in POSTMAN
 
 //* @route   POST api/users/
 //* @desc    Get all users (for POSTMAN)
@@ -206,7 +150,7 @@ router.delete("/:_id", (req, res) => {
 
 //! not working
 //* @route   DELETE api/users/
-//* @desc    Delete all users (for POSTMAN)
+//* @desc    Delete all users
 //* @access  Public
 // http://localhost:5000/api/users/
 router.delete("/", (req, res) => {

@@ -106,9 +106,9 @@ class Cities extends Component {
                 ))}
             </Typography>
           </Container>
-          <div className="navbar">
+          <Box className="navbar">
             <Navbar />
-          </div>
+          </Box>
         </Fragment>
       );
     }

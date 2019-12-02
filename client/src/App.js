@@ -3,7 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- VIEWS -----*/
@@ -36,11 +36,13 @@ class App extends Component {
             <Appbar />
           </div>
           <div className="views">
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/cities" component={Cities} />
-            <Route path="/cities/:_id" component={MYtineraries} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/signin" component={SignIn} />
+            <Switch>
+              <Route exact path="/" component={Landing} />
+              <Route exact path="/cities" component={Cities} />
+              <Route path="/cities/:_id" component={MYtineraries} />
+              <Route path="/signup" component={SignUp} />
+              <Route path="/signin" component={SignIn} />
+            </Switch>
           </div>
         </div>
       </Router>

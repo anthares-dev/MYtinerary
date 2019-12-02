@@ -117,26 +117,30 @@ const ItininerariesList = ({ itineraries, activities }) => {
           />
 
           <CardContent>
-            <Typography variant="body2" color="textSecondary" component="p">
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="flex-start"
-              >
-                <Grid item xs={3}>
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="flex-start"
+            >
+              <Grid item xs={3}>
+                <Typography variant="body2" color="textSecondary" component="p">
                   <ThumbUpAltOutlinedIcon fontSize="small" /> {itinerary.likes}
-                </Grid>
-                <Grid item xs={3}>
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography variant="body2" color="textSecondary" component="p">
                   <ScheduleOutlinedIcon fontSize="small" /> {itinerary.duration}
                   h
-                </Grid>
-                <Grid item xs={3}>
+                </Typography>
+              </Grid>
+              <Grid item xs={3}>
+                <Typography variant="body2" color="textSecondary" component="p">
                   <AttachMoneyOutlinedIcon fontSize="small" />
                   {itinerary.cost}
-                </Grid>
+                </Typography>
               </Grid>
-            </Typography>
+            </Grid>
 
             <Box className={classes.root}>
               {itinerary.hashtags.map((hashtag, i) => (
