@@ -76,6 +76,8 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk))
 );
 
+console.log("token", localStorage.getItem("token"));
+
 ReactDOM.render(
   <Provider store={store}>
     <App />

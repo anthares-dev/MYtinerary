@@ -18,7 +18,6 @@ import { connect } from "react-redux";
 /*----- COMPONENTS/ACTIONS/DEPENDENCIES -----*/
 import { login } from "../store/actions/authActions";
 import { clearErrors } from "../store/actions/errorActions";
-import queryString from "query-string";
 
 class SignIn extends Component {
   state = {
@@ -34,15 +33,6 @@ class SignIn extends Component {
     clearErrors: PropTypes.func.isRequired
   };
 
-  componentDidMount() {
-    // This method will get the query param token from the URL during initialization and set it in local storage.
-    var query = queryString.parse(this.props.location.search);
-    if (query.token) {
-      window.localStorage.setItem("jwt", query.token);
-      this.props.history.push("/");
-    }
-  }
-
   componentDidUpdate(prevProps) {
     const { error, isAuthenticated } = this.props;
     if (error !== prevProps.error) {
@@ -55,14 +45,14 @@ class SignIn extends Component {
     }
 
     //* If authenticated, go to landing page
-    // if (isAuthenticated) {
-    //this.props.history.push("/");
-    /* To navigate programmatically we need to take the help of history object
+    if (isAuthenticated) {
+      this.props.history.push("/");
+      /* To navigate programmatically we need to take the help of history object
          which is passed by the react-router. There is a push method available in the history object
          by using the push method we are redirecting the user to the Home page
          whenever a user submits the form.
       */
-    // }
+    }
   }
 
   onchange = e => {
@@ -88,6 +78,7 @@ class SignIn extends Component {
     this.props.login(user);
   };
 
+  /*
   onSignIn = googleUser => {
     var profile = googleUser.getBasicProfile();
     console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
@@ -102,6 +93,7 @@ class SignIn extends Component {
     // Attempt to login
     this.props.login(user);
   };
+  */
 
   render() {
     return (

@@ -10,6 +10,7 @@ const keys = require("../../config/keys");
 
 const userModel = require("../../models/userModel"); // loading userModel
 
+//! REGISTER USER LOCAL
 //* MULTER CONFIGURATION for Image Upload
 // https://www.youtube.com/watch?v=srPXMt1Q0nY
 const storage = multer.diskStorage({
@@ -121,23 +122,25 @@ router.post("/", upload.single("userImage"), (req, res) => {
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
-
-  // controllare se l'utente esiste gia in mongo sotto google
-  // poi sotto local
-  // e alla fine registri utente in gogole mongo
 );
 
 router.get(
   "/auth/google/callback",
   passport.authenticate("google"),
   (req, res) => {
-    let token = jwt.sign({ id: req.user._id }, keys.session.cookieKey, {
-      expiresIn: "24h"
-    });
-    res.redirect("http://localhost:3000?token=" + token);
+    let token = jwt.sign(
+      { id: req.user._id },
+      config.get("jwtSecret"),
+
+      {
+        expiresIn: "24h"
+      }
+    );
+    res.redirect(`http://localhost:3000/?token=${token}`);
   }
 );
 
+//! LOGIN USER LOCAL
 //* @route   POST api/users/auth
 //* @desc    Auth user (LOG-IN)
 //* @access  Public
@@ -150,11 +153,11 @@ router.post("/auth", (req, res) => {
   }
 
   //* Check for existing user (if find the email but user is different)
-  userModel.findOne({ email: email }).then(user => {
+  userModel.findOne({ "auth.local.email": email }).then(user => {
     if (!user) return res.status(400).json({ msg: "User does not exist" });
 
     //* Validate password (comparing the plain text password and the hashed one)
-    bcrypt.compare(password, user.password).then(isMatch => {
+    bcrypt.compare(password, user.auth.local.password).then(isMatch => {
       if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
       // if match then create a token
       jwt.sign(
@@ -167,9 +170,10 @@ router.post("/auth", (req, res) => {
             token,
             user: {
               id: user.id,
-              name: user.name,
-              email: user.email,
-              password: user.password
+              name: user.auth.local.name,
+              email: user.auth.local.email,
+              password: user.auth.local.password,
+              userImage: "http://localhost:5000/" + user.auth.local.userImage
             }
           });
         }

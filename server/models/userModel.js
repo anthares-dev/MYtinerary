@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 // var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
+  id: String,
   auth: {
     local: {
       name: {
@@ -9,7 +10,7 @@ const UserSchema = new mongoose.Schema({
       },
       email: {
         type: String,
-        unique: true
+        unique: false
       },
       password: {
         type: String

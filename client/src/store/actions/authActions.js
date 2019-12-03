@@ -19,7 +19,7 @@ import {
 // We get the token and put in the header
 export const tokenConfig = getState => {
   //* Get token from localStorage
-  const token = getState().auth.token;
+  const token = localStorage.getItem("token");
 
   //* Headers
   const config = {
@@ -32,6 +32,8 @@ export const tokenConfig = getState => {
   if (token) {
     config.headers["x-auth-token"] = token;
   }
+  console.log(config);
+
   return config;
 };
 
@@ -39,7 +41,8 @@ export const tokenConfig = getState => {
 export const loadUser = () => (dispatch, getState) => {
   // Call user loading
   dispatch({ type: USER_LOADING });
-
+  console.log(getState().auth);
+  console.log(localStorage.getItem("token"));
   // Fetch the user
   axios
     .get("/api/users/auth/user", tokenConfig(getState))
@@ -65,6 +68,7 @@ export const register = user => dispatch => {
       "Content-Type": "application/json"
     }
   };
+  console.log();
 
   axios
     .post("/api/users", user, config)

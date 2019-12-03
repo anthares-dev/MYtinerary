@@ -23,8 +23,32 @@ import { loadUser } from "./store/actions/authActions";
 
 class App extends Component {
   componentDidMount() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    console.log(url_string);
+
+    var token = url.searchParams.get("token");
+    console.log(token);
+
+    if (token || localStorage.getItem("token") !== null) {
+      console.log("is different");
+
+      if (token) {
+        console.log("is token", token);
+
+        localStorage.setItem("token", token);
+        console.log(localStorage.getItem("token"));
+
+        window.history.replaceState(null, null, `${window.location.origin}`);
+        console.log(localStorage.getItem("token"));
+      }
+    } else {
+      console.log("else");
+    }
+
+    console.log(localStorage.getItem("token"));
     this.props.fetchCities();
-    this.props.loadUser();
+    this.props.loadUser(); // with the refresh of the page, if there is a token the user will be loaded!
   }
 
   render() {
@@ -40,8 +64,10 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route exact path="/cities" component={Cities} />
               <Route path="/cities/:_id" component={MYtineraries} />
+
               <Route path="/signup" component={SignUp} />
               <Route path="/signin" component={SignIn} />
+              <Route path="/user/:token" component={Landing} />
             </Switch>
           </div>
         </div>

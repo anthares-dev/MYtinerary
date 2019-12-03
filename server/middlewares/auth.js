@@ -7,19 +7,24 @@ const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
   const token = req.header("x-auth-token"); // get the token from the header
+  console.log("token auth middleware", token);
 
   //* Check for token
   if (!token)
     return res.status(401).json({ msg: "No token, authorization denied" }); //401 status: Unautharized
 
   //* If there is the token, then verify token
+  console.log(jwt.verify(token, config.get("jwtSecret")));
+
   try {
     const decoded = jwt.verify(token, config.get("jwtSecret")); // we need to take the user id from the token
     //* Add user from payload
+    console.log(decoded);
+
     req.user = decoded;
     next(); // passing to the next piece of middleware, in this case no other one
   } catch (e) {
-    req.status(400).json({ msg: "Token is not valid" });
+    res.status(400).json({ msg: "Token is not valid" });
   }
 }
 
