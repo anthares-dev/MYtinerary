@@ -44,6 +44,8 @@ function Appbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  //let provider = useSelector(state => state.provider);
+  // const user = useSelector(state => state.auth.local);
   const user = useSelector(state => state.auth.user);
 
   const dispatch = useDispatch();

@@ -45,7 +45,12 @@ class App extends Component {
     } else {
       console.log("else");
     }
-
+    /*
+    let provider = null;
+    if (token) {
+      var provider = "google";
+    }
+*/
     console.log(localStorage.getItem("token"));
     this.props.fetchCities();
     this.props.loadUser(); // with the refresh of the page, if there is a token the user will be loaded!
@@ -67,7 +72,7 @@ class App extends Component {
 
               <Route path="/signup" component={SignUp} />
               <Route path="/signin" component={SignIn} />
-              <Route path="/user/:token" component={Landing} />
+              <Route path="/:token" component={Landing} />
             </Switch>
           </div>
         </div>

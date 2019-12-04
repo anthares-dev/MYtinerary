@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 // var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
-  id: String,
+  // id: String,
   auth: {
+    provider: String,
     local: {
       name: {
         type: String
       },
       email: {
-        type: String,
-        unique: false
+        type: String
       },
       password: {
         type: String
@@ -24,10 +24,7 @@ const UserSchema = new mongoose.Schema({
       }
     },
     google: {
-      id: {
-        type: String
-      },
-      token: {
+      g_id: {
         type: String
       },
       email: {
@@ -36,7 +33,7 @@ const UserSchema = new mongoose.Schema({
       name: {
         type: String
       },
-      image: {
+      userImage: {
         type: String
       },
       register_date: {

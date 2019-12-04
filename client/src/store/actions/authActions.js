@@ -37,13 +37,14 @@ export const tokenConfig = getState => {
   return config;
 };
 
-//! Check token & load user
+//! Check token & load user (local and social)
 export const loadUser = () => (dispatch, getState) => {
   // Call user loading
   dispatch({ type: USER_LOADING });
   console.log(getState().auth);
   console.log(localStorage.getItem("token"));
   // Fetch the user
+
   axios
     .get("/api/users/auth/user", tokenConfig(getState))
     .then(res =>
@@ -60,7 +61,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 
-//! Register User
+//! Register User local
 export const register = user => dispatch => {
   //* Headers
   const config = {
@@ -88,7 +89,7 @@ export const register = user => dispatch => {
     });
 };
 
-//! Login User
+//! Login User local
 export const login = ({ email, password }) => dispatch => {
   //* Headers
   const config = {

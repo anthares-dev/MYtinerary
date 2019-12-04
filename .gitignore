@@ -7,7 +7,8 @@ node_modules/
 /resources
 /.pnp
 .pnp.js
-config/
+config/default.json
+config/keys.js
 old-notused/
 
 

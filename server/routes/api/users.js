@@ -73,6 +73,7 @@ router.post("/", upload.single("userImage"), (req, res) => {
 
     // if user doesnìt exist, then create a new user
     const newUser = new userModel({
+      "auth.provider": "local",
       "auth.local.name": name,
       "auth.local.email": email,
       "auth.local.password": password, //? the password is plain and need to be hashed before sending it to database
@@ -93,10 +94,13 @@ router.post("/", upload.single("userImage"), (req, res) => {
             { expiresIn: 3600 }, // 1 hour
             (err, token) => {
               if (err) throw err;
+              console.log("new user created: ", user);
+
               res.json({
                 // our response that will showed in our state under auth
                 token: token,
                 user: {
+                  provider: "local",
                   id: user._id,
                   name: user.auth.local.name,
                   email: user.auth.local.email,
@@ -170,6 +174,7 @@ router.post("/auth", (req, res) => {
             token,
             user: {
               id: user.id,
+              provider: "local",
               name: user.auth.local.name,
               email: user.auth.local.email,
               password: user.auth.local.password,
@@ -182,17 +187,71 @@ router.post("/auth", (req, res) => {
   });
 });
 
+//! loading user (local or google)
 // Check for the current user: get the current user's data by using the token.
 /* We need a way to constantly valide the token because jwt is stateless, cannot using sessions,
  not storing data, just sending code, decoding and sending the response.*/
-//* @route   GET /api/users/auth
+//* @route   GET /api/users/auth/user
 //* @desc    Auth user data
 //* @access  Private
 router.get("/auth/user", auth, (req, res) => {
   userModel
     .findById(req.user.id)
     .select("-password") // not returning the password
-    .then(user => res.json(user)); // sending the user minus the pass
+    .then(user => {
+      console.log("user loaded", user);
+      console.log(user.auth.provider);
+
+      if (user.auth.provider == "local") {
+        jwt.sign(
+          { id: user.id },
+          config.get("jwtSecret"),
+          { expiresIn: 3600 },
+          (err, token) => {
+            if (err) throw err;
+            res.json({
+              token,
+              user: {
+                id: user.id,
+                provider: "local",
+                name: user.auth.local.name,
+                email: user.auth.local.email,
+                userImage: user.auth.local.userImage
+              }
+            }); // sending the user minus the pass
+          }
+        );
+      } else {
+        jwt.sign(
+          { id: user.id },
+          config.get("jwtSecret"),
+          { expiresIn: 3600 },
+          (err, token) => {
+            if (err) throw err;
+            /*
+            let provider = null;
+            if (user.provider == "local") {
+              var provider = "local";
+            }
+            if (user.provider == "google") {
+              var provider = "google";
+            }
+            */
+
+            res.json({
+              token,
+              user: {
+                id: user.id,
+                provider: "google",
+                name: user.auth.google.name,
+                email: user.auth.google.email,
+                userImage: user.auth.google.userImage
+              }
+            }); // sending the user minus the pass
+          }
+        );
+      }
+    });
 });
 
 //! this part is not for application purpouses but for tests in POSTMAN
