@@ -100,21 +100,18 @@ class SignIn extends Component {
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <img
-          className="logo"
+          className="logo-small"
           src={require("../images/MYtineraryLogo.png")}
           alt="MYtinerary Logo"
         />
         <div className="paper">
-          <Avatar className="avatar">
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h4">
             Sign in
           </Typography>
           {this.state.msg ? (
-            <Box component="p" variant="h4">
+            <Typography component="p" variant="overline" color="error">
               {this.state.msg}!{" "}
-            </Box>
+            </Typography>
           ) : null}
           <form className="form" noValidate onSubmit={this.onSubmit}>
             <Grid container spacing={2}>
@@ -164,10 +161,13 @@ class SignIn extends Component {
                 </Box>
               </Grid>
               <Grid item xs={12}>
-                <Box variant="body1">Do you wanna access with Google?</Box>
                 <Box>
+                  <Typography component="h2" variant="h6">
+                    Access with Google
+                  </Typography>
+
                   <a
-                    className="button"
+                    className="google-button"
                     data-onsuccess="onSignIn"
                     onClick={() =>
                       (window.location =

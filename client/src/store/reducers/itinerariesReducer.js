@@ -4,14 +4,17 @@
 import {
   FETCH_ITINERARIES_PENDING,
   FETCH_ITINERARIES_SUCCESS,
-  FETCH_ITINERARIES_ERROR
+  FETCH_ITINERARIES_ERROR,
+  ADD_FAVORITES,
+  DELETE_FAVORITES
 } from "../actions/typesActions";
 
 //defining the initial state
 const initialState = {
   pending: false,
   itineraries: [],
-  error: null
+  error: null,
+  favoritesItin: []
 };
 
 function itinerariesReducer(state = initialState, action) {
@@ -36,6 +39,20 @@ function itinerariesReducer(state = initialState, action) {
         ...state,
         pending: false,
         error: action.payload
+      };
+    case ADD_FAVORITES:
+      return {
+        ...state,
+        pending: false,
+        favoritesItin: [action.payload, ...state.favoritesItin]
+      };
+    case DELETE_FAVORITES:
+      return {
+        ...state,
+        pending: false,
+        favoritesItin: state.favoritesItin.filter(
+          favorite => favorite !== action.payload
+        )
       };
 
     default:

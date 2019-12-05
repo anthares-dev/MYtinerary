@@ -61,3 +61,5 @@ app.use("/api/itineraries/:city_id", require("./routes/api/itineraries"));
 app.use("/api/activities", require("./routes/api/activities"));
 
 app.use("/api/users", require("./routes/api/users"));
+
+// app.use("/api/users", require("./routes/api/profile"));

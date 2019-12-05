@@ -146,16 +146,21 @@ code {
   }
 }
 
-/* Google Authentication */
+/*  Authentication */
+
+.logo-small {
+  width: 50vw;
+  margin-bottom: 2vh;
+}
 
 a {
   -webkit-tap-highlight-color: transparent;
   text-decoration: none;
 }
-.button {
+.google-button {
   display: inline-block;
   max-width: 300px;
-  margin-top: 50px;
+  margin-top: 10px;
   border: 0;
   padding: 0 18px;
   text-align: left;
@@ -171,7 +176,7 @@ a {
   font: inherit;
   outline: none;
 }
-.button .svgIcon {
+.google-button .svgIcon {
   vertical-align: middle;
   fill: rgba(0, 0, 0, 0.54);
   padding-right: 4px;

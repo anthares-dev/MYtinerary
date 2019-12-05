@@ -39,14 +39,14 @@ passport.use(
         .findOne({ "auth.google.g_id": profile.id })
         .then(currentUser => {
           if (currentUser) {
-            //already have the user saved in google, change whatever change there might be on google
+            //already have the user saved in google, update it if there are changes
             userModel
               .findOneAndUpdate(
                 { "auth.google.g_id": profile.id },
                 {
                   "auth.google.email": profile.emails[0].value,
                   "auth.google.name": profile.displayName,
-                  "auth.google.userImage": profile.photos[0].value
+                  "auth.google.avatar": profile.photos[0].value
                 }
               )
               .then(currentUser => {
@@ -67,7 +67,7 @@ passport.use(
                         "auth.google.g_id": profile.id,
                         "auth.google.email": profile.emails[0].value,
                         "auth.google.name": profile.displayName,
-                        "auth.google.userImage": profile.photos[0].value
+                        "auth.google.avatar": profile.photos[0].value
                       }
                     )
                     .then(updatedUser => {
@@ -76,13 +76,13 @@ passport.use(
                     });
                 } else {
                   console.log("3", profile);
-                  //create new User and put it on the db
+                  //if first time signing up, create new User and put it on the db
                   const newUser = new userModel({
                     "auth.provider": "google",
                     "auth.google.g_id": profile.id,
                     "auth.google.name": profile.displayName,
                     "auth.google.email": profile.emails[0].value,
-                    "auth.google.userImage": profile.photos[0].value
+                    "auth.google.avatar": profile.photos[0].value
                   });
                   console.log("secret", config.get("jwtSecret"));
 
@@ -106,7 +106,8 @@ passport.use(
                               id: user.id,
                               name: user.auth.google.name,
                               email: user.auth.google.email,
-                              userImage: user.auth.google.image
+                              avatar: user.auth.google.image,
+                              favorites: user.favorites
                             }
                           });
                         }

@@ -54,16 +54,16 @@ const upload = multer({
 //* @access  Public
 // http://localhost:5000/api/users/
 
-router.post("/", upload.single("userImage"), (req, res) => {
+router.post("/", upload.single("avatar"), (req, res) => {
   //console.log("in");
   //console.log(req.name);
   //console.log(req.file.path);
 
   const { name, email, password } = req.body; //? for getting data from the body
-  const userImage = req.file.path;
+  const avatar = req.file.path;
 
   //* Simple validation
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !avatar) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -77,7 +77,7 @@ router.post("/", upload.single("userImage"), (req, res) => {
       "auth.local.name": name,
       "auth.local.email": email,
       "auth.local.password": password, //? the password is plain and need to be hashed before sending it to database
-      "auth.local.userImage": userImage
+      "auth.local.avatar": avatar
     });
 
     //* Create salt & hash, create JWT (Jason Web Token), save all in MongoDB and Sing In the new user
@@ -105,8 +105,8 @@ router.post("/", upload.single("userImage"), (req, res) => {
                   name: user.auth.local.name,
                   email: user.auth.local.email,
                   password: user.auth.local.password,
-                  userImage:
-                    "http://localhost:5000/" + user.auth.local.userImage
+                  avatar: "http://localhost:5000/" + user.auth.local.avatar,
+                  favorites: user.favorites
                 }
               });
             }
@@ -178,7 +178,8 @@ router.post("/auth", (req, res) => {
               name: user.auth.local.name,
               email: user.auth.local.email,
               password: user.auth.local.password,
-              userImage: "http://localhost:5000/" + user.auth.local.userImage
+              avatar: "http://localhost:5000/" + user.auth.local.avatar,
+              favorites: user.favorites
             }
           });
         }
@@ -216,7 +217,8 @@ router.get("/auth/user", auth, (req, res) => {
                 provider: "local",
                 name: user.auth.local.name,
                 email: user.auth.local.email,
-                userImage: user.auth.local.userImage
+                avatar: user.auth.local.avatar,
+                favorites: user.favorites
               }
             }); // sending the user minus the pass
           }
@@ -245,7 +247,8 @@ router.get("/auth/user", auth, (req, res) => {
                 provider: "google",
                 name: user.auth.google.name,
                 email: user.auth.google.email,
-                userImage: user.auth.google.userImage
+                avatar: user.auth.google.avatar,
+                favorites: user.favorites
               }
             }); // sending the user minus the pass
           }

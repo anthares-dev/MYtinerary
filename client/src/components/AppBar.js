@@ -47,6 +47,8 @@ function Appbar() {
   //let provider = useSelector(state => state.provider);
   // const user = useSelector(state => state.auth.local);
   const user = useSelector(state => state.auth.user);
+  //const user_id = useSelector(state => state.auth.user.id);
+  console.log(user);
 
   const dispatch = useDispatch();
 
@@ -99,23 +101,28 @@ function Appbar() {
           <ListItemText primary="Cities" />
         </ListItem>
 
+        {/*
         <ListItem button component={Link} to="/itineraries" key="3">
           <ListItemIcon>
             <TimelineIcon />
           </ListItemIcon>
           <ListItemText primary="Itineraries" />
         </ListItem>
+      */}
       </List>
       <Divider />
       <List>
-        {["Profile"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <PersonIcon /> : <PersonIcon />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+        <ListItem
+          button
+          component={Link}
+          to={user ? `/profile/${user.id} ` : ""}
+          key="3"
+        >
+          <ListItemIcon>
+            <PersonIcon />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
+        </ListItem>
       </List>
     </div>
   );
@@ -124,7 +131,8 @@ function Appbar() {
     <div>
       <MenuItem>{user ? `Welcome ${user.name} ` : ""}</MenuItem>
       <Divider />
-      <MenuItem component={Link} to="/profile">
+
+      <MenuItem component={Link} to={user ? `/profile/${user.id} ` : ""}>
         Profile
       </MenuItem>
       <MenuItem
@@ -163,10 +171,10 @@ function Appbar() {
               aria-haspopup="true"
               onClick={handleClick}
             >
-              {isAuthenticated && user.userImage ? (
+              {isAuthenticated && user.avatar ? (
                 <Avatar
                   alt={user.name}
-                  src={user.userImage}
+                  src={user.avatar}
                   className={classes.avatar}
                 />
               ) : (

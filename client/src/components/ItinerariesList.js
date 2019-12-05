@@ -24,9 +24,14 @@ import { makeStyles } from "@material-ui/core/styles";
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment } from "react";
 import clsx from "clsx";
+import { connect, useSelector, useDispatch } from "react-redux";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import ActivitiesList from "../components/ActivitiesList";
+import {
+  addFavorites,
+  delFavorites
+} from "../store/actions/itinerariesActions";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -59,12 +64,24 @@ const useStyles = makeStyles(theme => ({
   },
   list: {
     width: 200
+  },
+  actionIcon: {
+    //color: "#ab003c"
+    color: "red"
   }
 }));
 
 const ItininerariesList = ({ itineraries, activities }) => {
   const classes = useStyles();
+  const user = useSelector(state => state.auth.user);
+  const favorites = useSelector(state => state.itinerariesRed.favoritesItin);
+
   const [expandedId, setExpandedId] = React.useState(-1);
+  const [isChecked, setisChecked] = React.useState(false);
+  const dispatch = useDispatch();
+  console.log(user);
+  //setFavorites(user.favorites);
+  console.log(favorites);
 
   /*
   let path = window.location.pathname;
@@ -80,6 +97,29 @@ const ItininerariesList = ({ itineraries, activities }) => {
 
   const handleExpandClick = i => {
     setExpandedId(expandedId === i ? -1 : i);
+  };
+
+  const handleFavorites = e => {
+    let itinerary_id = e.currentTarget.value;
+    let user_id = user.id;
+    console.log(itinerary_id);
+    console.log(user_id);
+    console.log(e.currentTarget.checked);
+    //var isChecked = e.currentTarget.checked;
+    console.log(isChecked);
+
+    if ((e.currentTarget.checked = true)) {
+      dispatch(addFavorites(user_id, itinerary_id));
+      //isChecked = false;
+
+      setisChecked(true);
+      console.log(isChecked);
+    }
+    if ((isChecked = true)) {
+      dispatch(delFavorites(user_id, itinerary_id));
+      console.log(isChecked);
+    } else {
+    }
   };
 
   return (
@@ -157,8 +197,19 @@ const ItininerariesList = ({ itineraries, activities }) => {
             </Box>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="add to favorites">
-              <FavoriteIcon />
+            <IconButton
+              aria-label="add to favorites"
+              onClick={e => handleFavorites(e)}
+              value={itinerary._id}
+              id="fav"
+              type="checkbox"
+              checked
+            >
+              {favorites.includes(itinerary._id) ? (
+                <FavoriteIcon className={classes.actionIcon} />
+              ) : (
+                <FavoriteIcon />
+              )}
             </IconButton>
             <IconButton aria-label="share">
               <ShareIcon />
@@ -188,4 +239,4 @@ const ItininerariesList = ({ itineraries, activities }) => {
   );
 };
 
-export default ItininerariesList;
+export default connect()(ItininerariesList);

@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
-// var ObjectId = mongoose.Schema.Types.ObjectId;
+var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const UserSchema = new mongoose.Schema({
-  // id: String,
+  // _id: ObjectId,
   auth: {
+    register_date: {
+      type: Date,
+      default: Date.now
+    },
     provider: String,
     local: {
       name: {
@@ -15,12 +19,8 @@ const UserSchema = new mongoose.Schema({
       password: {
         type: String
       },
-      userImage: {
+      avatar: {
         type: String
-      },
-      register_date: {
-        type: Date,
-        default: Date.now
       }
     },
     google: {
@@ -33,15 +33,12 @@ const UserSchema = new mongoose.Schema({
       name: {
         type: String
       },
-      userImage: {
+      avatar: {
         type: String
-      },
-      register_date: {
-        type: Date,
-        default: Date.now
       }
     }
-  }
+  },
+  favorites: { type: Array }
 });
 
 //database name is users - here I named it as singular of the database name

@@ -12,6 +12,7 @@ import Cities from "./views/Cities";
 import MYtineraries from "./views/Mytineraries";
 import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
+import Profile from "./views/Profile";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import Appbar from "./components/Appbar";
@@ -69,7 +70,7 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route exact path="/cities" component={Cities} />
               <Route path="/cities/:_id" component={MYtineraries} />
-
+              <Route path="/profile/:_id" component={Profile} />
               <Route path="/signup" component={SignUp} />
               <Route path="/signin" component={SignIn} />
               <Route path="/:token" component={Landing} />
