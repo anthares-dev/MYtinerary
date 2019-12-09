@@ -21,6 +21,7 @@ and taking or dispatching only the one that you want.
 
 /*----- COMPONENTS/ACTIONS -----*/
 import Navbar from "../components/Navbar";
+import { loadUser } from "../store/actions/authActions";
 
 /*----- RESOURCES -----*/
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
@@ -33,6 +34,10 @@ class Cities extends Component {
     this.state = {
       searchTerm: ""
     };
+  }
+
+  componentDidMount() {
+    this.props.loadUser();
   }
 
   handleChange = event => {
@@ -123,4 +128,4 @@ const mapStateToProps = state => ({
   pending: state.citiesRed.pending
 });
 
-export default connect(mapStateToProps)(Cities);
+export default connect(mapStateToProps, { loadUser })(Cities);

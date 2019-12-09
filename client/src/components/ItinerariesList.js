@@ -21,6 +21,14 @@ import ScheduleOutlinedIcon from "@material-ui/icons/ScheduleOutlined";
 import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
 import { makeStyles } from "@material-ui/core/styles";
 
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import Favorite from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment } from "react";
 import clsx from "clsx";
@@ -32,6 +40,8 @@ import {
   addFavorites,
   delFavorites
 } from "../store/actions/itinerariesActions";
+import { loadUser } from "../store/actions/authActions";
+import { fetchItinerariesId } from "../store/actions/profileActions";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -73,52 +83,39 @@ const useStyles = makeStyles(theme => ({
 
 const ItininerariesList = ({ itineraries, activities }) => {
   const classes = useStyles();
-  const user = useSelector(state => state.auth.user);
-  const favorites = useSelector(state => state.itinerariesRed.favoritesItin);
+  const dispatch = useDispatch();
 
   const [expandedId, setExpandedId] = React.useState(-1);
-  const [isChecked, setisChecked] = React.useState(false);
-  const dispatch = useDispatch();
+
+  const user = useSelector(state => state.auth.user);
+  const favItin = useSelector(state => state.auth.user.favorites);
+
   console.log(user);
-  //setFavorites(user.favorites);
-  console.log(favorites);
-
-  /*
-  let path = window.location.pathname;
-  let currentId = path.substring(path.lastIndexOf("/") + 1); // take the last part of the URL
-
-  const itinerariesPerCity = itineraries.filter(
-    itiner => itiner.city_id === currentId
-  );
-
-  console.log(itineraries);
-  console.log(activities);
-  */
+  console.log(favItin);
 
   const handleExpandClick = i => {
     setExpandedId(expandedId === i ? -1 : i);
   };
 
-  const handleFavorites = e => {
-    let itinerary_id = e.currentTarget.value;
+  const handleFavorites = () => event => {
     let user_id = user.id;
-    console.log(itinerary_id);
-    console.log(user_id);
-    console.log(e.currentTarget.checked);
-    //var isChecked = e.currentTarget.checked;
-    console.log(isChecked);
+    dispatch(loadUser());
+    dispatch(fetchItinerariesId(user_id));
+    if (user) {
+      let itinerary_id = event.currentTarget.value;
 
-    if ((e.currentTarget.checked = true)) {
-      dispatch(addFavorites(user_id, itinerary_id));
-      //isChecked = false;
+      var isChecked = event.target.checked;
 
-      setisChecked(true);
-      console.log(isChecked);
-    }
-    if ((isChecked = true)) {
-      dispatch(delFavorites(user_id, itinerary_id));
-      console.log(isChecked);
+      if (isChecked == true) {
+        dispatch(addFavorites(user_id, itinerary_id));
+        dispatch(loadUser());
+      } else {
+        dispatch(delFavorites(user_id, itinerary_id));
+        dispatch(loadUser());
+        dispatch(fetchItinerariesId(user_id));
+      }
     } else {
+      alert("Login first!");
     }
   };
 
@@ -197,23 +194,36 @@ const ItininerariesList = ({ itineraries, activities }) => {
             </Box>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton
-              aria-label="add to favorites"
-              onClick={e => handleFavorites(e)}
-              value={itinerary._id}
-              id="fav"
-              type="checkbox"
-              checked
-            >
-              {favorites.includes(itinerary._id) ? (
-                <FavoriteIcon className={classes.actionIcon} />
+            <IconButton aria-label="favorite">
+              {favItin.includes(itinerary._id) ? (
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite />}
+                      value={itinerary._id}
+                      onChange={handleFavorites(`${itinerary._id}`)}
+                      checked={true}
+                    />
+                  }
+                />
               ) : (
-                <FavoriteIcon />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      icon={<FavoriteBorder />}
+                      checkedIcon={<Favorite />}
+                      value={itinerary._id}
+                      onChange={handleFavorites(`${itinerary._id}`)}
+                      checked={false}
+                    />
+                  }
+                />
               )}
             </IconButton>
-            <IconButton aria-label="share">
+            {/* <IconButton aria-label="share">
               <ShareIcon />
-            </IconButton>
+            </IconButton>*/}
             <IconButton
               className={clsx(classes.expand, {
                 [classes.expandOpen]: expandedId

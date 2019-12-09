@@ -139,6 +139,7 @@ function Appbar() {
         onClick={() => {
           dispatch(logout());
           handleClose();
+          window.location.replace("/");
         }}
       >
         Logout

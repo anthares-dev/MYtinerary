@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// var ObjectId = mongoose.Schema.Types.ObjectId;
 
 const itinerarySchema = new mongoose.Schema({
   city_id: {

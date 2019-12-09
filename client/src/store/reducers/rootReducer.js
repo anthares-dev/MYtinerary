@@ -4,13 +4,15 @@ import itinerariesReducer from "./itinerariesReducer";
 import activitiesReducer from "./activitiesReducer";
 import errorReducer from "./errorReducer";
 import authReducer from "./authReducer";
+import profileReducer from "./profileReducer";
 
 const rootReducer = combineReducers({
   citiesRed: citiesReducer,
   itinerariesRed: itinerariesReducer,
   activitiesRed: activitiesReducer,
   error: errorReducer,
-  auth: authReducer
+  auth: authReducer,
+  profileRed: profileReducer
 });
 
 export default rootReducer;

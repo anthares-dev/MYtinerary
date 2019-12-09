@@ -4,65 +4,31 @@ const router = express.Router();
 // const passport = require("passport");
 const auth = require("../../middlewares/auth");
 
-//  Load User model
+const itineraryModel = require("../../models/itineraryModel");
 const userModel = require("../../models/userModel");
-const itinerarymodel = require("../../models/itineraryModel");
-/*
-//! GET USER INFO //----------------------------------------------
 
-//* @route   GET /api/users/:_id
-//* @desc    Get profile by user ID
+//! GET FAV ITINERARIES //----------------------------------------------
+
+//* @route   GET api/itineraries/:itin_id
+//* @desc    Get itineraries per fav itin id
 //* @access  Public
+// http://localhost:5000/api/profile/itineraries/:itin_id
+router.get("/itineraries/:user_id", (req, res) => {
+  console.log("get user itin", req.params.user_id);
 
-router.get("/:user_id", (req, res) => {
-  userModel
-    .findById(req.params.user_id) // (req.params._id)
-    .select("-password") // not returning the password
-    .then(user => {
-      console.log("user loaded", user);
-      console.log(user.favorites);
-    });
+  userModel.findOne({ _id: req.params.user_id }).then(user => {
+    if (user) {
+      console.log("get user", user);
+      itineraryModel
+        .find({
+          _id: { $in: user.favorites }
+        })
+        .then(itineraries => {
+          res.send(itineraries);
+        })
+        .catch(err => console.log(err));
+    }
+  });
 });
 
-//! FAVORITE DELETE //----------------------------------------------
-
-//* @route   DELETE /api/users/profile/favorite
-//* @desc    Delete Favorite from User
-//* @access  Private
-
-router.delete("/profile/favorite", (req, res) => {
-  userModel
-    .findOneAndUpdate(
-      { _id: req.body.id },
-      // { $push: { favorites: "req.body.favData" } }
-      { $pull: { favorites: req.body.itinerary_id } }
-      // { new: true }
-    )
-    .then(user => res.json(user))
-    .catch(err => res.status(404).json({ success: false }));
-});
-
-//-------------------------------------------------------------
-// FAVORITE DELETE
-
-// @route   DELETE auth/profile/removefav/:id/:favid
-// @desc    Delete Favorite from User
-// @access  Private
-/*
-router.delete(
-  "/profile/removefav/:id/:favid",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    User.findOneAndUpdate(
-      { _id: req.params.id },
-      { $pull: { favorites: req.params.favid } }
-      // { new: true }
-    )
-      .then(user => {
-        res.json(user);
-      })
-      .catch(err => res.status(404).json({ success: false }));
-  }
-);
-*/
 module.exports = router;

@@ -62,4 +62,6 @@ app.use("/api/activities", require("./routes/api/activities"));
 
 app.use("/api/users", require("./routes/api/users"));
 
+app.use("/api/profile", require("./routes/api/profile"));
+
 // app.use("/api/users", require("./routes/api/profile"));
