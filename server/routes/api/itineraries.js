@@ -34,6 +34,36 @@ router.get("/:city_id", (req, res) => {
     .catch(err => console.log(err));
 });
 
+//!POST ITINERARIES//----------------------------------------------
+
+//* @route   POST api/itineraries
+//* @desc    Create itineraries
+//* @access  Public
+
+router.post("/", (req, res) => {
+  const newItinerary = new itineraryModel({
+    title: req.body.title,
+    sub_title: req.body.sub_title,
+    city_id: req.body.city_id,
+    profile_name: req.body.profile_name,
+    profile_img: req.body.profile_img,
+    likes: req.body.likes,
+    duration: req.body.duration,
+    cost: req.body.cost,
+    hashtags: req.body.hashtags
+  });
+
+  newItinerary
+    .save()
+    .then(itinerary => {
+      // console.log(doc);
+      res.json(itinerary);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
 //! FAVORITES' ITINERARIES ADD //----------------------------------------------
 
 //* @route   POST /api/itineraries/favorites/:user_id/:itin_id

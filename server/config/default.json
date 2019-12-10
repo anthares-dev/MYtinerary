@@ -1,0 +1,6 @@
+{
+  "mongoURI": "mongodb+srv://admin:cITE5LbZjVp0tyfP@mytinerary-n6wse.mongodb.net/MYtinerary?retryWrites=true&w=majority",
+  "jwtSecret": "my_myJwtSecret",
+  "clientID": "234988412568-ilkls1op1fcr7td9vpgenovnbbiuh74g.apps.googleusercontent.com",
+  "clientSecret": "WjGLu93kH-0_eh1htaiZyIqf"
+}

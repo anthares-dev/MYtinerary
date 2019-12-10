@@ -47,8 +47,12 @@ class Cities extends Component {
     });
   };
 
+  handleClick = () => {
+    alert("To see the itineraries please login first.");
+  };
+
   render() {
-    const { error, pending, cities } = this.props;
+    const { user, error, pending, cities } = this.props;
     //console.log(cities);
     //console.log(error);
 
@@ -96,13 +100,23 @@ class Cities extends Component {
                 .map(city => (
                   <Card className="card" key={city._id}>
                     <CardActionArea>
-                      <CardMedia
-                        image={city.img}
-                        title={city.country}
-                        className="card-media"
-                        component={Link}
-                        to={"/cities/" + city._id}
-                      />
+                      {user ? (
+                        <CardMedia
+                          image={city.img}
+                          title={city.country}
+                          className="card-media"
+                          component={Link}
+                          to={"/cities/" + city._id}
+                        />
+                      ) : (
+                        <CardMedia
+                          image={city.img}
+                          title={city.country}
+                          className="card-media"
+                          component={Link}
+                          onClick={this.handleClick}
+                        />
+                      )}
                       <Typography fontSize="h8.fontSize">
                         {city.name}
                       </Typography>
@@ -123,6 +137,7 @@ class Cities extends Component {
 //CALLING THE STORE!!!
 // here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
+  user: state.auth.user,
   error: state.citiesRed.error, // cities is the name given in rootReducer.js to citiesReducer
   cities: state.citiesRed.cities,
   pending: state.citiesRed.pending

@@ -5,6 +5,7 @@ import activitiesReducer from "./activitiesReducer";
 import errorReducer from "./errorReducer";
 import authReducer from "./authReducer";
 import profileReducer from "./profileReducer";
+import commentsReducer from "./commentsReducer";
 
 const rootReducer = combineReducers({
   citiesRed: citiesReducer,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   activitiesRed: activitiesReducer,
   error: errorReducer,
   auth: authReducer,
-  profileRed: profileReducer
+  profileRed: profileReducer,
+  commentsRed: commentsReducer
 });
 
 export default rootReducer;

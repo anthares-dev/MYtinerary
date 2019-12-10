@@ -41,16 +41,21 @@ const useStyles = makeStyles({
 //https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue
 
 function Appbar() {
+  const dispatch = useDispatch();
+  const classes = useStyles();
+
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false
+  });
 
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
-  //let provider = useSelector(state => state.provider);
-  // const user = useSelector(state => state.auth.local);
   const user = useSelector(state => state.auth.user);
   //const user_id = useSelector(state => state.auth.user.id);
-  console.log(user);
-
-  const dispatch = useDispatch();
+  // console.log(user);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -60,14 +65,6 @@ function Appbar() {
     setAnchorEl(null);
   };
 
-  const classes = useStyles();
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false
-  });
-
   const toggleDrawer = (side, open) => event => {
     if (
       event.type === "keydown" &&
@@ -75,7 +72,6 @@ function Appbar() {
     ) {
       return;
     }
-
     setState({ ...state, [side]: open });
   };
 
@@ -100,9 +96,7 @@ function Appbar() {
           </ListItemIcon>
           <ListItemText primary="Cities" />
         </ListItem>
-
-        {/*
-        <ListItem button component={Link} to="/itineraries" key="3">
+        {/*<ListItem button component={Link} to="/itineraries" key="3">
           <ListItemIcon>
             <TimelineIcon />
           </ListItemIcon>
@@ -110,7 +104,8 @@ function Appbar() {
         </ListItem>
       */}
       </List>
-      <Divider />
+
+      {/*    <Divider />
       <List>
         <ListItem
           button
@@ -124,6 +119,7 @@ function Appbar() {
           <ListItemText primary="Profile" />
         </ListItem>
       </List>
+*/}
     </div>
   );
 
@@ -199,7 +195,6 @@ function Appbar() {
             <Button onClick={toggleDrawer("right", true)}>
               <MenuIcon fontSize="large" />
             </Button>
-
             <Drawer
               anchor="right"
               open={state.right}

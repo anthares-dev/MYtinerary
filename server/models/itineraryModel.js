@@ -10,6 +10,10 @@ const itinerarySchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  sub_title: {
+    type: String,
+    required: true
+  },
   profile_name: {
     type: String,
     required: true
@@ -25,14 +29,20 @@ const itinerarySchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  price: {
-    type: Number,
+  cost: {
+    type: String,
     required: true
   },
   hashtags: {
     type: Array,
     required: true
   }
+  /*
+  activities: {
+    type: Array,
+    required: true
+  }
+  */
 });
 
 module.exports = mongoose.model("itinerary", itinerarySchema);

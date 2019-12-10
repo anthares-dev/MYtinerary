@@ -33,4 +33,27 @@ router.get("/:city_id", (req, res) => {
     .catch(err => console.log(err));
 });
 
+//* @route   POST api/activities
+//* @desc    Create activities
+//* @access  Public
+
+router.post("/", (req, res) => {
+  const newActivity = new activityModel({
+    city_id: req.body.city_id,
+    itinerary_id: req.body.itinerary_id,
+    name: req.body.name,
+    img: req.body.img
+  });
+
+  newActivity
+    .save()
+    .then(activity => {
+      // console.log(doc);
+      res.json(activity);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+});
+
 module.exports = router;

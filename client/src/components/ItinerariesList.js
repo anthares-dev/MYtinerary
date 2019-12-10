@@ -9,9 +9,7 @@ import Avatar from "@material-ui/core/Avatar";
 import PersonIcon from "@material-ui/icons/Person";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
@@ -20,17 +18,13 @@ import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
 import ScheduleOutlinedIcon from "@material-ui/icons/ScheduleOutlined";
 import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
 import { makeStyles } from "@material-ui/core/styles";
-
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import clsx from "clsx";
 import { connect, useSelector, useDispatch } from "react-redux";
 
@@ -76,7 +70,6 @@ const useStyles = makeStyles(theme => ({
     width: 200
   },
   actionIcon: {
-    //color: "#ab003c"
     color: "red"
   }
 }));
@@ -87,11 +80,15 @@ const ItininerariesList = ({ itineraries, activities }) => {
 
   const [expandedId, setExpandedId] = React.useState(-1);
 
+  useEffect(() => {
+    dispatch(loadUser());
+  }, []);
+
   const user = useSelector(state => state.auth.user);
   const favItin = useSelector(state => state.auth.user.favorites);
 
-  console.log(user);
-  console.log(favItin);
+  //console.log(user);
+  //console.log(favItin);
 
   const handleExpandClick = i => {
     setExpandedId(expandedId === i ? -1 : i);
@@ -135,7 +132,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
                 <Avatar
                   aria-label="user"
                   alt={itinerary.profile_name}
-                  src={itinerary.profile_img}
+                  src={itinerary.profile_img + "?img=" + i}
                 >
                   <PersonIcon />
                 </Avatar>
@@ -232,7 +229,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
               aria-expanded={expandedId === i}
               aria-label="show more"
             >
-              <ExpandMoreIcon />
+              <ExpandLessIcon />
             </IconButton>
           </CardActions>
           <Collapse in={expandedId === i} timeout="auto" unmountOnExit>

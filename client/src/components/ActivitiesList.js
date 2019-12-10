@@ -7,6 +7,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
+import CommentBox from "./CommentBox";
 
 const ActivitiesList = ({ activities, itineraryId }) => {
   var settings = {
@@ -20,7 +21,7 @@ const ActivitiesList = ({ activities, itineraryId }) => {
     activit => activit.itinerary_id === itineraryId
   );
 
-  console.log(activities);
+  //console.log(activities);
   //console.log(itineraryId);
 
   return (
@@ -47,6 +48,7 @@ const ActivitiesList = ({ activities, itineraryId }) => {
       <Box fontSize="h7.fontSize" textAlign="left">
         Comments
       </Box>
+      <CommentBox itineraryId={itineraryId} />
     </Fragment>
   );
 };

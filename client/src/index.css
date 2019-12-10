@@ -183,3 +183,10 @@ a {
   height: 37px;
   display: inline-block;
 }
+
+/*  Comments  */
+
+.comments {
+  max-height: 75vh;
+  overflow: scroll;
+}
