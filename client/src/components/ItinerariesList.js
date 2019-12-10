@@ -39,7 +39,7 @@ import { fetchItinerariesId } from "../store/actions/profileActions";
 
 const useStyles = makeStyles(theme => ({
   card: {
-    marginBottom: 35
+    marginBottom: 20
   },
   media: {
     height: 0,
@@ -103,7 +103,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
 
       var isChecked = event.target.checked;
 
-      if (isChecked == true) {
+      if (isChecked === true) {
         dispatch(addFavorites(user_id, itinerary_id));
         dispatch(loadUser());
       } else {

@@ -138,9 +138,9 @@ class Cities extends Component {
 // here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
   user: state.auth.user,
-  error: state.citiesRed.error, // cities is the name given in rootReducer.js to citiesReducer
-  cities: state.citiesRed.cities,
-  pending: state.citiesRed.pending
+  error: state.cities.error, // cities is the name given in rootReducer.js to citiesReducer
+  cities: state.cities.cities,
+  pending: state.cities.pending
 });
 
 export default connect(mapStateToProps, { loadUser })(Cities);

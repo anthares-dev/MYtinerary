@@ -19,15 +19,15 @@ import { fetchActivities } from "../store/actions/activitiesActions";
 class MYtineraries extends Component {
   componentDidMount() {
     //console.log("did mount");
-    this.props.fetchItineraries(this.props.match.params._id);
-    this.props.fetchActivities(this.props.match.params._id);
+    //console.log(this.props.match.params._id);
+    var city_id = this.props.match.params._id;
+    this.props.fetchItineraries(city_id);
+    this.props.fetchActivities(city_id);
   }
 
   render() {
     //console.log(this.props);
-    const { city, itineraries, activities } = this.props;
-    //console.log(itineraries);
-    //console.log(this.props.match.params._id);
+    const { city, itinerariesCity, activitiesCity } = this.props;
 
     return (
       <Fragment>
@@ -48,8 +48,8 @@ class MYtineraries extends Component {
               Available MYtineraries:
             </Box>
             <ItininerariesList
-              itineraries={itineraries}
-              activities={activities}
+              itineraries={itinerariesCity}
+              activities={activitiesCity}
             />
           </Container>
         ) : (
@@ -67,10 +67,10 @@ const mapStateToProps = state => {
   let path = window.location.pathname;
   //console.log(path.substring(path.lastIndexOf("/") + 1));
   return {
-    cities: state.citiesRed.cities,
-    city: state.citiesRed.cities.find(city => "/cities/" + city._id === path),
-    itineraries: state.itinerariesRed.itineraries,
-    activities: state.activitiesRed.activities
+    cities: state.cities.cities,
+    city: state.cities.cities.find(city => "/cities/" + city._id === path),
+    itinerariesCity: state.itineraries.itineraries,
+    activitiesCity: state.activities.activities
   };
 };
 

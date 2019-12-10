@@ -13,8 +13,7 @@ export function fetchItinerariesIdPending() {
 }
 
 export const fetchItinerariesId = user_id => dispatch => {
-  console.log("inside action fetchItineraries per user ID");
-  console.log(user_id);
+  console.log("inside action fetchItineraries per user ID", user_id);
 
   dispatch(fetchItinerariesIdPending());
   axios.get(`/api/profile/itineraries/${user_id}`).then(res => {
@@ -24,19 +23,3 @@ export const fetchItinerariesId = user_id => dispatch => {
     });
   });
 };
-/*
-export const fetchItinerariesId = favItin_id => dispatch => {
-  console.log("inside action fetchItineraries per fav ID");
-  console.log(favItin_id);
-
-  dispatch(fetchItinerariesIdPending());
-  axios
-    .get("/api/profile/itineraries", { favItin_id: favItin_id })
-    .then(res => {
-      dispatch({
-        type: FETCH_ITINERARIES_ID_SUCCESS,
-        payload: res.data
-      });
-    });
-};
-*/

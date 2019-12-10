@@ -8,6 +8,8 @@ import {
   DELETE_FAVORITES
 } from "./typesActions";
 
+//! FETCH ITINERARIES  //-------------------------------------------------------------
+
 export function fetchItinerariesPending() {
   return {
     type: FETCH_ITINERARIES_PENDING
@@ -29,19 +31,19 @@ export function fetchItinerariesError(error) {
 }
 
 export function fetchItineraries(city_id) {
-  console.log("inside action");
+  console.log("inside action fetching itinerary per city_id", city_id);
   return dispatch => {
     dispatch(fetchItinerariesPending());
 
     fetch("/api/itineraries/" + city_id)
       .then(res => {
-        console.log("fetched");
+        //console.log("fetched");
         if (res.ok) {
           return res.json();
         }
       })
       .then(json => {
-        console.log(json);
+        console.log("fetched itineraries", json);
         dispatch(fetchItinerariesSuccess(json));
         return json;
       })
@@ -51,9 +53,12 @@ export function fetchItineraries(city_id) {
   };
 }
 
-// ADD FAVORITES
+//! ADD FAV ITINERARIES  //-------------------------------------------------------------
 export const addFavorites = (user_id, itinerary_id) => dispatch => {
-  console.log("inside add fav action");
+  console.log(
+    "inside action adding fav per user_id and itin_id",
+    (user_id, itinerary_id)
+  );
   axios
     .post(`/api/itineraries/favorites/${user_id}/${itinerary_id}`)
     .then(() => {
@@ -65,9 +70,12 @@ export const addFavorites = (user_id, itinerary_id) => dispatch => {
   // .catch(err => console.log(err));
 };
 
-// DELETE FAVORITES
+//! DELETE FAV ITINERARIES  //-------------------------------------------------------------
 export const delFavorites = (user_id, itinerary_id) => dispatch => {
-  console.log("inside del fav action");
+  console.log(
+    "inside action deleting fav per user_id and itin_id",
+    (user_id, itinerary_id)
+  );
   axios
     .delete(`/api/itineraries/favorites/${user_id}/${itinerary_id}`)
     .then(() => {
@@ -78,7 +86,3 @@ export const delFavorites = (user_id, itinerary_id) => dispatch => {
     });
   // .catch(err => console.log(err));
 };
-/*
-export default addFavorites;
-export default delFavorites;
-*/

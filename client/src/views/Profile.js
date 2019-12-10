@@ -1,8 +1,5 @@
 /*----- MATERIAL UI -----*/
 import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
@@ -19,17 +16,15 @@ import { fetchActivities } from "../store/actions/activitiesActions";
 
 class Profile extends Component {
   componentDidMount() {
-    console.log("did mount");
+    //console.log("did mount");
     this.props.loadUser();
-
     let user_id = this.props.user_id;
-    console.log(user_id);
     this.props.fetchItinerariesId(user_id);
   }
 
   render() {
     const { favitineraries, activities } = this.props;
-    console.log(favitineraries);
+    //console.log(favitineraries);
 
     return (
       <Fragment>
@@ -54,13 +49,13 @@ class Profile extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     user_id: state.auth.user.id,
     //favItin_id: state.auth.user.favorites,
-    favItin_id: state.itinerariesRed.favoritesItin,
-    favitineraries: state.profileRed.favItineraries,
-    activities: state.activitiesRed.activities
+    favItin_id: state.itineraries.favoritesItin,
+    favitineraries: state.profile.favItineraries,
+    activities: state.activities.activities
   };
 };
 

@@ -8,13 +8,13 @@ import profileReducer from "./profileReducer";
 import commentsReducer from "./commentsReducer";
 
 const rootReducer = combineReducers({
-  citiesRed: citiesReducer,
-  itinerariesRed: itinerariesReducer,
-  activitiesRed: activitiesReducer,
+  cities: citiesReducer,
+  itineraries: itinerariesReducer,
+  activities: activitiesReducer,
   error: errorReducer,
   auth: authReducer,
-  profileRed: profileReducer,
-  commentsRed: commentsReducer
+  profile: profileReducer,
+  comments: commentsReducer
 });
 
 export default rootReducer;

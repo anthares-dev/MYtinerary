@@ -11,6 +11,8 @@ import {
   FETCH_CITIES_ERROR
 } from "./typesActions";
 
+//! GET CITIES  //-------------------------------------------------------------
+
 //*creating my three actions:
 export function fetchCitiesPending() {
   return {
@@ -35,7 +37,7 @@ export function fetchCitiesError(error) {
 //* I am preparing my fetch to retrieve the cities list
 
 export function fetchCities() {
-  console.log("inside action");
+  console.log("inside action fetching cities");
   return dispatch => {
     dispatch(fetchCitiesPending());
     //console.log("before fetch");

@@ -1,11 +1,9 @@
 /*----- MATERIAL UI -----*/
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
@@ -89,9 +87,9 @@ class SignUp extends Component {
     
     };
 */
-    console.log(this.state);
-    console.log(new FormData());
-    console.log(newUser);
+    //console.log(this.state);
+    //console.log(new FormData());
+    //console.log(newUser);
 
     //* Attempt to register
     this.props.register(newUser);
@@ -201,6 +199,7 @@ class SignUp extends Component {
                     Access with Google
                   </Typography>
                   <a
+                    href="#"
                     className="google-button"
                     data-onsuccess="onSignIn"
                     onClick={() =>

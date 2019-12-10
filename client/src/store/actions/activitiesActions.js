@@ -5,6 +5,8 @@ import {
   FETCH_ACTIVITIES_ERROR
 } from "../actions/typesActions";
 
+//! GET ACTIVITIES  //-------------------------------------------------------------
+
 export function fetchActivitiesPending() {
   return {
     type: FETCH_ACTIVITIES_PENDING
@@ -26,13 +28,13 @@ export function fetchActivitiesError(error) {
 }
 
 export function fetchActivities(city_id) {
-  //console.log("inside action activity");
+  console.log("inside action activity", city_id);
   return dispatch => {
     dispatch(fetchActivitiesPending());
     //console.log("before fetch");
     fetch("/api/activities/" + city_id)
       .then(res => {
-        console.log("fetched");
+        //console.log("fetched");
         if (res.ok) {
           return res.json();
         }

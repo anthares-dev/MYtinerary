@@ -11,19 +11,21 @@ const initialState = {
 function commentsReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_COMMENTS:
+      console.log("fetched comments:", action.payload);
       return {
         ...state,
         fetchedComments: action.payload
       };
 
     case POST_COMMENTS:
+      console.log("posted comment:", action.payload);
       return {
         ...state,
         fetchedComments: [action.payload, ...state.fetchedComments]
       };
 
     case DEL_COMMENTS:
-      console.log(action.payload);
+      console.log("deleted comment:", action.payload);
       return {
         ...state,
         fetchedComments: state.fetchedComments.filter(

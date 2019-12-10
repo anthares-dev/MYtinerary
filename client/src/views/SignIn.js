@@ -1,11 +1,9 @@
 /*----- MATERIAL UI -----*/
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 
@@ -64,36 +62,15 @@ class SignIn extends Component {
   onSubmit = e => {
     //* Clear errors
     this.props.clearErrors();
-
     e.preventDefault();
-
     const { email, password } = this.state;
-
     const user = {
       email,
       password
     };
-
     // Attempt to login
     this.props.login(user);
   };
-
-  /*
-  onSignIn = googleUser => {
-    var profile = googleUser.getBasicProfile();
-    console.log("ID: " + profile.getId()); // Do not send to your backend! Use an ID token instead.
-    console.log("Name: " + profile.getName());
-    console.log("Image URL: " + profile.getImageUrl());
-    console.log("Email: " + profile.getEmail()); // This is null if the 'email' scope is not present.
-
-    const user = {
-      email: profile.getEmail()
-    };
-
-    // Attempt to login
-    this.props.login(user);
-  };
-  */
 
   render() {
     return (
@@ -167,6 +144,7 @@ class SignIn extends Component {
                   </Typography>
 
                   <a
+                    href="#"
                     className="google-button"
                     data-onsuccess="onSignIn"
                     onClick={() =>

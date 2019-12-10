@@ -39,7 +39,7 @@ class CitySlider extends Component {
   };
 
   render() {
-    console.log(this.props.cities);
+    //console.log(this.props.cities);
     var settings = {
       dots: true,
       rows: 2,
@@ -53,9 +53,9 @@ class CitySlider extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: state.citiesRed.error,
-  cities: state.citiesRed.cities,
-  pending: state.citiesRed.pending
+  error: state.cities.error,
+  cities: state.cities.cities,
+  pending: state.cities.pending
 });
 
 export default connect(mapStateToProps)(CitySlider);

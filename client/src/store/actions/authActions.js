@@ -1,7 +1,6 @@
 //https://www.youtube.com/watch?v=qyomEaXQJFk&list=PLillGF-RfqbbiTGgA77tGO426V3hRF9iE&index=11&t=0s
 
 import axios from "axios";
-
 import { returnErrors } from "./errorActions";
 
 import {
@@ -15,7 +14,7 @@ import {
   REGISTER_FAIL
 } from "../actions/typesActions";
 
-//! Setup config/headers and token
+//! Setup config/headers and token //-------------------------------------------------------------
 // We get the token and put in the header
 export const tokenConfig = getState => {
   //* Get token from localStorage
@@ -32,19 +31,19 @@ export const tokenConfig = getState => {
   if (token) {
     config.headers["x-auth-token"] = token;
   }
-  console.log(config);
+  //console.log(config);
 
   return config;
 };
 
-//! Check token & load user (local and social)
+//! Check token & load user (local and social) //-------------------------------------------------------------
 export const loadUser = () => (dispatch, getState) => {
+  console.log("inside action load user", getState().auth);
   // Call user loading
   dispatch({ type: USER_LOADING });
-  console.log(getState().auth);
-  console.log(localStorage.getItem("token"));
-  // Fetch the user
+  //console.log(localStorage.getItem("token"));
 
+  // Fetch the user
   axios
     .get("/api/users/auth/user", tokenConfig(getState))
     .then(res =>
@@ -61,7 +60,7 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 
-//! Register User local
+//! Register User local //-------------------------------------------------------------
 export const register = user => dispatch => {
   //* Headers
   const config = {
@@ -69,7 +68,7 @@ export const register = user => dispatch => {
       "Content-Type": "application/json"
     }
   };
-  console.log();
+  console.log("inside action register user");
 
   axios
     .post("/api/users", user, config)
@@ -89,7 +88,7 @@ export const register = user => dispatch => {
     });
 };
 
-//! Login User local
+//! Login User local //-------------------------------------------------------------
 export const login = ({ email, password }) => dispatch => {
   //* Headers
   const config = {
@@ -97,7 +96,7 @@ export const login = ({ email, password }) => dispatch => {
       "Content-Type": "application/json"
     }
   };
-
+  console.log("inside action signing user");
   //* Request body
   const body = JSON.stringify({ email, password });
 
@@ -119,8 +118,9 @@ export const login = ({ email, password }) => dispatch => {
     });
 };
 
-//! Logout User
+//! Logout User //-------------------------------------------------------------
 export const logout = () => {
+  console.log("inside action sign off user");
   return {
     type: LOGOUT_SUCCESS
   };

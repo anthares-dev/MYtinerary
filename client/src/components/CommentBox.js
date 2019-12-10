@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
 import moment from "moment";
 import {
   fetchAxiosComments,
@@ -15,11 +13,9 @@ import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
-import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Divider from "@material-ui/core/Divider";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Box from "@material-ui/core/Box";
@@ -38,6 +34,8 @@ class CommentBox extends Component {
   componentDidMount() {
     //this.props.loadUser();
     const itinerary_id = this.props.itineraryId;
+    //console.log(this.props.itineraryId);
+
     this.props.fetchAxiosComments(itinerary_id);
   }
 
@@ -53,9 +51,11 @@ class CommentBox extends Component {
   };
 
   onSubmitLoggedIn = e => {
+    const itinerary_id = this.props.itineraryId;
+    //console.log(itinerary_id);
     e.preventDefault();
     let comments = {
-      itinerary_id: this.props.itinerary_id,
+      itinerary_id: itinerary_id,
       user_id: this.props.user._id,
       name: this.props.user.name,
       avatar: this.props.user.avatar,
@@ -81,12 +81,14 @@ class CommentBox extends Component {
           primary={comment.text}
           secondary={
             <React.Fragment>
-              <Box>
-                {comment.name} at: {comment.timestamp}
-              </Box>
-              {this.props.user.avatar == comment.avatar ? (
-                <Box onClick={() => this.clickHandler(comment._id)}>
-                  - Delete
+              {comment.name} at: {comment.timestamp}
+              {this.props.user.avatar === comment.avatar ? (
+                <Box
+                  component="span"
+                  color="#2979ff"
+                  onClick={() => this.clickHandler(comment._id)}
+                >
+                  -Delete
                 </Box>
               ) : null}
             </React.Fragment>
@@ -140,7 +142,7 @@ class CommentBox extends Component {
 const mapStateToProps = state => {
   return {
     user: state.auth.user,
-    fetchedComments: state.commentsRed.fetchedComments
+    fetchedComments: state.comments.fetchedComments
   };
 };
 

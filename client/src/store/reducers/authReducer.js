@@ -15,8 +15,8 @@ const initialState = {
   isLoading: false,
   user: null
 };
-console.log(initialState.token);
-console.log(localStorage.getItem("token"));
+//console.log(initialState.token);
+//console.log(localStorage.getItem("token"));
 
 export default function(state = initialState, action) {
   switch (action.type) {
