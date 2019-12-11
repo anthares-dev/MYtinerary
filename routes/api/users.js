@@ -6,7 +6,7 @@ const config = require("config"); // for taking keys from config folder
 const multer = require("multer");
 const auth = require("../../middlewares/auth"); // for making the calls private
 const passport = require("passport");
-const keys = require("../../config/keys");
+//const keys = require("../../config/keys");
 
 const userModel = require("../../models/userModel"); // loading userModel
 
