@@ -14,7 +14,11 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 import Avatar from "@material-ui/core/Avatar";
-//import PersonIcon from "@material-ui/icons/Person";
+import PersonIcon from "@material-ui/icons/Person";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import FaceIcon from "@material-ui/icons/Face";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 //import TimelineIcon from "@material-ui/icons/Timeline";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -105,21 +109,66 @@ function Appbar() {
       */}
       </List>
 
-      {/*    <Divider />
+      <Divider />
       <List>
-        <ListItem
-          button
-          component={Link}
-          to={user ? `/profile/${user.id} ` : ""}
-          key="3"
-        >
+        {user ? (
+          <Fragment>
+            <ListItem
+              button
+              component={Link}
+              to={user ? `/profile/${user.id} ` : ""}
+              key="3"
+            >
+              <ListItemIcon>
+                <FaceIcon />
+              </ListItemIcon>
+              <ListItemText primary="Profile" />
+            </ListItem>
+
+            <ListItem
+              button
+              onClick={() => {
+                dispatch(logout());
+                handleClose();
+                window.location.replace("/");
+              }}
+              key="4"
+            >
+              <ListItemIcon>
+                <ExitToAppIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log out" />
+            </ListItem>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <ListItem button component={Link} to="/signup" key="3">
+              <ListItemIcon>
+                <PersonAddIcon />
+              </ListItemIcon>
+              <ListItemText primary="Register" />
+            </ListItem>
+
+            <ListItem button component={Link} to="/signin" key="4">
+              <ListItemIcon>
+                <PersonIcon />
+              </ListItemIcon>
+              <ListItemText primary="Log in" />
+            </ListItem>
+          </Fragment>
+        )}
+      </List>
+      <List>
+        <ListItem key="5">
           <ListItemIcon>
-            <PersonIcon />
+            <FavoriteIcon color="secondary" />
           </ListItemIcon>
-          <ListItemText primary="Profile" />
+          <ListItemText
+            primary="MYtinerary"
+            secondary="Made with love in Ubiqum, BCN - by Fulvio Vigilante"
+          />
         </ListItem>
       </List>
-*/}
     </div>
   );
 
@@ -146,10 +195,10 @@ function Appbar() {
   const guestLinks = (
     <div>
       <MenuItem onClick={handleClose} component={Link} to="/signup">
-        Create Account
+        Register
       </MenuItem>
       <MenuItem onClick={handleClose} component={Link} to="/signin">
-        Login
+        Log in
       </MenuItem>
     </div>
   );
