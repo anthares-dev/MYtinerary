@@ -124,12 +124,12 @@ router.post("/", upload.single("avatar"), (req, res) => {
 //* @desc    Auth with Google
 //* @access  Private
 router.get(
-  "/auth/google",
+  "https://dry-hamlet-91142.herokuapp.com/api/users/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 router.get(
-  "/auth/google/callback",
+  "https://dry-hamlet-91142.herokuapp.com/api/users/auth/google/callback",
   passport.authenticate("google"),
   (req, res) => {
     let token = jwt.sign(
