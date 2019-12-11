@@ -32,7 +32,8 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/api/users/auth/google/callback"
+      callbackURL:
+        "https://mytinerary2019.herokuapp.com/api/users/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       console.log(profile.emails[0].value);
