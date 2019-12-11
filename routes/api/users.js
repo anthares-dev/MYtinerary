@@ -90,7 +90,7 @@ router.post("/", upload.single("avatar"), (req, res) => {
           // creating and assigning the token
           jwt.sign(
             { id: user._id }, // payload we want to add to the token - better the ID then other sensitives informations https://jwt.io/
-            config.get("jwtSecret"), // taking the keys from default.json
+            process.env.JWT_SECRET, // taking the keys from default.json
             { expiresIn: 3600 }, // 1 hour
             (err, token) => {
               if (err) throw err;
@@ -134,7 +134,7 @@ router.get(
   (req, res) => {
     let token = jwt.sign(
       { id: req.user._id },
-      config.get("jwtSecret"),
+      process.env.JWT_SECRET,
 
       {
         expiresIn: "24h"
@@ -166,7 +166,7 @@ router.post("/auth", (req, res) => {
       // if match then create a token
       jwt.sign(
         { id: user.id },
-        config.get("jwtSecret"),
+        process.env.JWT_SECRET,
         { expiresIn: 3600 },
         (err, token) => {
           if (err) throw err;
@@ -206,7 +206,7 @@ router.get("/auth/user", auth, (req, res) => {
       if (user.auth.provider == "local") {
         jwt.sign(
           { id: user.id },
-          config.get("jwtSecret"),
+          process.env.JWT_SECRET,
           { expiresIn: 3600 },
           (err, token) => {
             if (err) throw err;
@@ -226,7 +226,7 @@ router.get("/auth/user", auth, (req, res) => {
       } else {
         jwt.sign(
           { id: user.id },
-          config.get("jwtSecret"),
+          process.env.JWT_SECRET,
           { expiresIn: 3600 },
           (err, token) => {
             if (err) throw err;

@@ -1,5 +1,5 @@
 // My entry point and the file executed by the back end server.
-
+require("dotenv").config();
 const express = require("express"); //? web application framework for Node.js and designed to build web applications and APIs
 const app = express();
 
@@ -23,8 +23,8 @@ app.use(cors()); // policy set up on the server that allows to serve third party
 
 const mongoose = require("mongoose"); //? library to help me manage my data structures and interactions in MongoDB
 const config = require("config"); //
-const db = config.get("mongoURI"); // taking keys from default.json inside config folder
-//const db = require("./keys").mongoURI;
+const db = process.env.MONGO_URI; // taking keys from default.json inside config folder
+//const db = require("./keys").MONGO_URI;
 
 //* Connecting to Mongo:
 mongoose

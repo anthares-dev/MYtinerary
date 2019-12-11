@@ -7,17 +7,17 @@ const jwt = require("jsonwebtoken");
 
 function auth(req, res, next) {
   const token = req.header("x-auth-token"); // get the token from the header
-  console.log("token auth middleware", token);
+  //console.log("token auth middleware", token);
 
   //* Check for token
   if (!token)
     return res.status(401).json({ msg: "No token, authorization denied" }); //401 status: Unautharized
 
   //* If there is the token, then verify token
-  console.log(jwt.verify(token, config.get("jwtSecret")));
+  //console.log(jwt.verify(token, process.env.JWT_SECRET));
 
   try {
-    const decoded = jwt.verify(token, config.get("jwtSecret")); // we need to take the user id from the token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); // we need to take the user id from the token
     //* Add user from payload
     console.log(decoded);
 

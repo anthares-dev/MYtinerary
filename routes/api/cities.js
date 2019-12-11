@@ -1,4 +1,4 @@
-//!  predefined CRUD operations related to collection type "cities" in my database MongoDB 
+//!  predefined CRUD operations related to collection type "cities" in my database MongoDB
 
 const express = require("express");
 const router = express.Router();
@@ -32,7 +32,7 @@ router.get("/", (req, res) => {
   //console.log("all");
   cityModel
     .find({}) // if I want to search for a specific city
-    .sort({}) // I can decide if sort cities
+    .sort({ name: 1 }) // I can decide if sort cities
     .then(cities => {
       //console.log(cities);
       res.send(cities);
@@ -78,7 +78,8 @@ router.get("/city/:name", (req, res) => {
 // http://localhost:5000/api/cities/
 
 router.post("/", (req, res) => {
-  const newCity = new cityModel({ // creating a new istance of my City model
+  const newCity = new cityModel({
+    // creating a new istance of my City model
     name: req.body.name, // the name comes from the request of the body
     country: req.body.country,
     img: req.body.img

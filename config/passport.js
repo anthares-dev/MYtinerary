@@ -3,6 +3,7 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const userModel = require("../models/userModel"); // loading userModel
 const jwt = require("jsonwebtoken"); //  Jason Web Token
 const config = require("config");
+require("dotenv").config();
 
 /*
 passport.serializeUser(function(user, done) {
@@ -22,14 +23,15 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-// testing client id
+
+console.log("secret", process.env.GOOGLE_CLIENT_ID);
+
 passport.use(
   "google",
   new GoogleStrategy(
     {
-      clientID:
-        "234988412568-ilkls1op1fcr7td9vpgenovnbbiuh74g.apps.googleusercontent.com",
-      clientSecret: config.get("clientSecret"),
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/api/users/auth/google/callback"
     },
     function(accessToken, refreshToken, profile, done) {
@@ -85,7 +87,7 @@ passport.use(
                     "auth.google.email": profile.emails[0].value,
                     "auth.google.avatar": profile.photos[0].value
                   });
-                  console.log("secret", config.get("jwtSecret"));
+                  // console.log("secret", config.get("JWT_SECRET"));
 
                   newUser
                     .save()
@@ -94,7 +96,7 @@ passport.use(
 
                       jwt.sign(
                         { id: user._id }, // payload we want to add to the token - better the ID then other sensitives informations https://jwt.io/
-                        config.get("jwtSecret"), // taking the keys from default.json
+                        process.env.JWT_SECRET, // taking the keys from default.json
                         { expiresIn: 3600 }, // 1 hour
                         (err, token) => {
                           if (err) throw err;
