@@ -2,15 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "description": "My server for mytinerary",
-  "engines": {
-    "node": "12.13.0",
-    "npm": "6.12.0"
-  },
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
+    "client-install": "npm install --prefix client",
+    "start": "node server.js",
     "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Fulvio Vigilante",
