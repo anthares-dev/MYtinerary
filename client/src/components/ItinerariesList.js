@@ -1,32 +1,32 @@
 /*----- MATERIAL UI -----*/
-import Grid from "./node_modules/@material-ui/core/Grid";
-import Card from "./node_modules/@material-ui/core/Card";
-import CardHeader from "./node_modules/@material-ui/core/CardHeader";
-import CardContent from "./node_modules/@material-ui/core/CardContent";
-import CardActions from "./node_modules/@material-ui/core/CardActions";
-import Collapse from "./node_modules/@material-ui/core/Collapse";
-import Avatar from "./node_modules/@material-ui/core/Avatar";
-import PersonIcon from "./node_modules/@material-ui/icons/Person";
-import IconButton from "./node_modules/@material-ui/core/IconButton";
-import Typography from "./node_modules/@material-ui/core/Typography";
-import ExpandLessIcon from "./node_modules/@material-ui/icons/ExpandLess";
-import MoreVertIcon from "./node_modules/@material-ui/icons/MoreVert";
-import Chip from "./node_modules/@material-ui/core/Chip";
-import Box from "./node_modules/@material-ui/core/Box";
-import LocalOfferOutlinedIcon from "./node_modules/@material-ui/icons/LocalOfferOutlined";
-import ThumbUpAltOutlinedIcon from "./node_modules/@material-ui/icons/ThumbUpAltOutlined";
-import ScheduleOutlinedIcon from "./node_modules/@material-ui/icons/ScheduleOutlined";
-import AttachMoneyOutlinedIcon from "./node_modules/@material-ui/icons/AttachMoneyOutlined";
-import { makeStyles } from "./node_modules/@material-ui/core/styles";
-import FormControlLabel from "./node_modules/@material-ui/core/FormControlLabel";
-import Checkbox from "./node_modules/@material-ui/core/Checkbox";
-import Favorite from "./node_modules/@material-ui/icons/Favorite";
-import FavoriteBorder from "./node_modules/@material-ui/icons/FavoriteBorder";
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Avatar from "@material-ui/core/Avatar";
+import PersonIcon from "@material-ui/icons/Person";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Chip from "@material-ui/core/Chip";
+import Box from "@material-ui/core/Box";
+import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
+import ThumbUpAltOutlinedIcon from "@material-ui/icons/ThumbUpAltOutlined";
+import ScheduleOutlinedIcon from "@material-ui/icons/ScheduleOutlined";
+import AttachMoneyOutlinedIcon from "@material-ui/icons/AttachMoneyOutlined";
+import { makeStyles } from "@material-ui/core/styles";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Favorite from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment, useEffect } from "./node_modules/react";
-import clsx from "./node_modules/clsx";
-import { connect, useSelector, useDispatch } from "./node_modules/react-redux";
+import React, { Fragment, useEffect } from "react";
+import clsx from "clsx";
+import { connect, useSelector, useDispatch } from "react-redux";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import ActivitiesList from "./ActivitiesList";

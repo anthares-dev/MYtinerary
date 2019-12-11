@@ -1,12 +1,12 @@
 /*----- MATERIAL UI -----*/
-import BottomNavigation from "./node_modules/@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "./node_modules/@material-ui/core/BottomNavigationAction";
-import HomeIcon from "./node_modules/@material-ui/icons/Home";
-import ChevronLeftIcon from "./node_modules/@material-ui/icons/ChevronLeft";
+import BottomNavigation from "@material-ui/core/BottomNavigation";
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import HomeIcon from "@material-ui/icons/Home";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Component } from "./node_modules/react";
-import { Link, withRouter } from "./node_modules/react-router-dom";
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
 
 /*----- RESOURCES -----*/
 //https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue

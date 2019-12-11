@@ -1,12 +1,12 @@
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment } from "./node_modules/react";
-import Typography from "./node_modules/@material-ui/core/Typography";
-import Slider from "./node_modules/react-slick";
-import Card from "./node_modules/@material-ui/core/Card";
-import CardMedia from "./node_modules/@material-ui/core/CardMedia";
-import CardActionArea from "./node_modules/@material-ui/core/CardActionArea";
-import Box from "./node_modules/@material-ui/core/Box";
-import Divider from "./node_modules/@material-ui/core/Divider";
+import React, { Fragment } from "react";
+import Typography from "@material-ui/core/Typography";
+import Slider from "react-slick";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
 import CommentBox from "./CommentBox";
 
 const ActivitiesList = ({ activities, itineraryId }) => {
