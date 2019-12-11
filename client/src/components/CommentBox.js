@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import moment from "moment";
+import React, { Component } from "./node_modules/react";
+import { connect } from "./node_modules/react-redux";
+import moment from "./node_modules/moment";
 import {
   fetchAxiosComments,
   postAxiosComments,
@@ -8,17 +8,17 @@ import {
 } from "../store/actions/commentActions";
 import { loadUser } from "../store/actions/authActions";
 
-import TextField from "@material-ui/core/TextField";
-import Avatar from "@material-ui/core/Avatar";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
-import FormControl from "@material-ui/core/FormControl";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Box from "@material-ui/core/Box";
+import TextField from "./node_modules/@material-ui/core/TextField";
+import Avatar from "./node_modules/@material-ui/core/Avatar";
+import Grid from "./node_modules/@material-ui/core/Grid";
+import Button from "./node_modules/@material-ui/core/Button";
+import Icon from "./node_modules/@material-ui/core/Icon";
+import FormControl from "./node_modules/@material-ui/core/FormControl";
+import List from "./node_modules/@material-ui/core/List";
+import ListItem from "./node_modules/@material-ui/core/ListItem";
+import ListItemText from "./node_modules/@material-ui/core/ListItemText";
+import ListItemAvatar from "./node_modules/@material-ui/core/ListItemAvatar";
+import Box from "./node_modules/@material-ui/core/Box";
 
 class CommentBox extends Component {
   constructor(props) {

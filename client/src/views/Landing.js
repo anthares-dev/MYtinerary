@@ -11,7 +11,7 @@ import React, { Fragment, Component } from "react";
 import { Link } from "react-router-dom";
 
 /*----- COMPONENTS/ACTIONS -----*/
-import CitySlider from "../components/CitySlider";
+import CitySlider from "../Components/CitySlider";
 
 /*----- RESOURCES -----*/
 // https://reactjsexample.com/infinite-carousel-for-react/

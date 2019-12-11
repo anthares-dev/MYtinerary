@@ -20,7 +20,7 @@ and taking or dispatching only the one that you want.
 */
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import { loadUser } from "../store/actions/authActions";
 
 /*----- RESOURCES -----*/

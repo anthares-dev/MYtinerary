@@ -1,27 +1,27 @@
 /*----- MATERIAL UI -----*/
-import HomeIcon from "@material-ui/icons/Home";
-import LocationCityIcon from "@material-ui/icons/LocationCity";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuIcon from "@material-ui/icons/Menu";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Drawer from "@material-ui/core/Drawer";
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Grid from "@material-ui/core/Grid";
-import Avatar from "@material-ui/core/Avatar";
+import HomeIcon from "./node_modules/@material-ui/icons/Home";
+import LocationCityIcon from "./node_modules/@material-ui/icons/LocationCity";
+import Button from "./node_modules/@material-ui/core/Button";
+import Menu from "./node_modules/@material-ui/core/Menu";
+import MenuItem from "./node_modules/@material-ui/core/MenuItem";
+import MenuIcon from "./node_modules/@material-ui/icons/Menu";
+import AccountCircleIcon from "./node_modules/@material-ui/icons/AccountCircle";
+import Drawer from "./node_modules/@material-ui/core/Drawer";
+import List from "./node_modules/@material-ui/core/List";
+import Divider from "./node_modules/@material-ui/core/Divider";
+import ListItem from "./node_modules/@material-ui/core/ListItem";
+import ListItemIcon from "./node_modules/@material-ui/core/ListItemIcon";
+import ListItemText from "./node_modules/@material-ui/core/ListItemText";
+import Grid from "./node_modules/@material-ui/core/Grid";
+import Avatar from "./node_modules/@material-ui/core/Avatar";
 //import PersonIcon from "@material-ui/icons/Person";
 //import TimelineIcon from "@material-ui/icons/Timeline";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "./node_modules/@material-ui/core/styles";
 
 /*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import { connect, useSelector, useDispatch } from "react-redux";
+import React, { Fragment } from "./node_modules/react";
+import { Link } from "./node_modules/react-router-dom";
+import { connect, useSelector, useDispatch } from "./node_modules/react-redux";
 
 /*----- COMPONENTS/ACTIONS -----*/
 import { logout } from "../store/actions/authActions";
