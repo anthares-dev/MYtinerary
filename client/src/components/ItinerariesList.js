@@ -191,8 +191,8 @@ const ItininerariesList = ({ itineraries, activities }) => {
             </Box>
           </CardContent>
           <CardActions disableSpacing>
-            <IconButton aria-label="favorite">
-              {favItin.includes(itinerary._id) ? (
+            {favItin.includes(itinerary._id) ? (
+              <IconButton aria-label="favorite">
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -204,20 +204,29 @@ const ItininerariesList = ({ itineraries, activities }) => {
                     />
                   }
                 />
-              ) : (
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      icon={<FavoriteBorder />}
-                      checkedIcon={<Favorite />}
-                      value={itinerary._id}
-                      onChange={handleFavorites(`${itinerary._id}`)}
-                      checked={false}
-                    />
-                  }
-                />
-              )}
-            </IconButton>
+              </IconButton>
+            ) : (
+              <Fragment>
+                <IconButton aria-label="favorite">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        icon={<FavoriteBorder color="error" />}
+                        checkedIcon={<Favorite color="error" />}
+                        value={itinerary._id}
+                        onChange={handleFavorites(`${itinerary._id}`)}
+                        checked={false}
+                      />
+                    }
+                  />
+                </IconButton>
+
+                {/*<Typography variant="body2" color="textSecondary" component="p">
+                  add to your favorites
+                </Typography>*/}
+              </Fragment>
+            )}
+
             {/* <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>*/}
@@ -229,7 +238,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
               aria-expanded={expandedId === i}
               aria-label="show more"
             >
-              <ExpandLessIcon />
+              <ExpandLessIcon color="primary" fontSize="large" />
             </IconButton>
           </CardActions>
           <Collapse in={expandedId === i} timeout="auto" unmountOnExit>

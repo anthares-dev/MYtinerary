@@ -114,6 +114,7 @@ class Cities extends Component {
                           title={city.country}
                           className="card-media"
                           component={Link}
+                          to={"/cities/" + city._id}
                           onClick={this.handleClick}
                         />
                       )}
