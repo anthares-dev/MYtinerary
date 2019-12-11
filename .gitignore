@@ -4,6 +4,7 @@
 
 # node_modules/ ignore all sub folders with named node_modules
 node_modules/ 
+/client/node_modules/ 
 /resources
 /.pnp
 .pnp.js
