@@ -124,22 +124,17 @@ router.post("/", upload.single("avatar"), (req, res) => {
 //* @desc    Auth with Google
 //* @access  Private
 router.get(
-  "https://dry-hamlet-91142.herokuapp.com/api/users/auth/google",
+  "/auth/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
 router.get(
-  "https://dry-hamlet-91142.herokuapp.com/api/users/auth/google/callback",
+  "/auth/google/callback",
   passport.authenticate("google"),
   (req, res) => {
-    let token = jwt.sign(
-      { id: req.user._id },
-      process.env.JWT_SECRET,
-
-      {
-        expiresIn: "24h"
-      }
-    );
+    let token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET, {
+      expiresIn: "24h"
+    });
     // res.redirect(`http://localhost:3000/?token=${token}`);
     res.redirect(`/?token=${token}`);
   }
