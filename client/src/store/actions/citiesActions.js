@@ -49,6 +49,8 @@ export function fetchCities() {
         }
       })
       .then(json => {
+        console.log(json.name);
+
         dispatch(fetchCitiesSuccess(json));
         return json;
       })

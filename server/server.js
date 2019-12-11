@@ -21,17 +21,6 @@ app.use(
 const cors = require("cors");
 app.use(cors()); // policy set up on the server that allows to serve third party origins
 
-const port = process.env.PORT || 5000;
-/*
-When hosting my application on another service (like Heroku, Nodejitsu, and AWS),
-my host may independently configure the process.env.PORT variable for me;
-after all, my script runs in their environment.
-So process.env.PORT || 5000 means: whatever is in the environment variable PORT, or 5000 if there's nothing there.
-*/
-app.listen(port, () => {
-  console.log("Server is running on port " + port);
-});
-
 const mongoose = require("mongoose"); //? library to help me manage my data structures and interactions in MongoDB
 const config = require("config"); //
 const db = config.get("mongoURI"); // taking keys from default.json inside config folder
@@ -66,4 +55,28 @@ app.use("/api/profile", require("./routes/api/profile"));
 
 app.use("/api/comments", require("./routes/api/comments"));
 
-// app.use("/api/users", require("./routes/api/profile"));
+const path = require("path");
+
+//* Serve static assets if in production
+// https://www.youtube.com/watch?v=71wSzpLyW9k
+
+if (process.env.NODE_ENV === "production") {
+  // Set static folder
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
+
+const port = process.env.PORT || 5000;
+/*
+When hosting my application on another service (like Heroku, Nodejitsu, and AWS),
+my host may independently configure the process.env.PORT variable for me;
+after all, my script runs in their environment.
+So process.env.PORT || 5000 means: whatever is in the environment variable PORT, or 5000 if there's nothing there.
+*/
+
+app.listen(port, () => {
+  console.log("Server is running on port " + port);
+});
