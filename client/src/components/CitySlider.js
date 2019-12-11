@@ -44,7 +44,7 @@ class CitySlider extends Component {
       dots: true,
       rows: 2,
       slidesPerRow: 2,
-      initialSlide: 1,
+      //initialSlide: 1,
       centerPadding: "8px"
     };
 
