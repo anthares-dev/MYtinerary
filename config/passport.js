@@ -22,12 +22,13 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
-
+// testing client id
 passport.use(
   "google",
   new GoogleStrategy(
     {
-      clientID: config.get("clientID"),
+      clientID:
+        "234988412568-ilkls1op1fcr7td9vpgenovnbbiuh74g.apps.googleusercontent.com",
       clientSecret: config.get("clientSecret"),
       callbackURL: "/api/users/auth/google/callback"
     },
