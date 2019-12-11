@@ -8,8 +8,8 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Navbar from "../Components/Navbar";
-import ItininerariesList from "../Components/ItinerariesList";
+import Navbar from "../components/Navbar";
+import ItininerariesList from "../components/ItinerariesList";
 import { loadUser } from "../store/actions/authActions";
 import { fetchItinerariesId } from "../store/actions/profileActions";
 import { fetchActivities } from "../store/actions/activitiesActions";

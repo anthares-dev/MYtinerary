@@ -15,7 +15,7 @@ import SignUp from "./views/SignUp";
 import Profile from "./views/Profile";
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Appbar from "./Components/Appbar";
+import AppBar from "./components/AppBar";
 import { fetchCities } from "./store/actions/citiesActions";
 import { loadUser } from "./store/actions/authActions";
 
@@ -57,7 +57,7 @@ class App extends Component {
         <div className="app">
           <CssBaseline />
           <div className="appbar">
-            <Appbar />
+            <AppBar />
           </div>
           <div className="views">
             <Switch>
