@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     transform: "rotate(180deg)"
   },
   avatar: {
-    width: 90
+    width: 110
   },
   root: {
     display: "flex",

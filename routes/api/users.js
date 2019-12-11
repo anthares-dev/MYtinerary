@@ -13,9 +13,10 @@ const userModel = require("../../models/userModel"); // loading userModel
 //! REGISTER USER LOCAL
 //* MULTER CONFIGURATION for Image Upload
 // https://www.youtube.com/watch?v=srPXMt1Q0nY
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "/uploads/");
+    cb(null, "./uploads/");
   },
   filename: function(req, file, cb) {
     cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);

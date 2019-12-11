@@ -47,8 +47,8 @@ class App extends Component {
       //console.log("else");
     }
     // console.log(localStorage.getItem("token"));
+    this.timer = setTimeout(() => this.props.loadUser(), 0);
     this.props.fetchCities();
-    this.timer = setTimeout(() => this.props.loadUser(), 3000);
 
     // with the refresh of the page, if there is a token the user will be loaded!
   }
