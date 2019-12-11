@@ -63,7 +63,7 @@ router.post("/", upload.single("avatar"), (req, res) => {
   const avatar = req.file.path;
 
   //* Simple validation
-  if (!name || !email || !password || !avatar) {
+  if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
   }
 
@@ -77,7 +77,7 @@ router.post("/", upload.single("avatar"), (req, res) => {
       "auth.local.name": name,
       "auth.local.email": email,
       "auth.local.password": password, //? the password is plain and need to be hashed before sending it to database
-      "auth.local.avatar": avatar
+      "auth.local.avatar": avatar || " "
     });
 
     //* Create salt & hash, create JWT (Jason Web Token), save all in MongoDB and Sing In the new user
@@ -226,16 +226,6 @@ router.get("/auth/user", auth, (req, res) => {
           { expiresIn: 3600 },
           (err, token) => {
             if (err) throw err;
-            /*
-            let provider = null;
-            if (user.provider == "local") {
-              var provider = "local";
-            }
-            if (user.provider == "google") {
-              var provider = "google";
-            }
-            */
-
             res.json({
               token,
               user: {
