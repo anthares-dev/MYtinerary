@@ -15,7 +15,7 @@ import SignUp from "./views/SignUp";
 import Profile from "./views/Profile";
 
 /*----- COMPONENTS/ACTIONS -----*/
-import Appbar from "./Components/Appbar";
+import Appbar from "../src/Components/Appbar";
 import { fetchCities } from "./store/actions/citiesActions";
 import { loadUser } from "./store/actions/authActions";
 
