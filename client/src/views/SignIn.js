@@ -147,10 +147,7 @@ class SignIn extends Component {
                     href="#"
                     className="google-button"
                     data-onsuccess="onSignIn"
-                    onClick={() =>
-                      (window.location =
-                        "http://localhost:5000/api/users/auth/google")
-                    }
+                    onClick={() => (window.location = "/api/users/auth/google")}
                   >
                     <div>
                       <span className="svgIcon t-popup-svg">

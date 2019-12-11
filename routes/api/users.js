@@ -105,7 +105,7 @@ router.post("/", upload.single("avatar"), (req, res) => {
                   name: user.auth.local.name,
                   email: user.auth.local.email,
                   password: user.auth.local.password,
-                  avatar: "http://localhost:5000/" + user.auth.local.avatar,
+                  avatar: user.auth.local.avatar,
                   favorites: user.favorites
                 }
               });
@@ -140,7 +140,8 @@ router.get(
         expiresIn: "24h"
       }
     );
-    res.redirect(`http://localhost:3000/?token=${token}`);
+    // res.redirect(`http://localhost:3000/?token=${token}`);
+    res.redirect(`/?token=${token}`);
   }
 );
 
@@ -178,7 +179,7 @@ router.post("/auth", (req, res) => {
               name: user.auth.local.name,
               email: user.auth.local.email,
               password: user.auth.local.password,
-              avatar: "http://localhost:5000/" + user.auth.local.avatar,
+              avatar: user.auth.local.avatar,
               favorites: user.favorites
             }
           });
