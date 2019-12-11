@@ -210,7 +210,7 @@ class SignUp extends Component {
                     data-onsuccess="onSignIn"
                     onClick={() =>
                       (window.location =
-                        "http://localhost:5000/api/users/auth/google")
+                        "http://mytinerary2019.herokuapp.com/api/users/auth/google/")
                     }
                   >
                     <div>
