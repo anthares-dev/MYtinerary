@@ -15,7 +15,7 @@ const userModel = require("../../models/userModel"); // loading userModel
 // https://www.youtube.com/watch?v=srPXMt1Q0nY
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "./uploads/");
+    cb(null, "/uploads/");
   },
   filename: function(req, file, cb) {
     cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
@@ -31,11 +31,11 @@ const fileFilter = (req, file, cb) => {
     file.mimetype === "image/jpg" ||
     file.mimetype === "image/png"
   ) {
-    console.log("ok");
+    console.log("file type accepted");
 
     cb(null, true);
   } else {
-    cb(new Error("You can upload only jpeg, jpg and png files"), false);
+    cb(new Error("You can upload only jpeg, jpg or png files"), false);
   }
 };
 
@@ -60,7 +60,11 @@ router.post("/", upload.single("avatar"), (req, res) => {
   //console.log(req.file.path);
 
   const { name, email, password } = req.body; //? for getting data from the body
-  const avatar = req.file.path;
+
+  if (req.file.path !== null) {
+    var avatar = req.file.path;
+  } else {
+  }
 
   //* Simple validation
   if (!name || !email || !password) {
@@ -77,7 +81,7 @@ router.post("/", upload.single("avatar"), (req, res) => {
       "auth.local.name": name,
       "auth.local.email": email,
       "auth.local.password": password, //? the password is plain and need to be hashed before sending it to database
-      "auth.local.avatar": avatar || " "
+      "auth.local.avatar": avatar
     });
 
     //* Create salt & hash, create JWT (Jason Web Token), save all in MongoDB and Sing In the new user

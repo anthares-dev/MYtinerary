@@ -41,10 +41,12 @@ class CitySlider extends Component {
   render() {
     //console.log(this.props.cities);
     var settings = {
+      lazyRender: true,
+      infinite: true,
+      initialSlide: 0,
       dots: true,
       rows: 2,
       slidesPerRow: 2,
-      //initialSlide: 1,
       centerPadding: "8px"
     };
 

@@ -24,7 +24,7 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-console.log("secret", process.env.GOOGLE_CLIENT_ID);
+//console.log("secret", process.env.GOOGLE_CLIENT_ID);
 
 passport.use(
   "google",

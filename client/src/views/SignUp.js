@@ -70,11 +70,17 @@ class SignUp extends Component {
 
     e.preventDefault();
 
+    console.log(this.state.selectedFile);
+
     const newUser = new FormData();
     newUser.append("name", this.state.name);
     newUser.append("email", this.state.email);
     newUser.append("password", this.state.password);
-    newUser.append("avatar", this.state.selectedFile);
+
+    if (this.state.selectedFile) {
+      newUser.append("avatar", this.state.selectedFile);
+    } else {
+    }
 
     // using json:
     //const { name, email, password } = this.state;
