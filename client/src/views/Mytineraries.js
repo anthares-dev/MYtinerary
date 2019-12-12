@@ -6,6 +6,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from "@material-ui/core/Paper";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
@@ -47,13 +48,29 @@ class MYtineraries extends Component {
                 </CardActionArea>
               </Card>
 
-              <Box fontSize="h7.fontSize" textAlign="left" mb="3">
-                Available MYtineraries:
-              </Box>
-              <ItininerariesList
-                itineraries={itinerariesCity}
-                activities={activitiesCity}
-              />
+              {itinerariesCity.length === 0 ? (
+                <Box my={15}>
+                  <Paper>
+                    <Typography variant="h5" component="h3">
+                      No itineraries for this city
+                    </Typography>
+                    <Typography component="p">
+                      Check itineraries in cities like Amsterdam, Barcelona,
+                      Berlin or Naples.
+                    </Typography>
+                  </Paper>
+                </Box>
+              ) : (
+                <Fragment>
+                  <Box fontSize="h7.fontSize" textAlign="left" mb="3">
+                    Available MYtineraries:
+                  </Box>
+                  <ItininerariesList
+                    itineraries={itinerariesCity}
+                    activities={activitiesCity}
+                  />
+                </Fragment>
+              )}
             </Container>
 
             <div className="navbar">

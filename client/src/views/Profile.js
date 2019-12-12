@@ -3,7 +3,6 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
