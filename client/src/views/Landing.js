@@ -24,90 +24,53 @@ class Landing extends Component {
 
   render() {
     const { user } = this.props;
-    if (user) {
-      return (
-        <Fragment>
-          <Container maxWidth="sm">
-            <Typography component="div">
-              <Grid
-                container
-                spacing={4}
-                direction="column"
-                justify="space-between"
-                alignItems="center"
-                className="landing"
-              >
-                <Grid item xs={12}>
-                  <img
-                    className="logo"
-                    src={require("../images/MYtineraryLogo.png")}
-                    alt="MYtinerary Logo"
-                  />
-                  <Box fontSize="h7.fontSize">
-                    Find your perfect trip, designed by insiders who know and
-                    love their cities.
-                  </Box>
-                  <Fab
-                    color="default"
-                    aria-label="start"
-                    to="/cities"
-                    size="large"
-                    component={Link}
-                  >
-                    <KeyboardArrowRightOutlinedIcon />
-                  </Fab>
-                </Grid>
 
-                <Grid item xs={12} className="city-slider">
-                  <Box fontSize="h7.fontSize" textAlign="left">
-                    Popular MYtineraries
-                  </Box>
-                  <CitySlider />
-                </Grid>
+    return (
+      <Fragment>
+        <Container maxWidth="sm">
+          <Typography component="div">
+            <Grid
+              container
+              spacing={3}
+              direction="column"
+              justify="space-between"
+              alignItems="center"
+              className="landing"
+            >
+              <Grid item xs={12}>
+                <img
+                  className="logo"
+                  src={require("../images/MYtineraryLogo.png")}
+                  alt="MYtinerary Logo"
+                />
+                <Box fontSize="h7.fontSize">
+                  Find your perfect trip, designed by insiders who know and love
+                  their cities.
+                </Box>
               </Grid>
-            </Typography>
-          </Container>
-        </Fragment>
-      );
-    } else {
-      return (
-        <Fragment>
-          <Container maxWidth="sm">
-            <Typography component="div">
-              <Grid
-                container
-                spacing={4}
-                direction="column"
-                justify="space-between"
-                alignItems="center"
-                className="landing"
-              >
-                <Grid item xs={12}>
-                  <img
-                    className="logo"
-                    src={require("../images/MYtineraryLogo.png")}
-                    alt="MYtinerary Logo"
-                  />
-                  <Box fontSize="h7.fontSize">
-                    Find your perfect trip, designed by insiders who know and
-                    love their cities.
-                  </Box>
-                  <Fab
-                    color="default"
-                    aria-label="start"
-                    to="/cities"
-                    size="large"
-                    component={Link}
-                  >
-                    <KeyboardArrowRightOutlinedIcon />
-                  </Fab>
-                </Grid>
+              <Grid item xs={12}>
+                <Fab
+                  color="default"
+                  aria-label="start"
+                  to="/cities"
+                  size="large"
+                  component={Link}
+                >
+                  <KeyboardArrowRightOutlinedIcon />
+                </Fab>
               </Grid>
-            </Typography>
-          </Container>
-        </Fragment>
-      );
-    }
+
+              <Grid item xs={12} className="city-slider">
+                <Box fontSize="h7.fontSize" textAlign="left">
+                  Popular MYtineraries
+                </Box>
+                <CitySlider />
+              </Grid>
+            </Grid>
+          </Typography>
+        </Container>
+      </Fragment>
+    );
   }
 }
 

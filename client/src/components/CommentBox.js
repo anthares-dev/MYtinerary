@@ -82,7 +82,8 @@ class CommentBox extends Component {
           secondary={
             <React.Fragment>
               {comment.name} at: {comment.timestamp}
-              {this.props.user.avatar === comment.avatar ? (
+              {this.props.user !== null &&
+              this.props.user.avatar === comment.avatar ? (
                 <Box
                   component="span"
                   color="#2979ff"

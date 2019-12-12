@@ -10,7 +10,6 @@ import PersonIcon from "@material-ui/icons/Person";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Chip from "@material-ui/core/Chip";
 import Box from "@material-ui/core/Box";
 import LocalOfferOutlinedIcon from "@material-ui/icons/LocalOfferOutlined";
@@ -75,30 +74,39 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ItininerariesList = ({ itineraries, activities }) => {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
-  const [expandedId, setExpandedId] = React.useState(-1);
-
   useEffect(() => {
     dispatch(loadUser());
   }, []);
 
   const user = useSelector(state => state.auth.user);
-  const favItin = useSelector(state => state.auth.user.favorites);
 
-  //console.log(user);
-  //console.log(favItin);
+  const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const [expandedId, setExpandedId] = React.useState(-1);
+
+  console.log(user);
+
+  let favItin;
+  if (user) {
+    console.log("in user");
+
+    favItin = user.favorites;
+  } else {
+    favItin = [];
+  }
+
+  console.log(favItin);
 
   const handleExpandClick = i => {
     setExpandedId(expandedId === i ? -1 : i);
   };
 
   const handleFavorites = () => event => {
-    let user_id = user.id;
-    dispatch(loadUser());
-    dispatch(fetchItinerariesId(user_id));
     if (user) {
+      dispatch(loadUser());
+      let user_id = user.id;
+      dispatch(fetchItinerariesId(user_id));
       let itinerary_id = event.currentTarget.value;
 
       var isChecked = event.target.checked;
@@ -112,7 +120,7 @@ const ItininerariesList = ({ itineraries, activities }) => {
         dispatch(fetchItinerariesId(user_id));
       }
     } else {
-      alert("Login first!");
+      alert("Please login first");
     }
   };
 
@@ -140,11 +148,6 @@ const ItininerariesList = ({ itineraries, activities }) => {
                   {itinerary.profile_name}
                 </Typography>
               </Grid>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
             }
             title={itinerary.title}
             subheader={itinerary.sub_title}

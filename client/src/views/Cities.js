@@ -37,7 +37,7 @@ class Cities extends Component {
   }
 
   componentDidMount() {
-    this.props.loadUser();
+    //this.props.loadUser();
   }
 
   handleChange = event => {
@@ -100,7 +100,14 @@ class Cities extends Component {
                 .map(city => (
                   <Card className="card" key={city._id}>
                     <CardActionArea>
-                      {user ? (
+                      <CardMedia
+                        image={city.img}
+                        title={city.country}
+                        className="card-media"
+                        component={Link}
+                        to={"/cities/" + city._id}
+                      />
+                      {/*user ? (
                         <CardMedia
                           image={city.img}
                           title={city.country}
@@ -115,9 +122,9 @@ class Cities extends Component {
                           className="card-media"
                           component={Link}
                           to={"/cities/" + city._id}
-                          onClick={this.handleClick}
+                          //onClick={this.handleClick}
                         />
-                      )}
+                      )*/}
                       <Typography fontSize="h8.fontSize">
                         {city.name}
                       </Typography>
@@ -138,10 +145,12 @@ class Cities extends Component {
 //CALLING THE STORE!!!
 // here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
-  user: state.auth.user,
+  //user: state.auth.user,
   error: state.cities.error, // cities is the name given in rootReducer.js to citiesReducer
   cities: state.cities.cities,
   pending: state.cities.pending
 });
 
-export default connect(mapStateToProps, { loadUser })(Cities);
+//export default connect(mapStateToProps, { loadUser })(Cities);
+
+export default connect(mapStateToProps)(Cities);

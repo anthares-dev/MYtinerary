@@ -187,7 +187,7 @@ function Appbar() {
           window.location.replace("/");
         }}
       >
-        Logout
+        Log out
       </MenuItem>
     </div>
   );
