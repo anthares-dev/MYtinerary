@@ -2,6 +2,8 @@
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
@@ -10,34 +12,50 @@ import { connect } from "react-redux"; // connect component to  redux store.
 /*----- COMPONENTS/ACTIONS -----*/
 import Navbar from "../components/Navbar";
 import ItininerariesList from "../components/ItinerariesList";
-import { loadUser } from "../store/actions/authActions";
 import { fetchItinerariesId } from "../store/actions/profileActions";
 import { fetchActivities } from "../store/actions/activitiesActions";
 
 class Profile extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    //console.log("did mount");
-    this.props.loadUser();
-    let user_id = this.props.user_id;
+    const user_id = this.props.match.params._id;
     this.props.fetchItinerariesId(user_id);
   }
 
   render() {
-    const { favitineraries, activities } = this.props;
-    //console.log(favitineraries);
+    var { favitineraries, activities } = this.props;
+    //console.log(favitineraries.length);
 
     return (
       <Fragment>
         <Container maxWidth="sm">
           <Typography component="div">
-            <Box fontSize="h7.fontSize" textAlign="left" mb="3">
-              Favorites MYtineraries:
-            </Box>
-
-            <ItininerariesList
-              itineraries={favitineraries}
-              activities={activities}
-            />
+            {favitineraries.length === 0 ? (
+              <Box my={35}>
+                <Paper>
+                  <Typography variant="h5" component="h3">
+                    No favorite itineraries to show
+                  </Typography>
+                  <Typography component="p">
+                    Start browsing through itineraries and save them as
+                    favorites{" "}
+                  </Typography>
+                </Paper>
+              </Box>
+            ) : (
+              <Fragment>
+                <Box fontSize="h7.fontSize" textAlign="left" mb="3">
+                  Favorite MYtineraries:
+                </Box>
+                <ItininerariesList
+                  itineraries={favitineraries}
+                  activities={activities}
+                />
+              </Fragment>
+            )}
           </Typography>
         </Container>
 
@@ -51,16 +69,12 @@ class Profile extends Component {
 
 const mapStateToProps = state => {
   return {
-    user_id: state.auth.user.id,
-    //favItin_id: state.auth.user.favorites,
-    favItin_id: state.itineraries.favoritesItin,
     favitineraries: state.profile.favItineraries,
     activities: state.activities.activities
   };
 };
 
 export default connect(mapStateToProps, {
-  loadUser,
   fetchItinerariesId,
   fetchActivities
 })(Profile);

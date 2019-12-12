@@ -177,7 +177,13 @@ function Appbar() {
       <MenuItem>{user ? `Welcome ${user.name} ` : ""}</MenuItem>
       <Divider />
 
-      <MenuItem component={Link} to={user ? `/profile/${user.id} ` : ""}>
+      <MenuItem
+        component={Link}
+        onClick={() => {
+          handleClose();
+        }}
+        to={user ? `/profile/${user.id} ` : ""}
+      >
         Profile
       </MenuItem>
       <MenuItem

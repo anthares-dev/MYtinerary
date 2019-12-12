@@ -21,6 +21,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment, useEffect } from "react";
@@ -246,10 +247,14 @@ const ItininerariesList = ({ itineraries, activities }) => {
           </CardActions>
           <Collapse in={expandedId === i} timeout="auto" unmountOnExit>
             <CardContent>
-              <ActivitiesList
-                activities={activities}
-                itineraryId={itinerary._id}
-              />
+              {activities && itinerary._id ? (
+                <ActivitiesList
+                  activities={activities}
+                  itineraryId={itinerary._id}
+                />
+              ) : (
+                <CircularProgress color="primary" />
+              )}
             </CardContent>
           </Collapse>
         </Card>

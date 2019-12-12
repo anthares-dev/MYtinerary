@@ -51,15 +51,18 @@ class Cities extends Component {
   };
 
   render() {
-    const { user, error, pending, cities } = this.props;
+    const { error, pending, cities } = this.props;
     //console.log(cities);
     //console.log(error);
+
+    let isLoading = this.props.isLoading;
+    //console.log("isLoading", isLoading);
 
     if (error) {
       return <Fragment>Error!</Fragment>;
     }
 
-    if (pending) {
+    if (pending && isLoading) {
       return (
         <Fragment>
           <Container maxWidth="sm">
@@ -144,7 +147,7 @@ class Cities extends Component {
 //CALLING THE STORE!!!
 // here I want to take my state from the store and pass to the props
 const mapStateToProps = state => ({
-  //user: state.auth.user,
+  isLoading: state.auth.isLoading,
   error: state.cities.error, // cities is the name given in rootReducer.js to citiesReducer
   cities: state.cities.cities,
   pending: state.cities.pending

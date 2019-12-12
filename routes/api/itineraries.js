@@ -78,7 +78,7 @@ router.post("/favorites/:user_id/:itin_id", (req, res) => {
       { $push: { favorites: req.params.itin_id } }
       // { new: true }
     )
-    .then(user => res.json(user))
+    .then(fav => res.json(fav))
     .catch(err => res.status(404).json({ success: false }));
 });
 
@@ -96,7 +96,7 @@ router.delete("/favorites/:user_id/:itin_id", (req, res) => {
       { $pull: { favorites: req.params.itin_id } }
       // { new: true }
     )
-    .then(user => res.json(user))
+    .then(fav => res.json(fav))
     .catch(err => res.status(404).json({ success: false }));
 });
 

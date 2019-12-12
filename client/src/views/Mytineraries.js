@@ -5,6 +5,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component, Fragment } from "react";
@@ -20,7 +21,7 @@ import { fetchActivities } from "../store/actions/activitiesActions";
 class MYtineraries extends Component {
   componentDidMount() {
     //console.log("did mount");
-    //console.log(this.props.match.params._id);
+    console.log(this.props.match.params._id);
     var city_id = this.props.match.params._id;
     this.props.fetchItineraries(city_id);
     this.props.fetchActivities(city_id);
@@ -32,30 +33,42 @@ class MYtineraries extends Component {
 
     return (
       <Fragment>
-        <Container maxWidth="sm">
-          <Card className="card" key={city._id}>
-            <CardActionArea>
-              <CardMedia
-                image={city.img}
-                title={city.country}
-                className="card-media"
+        {city ? (
+          <Fragment>
+            <Container maxWidth="sm">
+              <Card className="card" key={city._id}>
+                <CardActionArea>
+                  <CardMedia
+                    image={city.img}
+                    title={city.country}
+                    className="card-media"
+                  />
+                  <Typography fontSize="h8.fontSize">{city.name}</Typography>
+                </CardActionArea>
+              </Card>
+
+              <Box fontSize="h7.fontSize" textAlign="left" mb="3">
+                Available MYtineraries:
+              </Box>
+              <ItininerariesList
+                itineraries={itinerariesCity}
+                activities={activitiesCity}
               />
-              <Typography fontSize="h8.fontSize">{city.name}</Typography>
-            </CardActionArea>
-          </Card>
+            </Container>
 
-          <Box fontSize="h7.fontSize" textAlign="left" mb="3">
-            Available MYtineraries:
-          </Box>
-          <ItininerariesList
-            itineraries={itinerariesCity}
-            activities={activitiesCity}
-          />
-        </Container>
-
-        <div className="navbar">
-          <Navbar />
-        </div>
+            <div className="navbar">
+              <Navbar />
+            </div>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <Container maxWidth="sm">
+              <Box mt={4}>
+                <CircularProgress color="primary" />
+              </Box>
+            </Container>
+          </Fragment>
+        )}
       </Fragment>
     );
   }
