@@ -13,7 +13,6 @@ import { connect } from "react-redux"; // connect component to  redux store.
 
 /*----- COMPONENTS/ACTIONS -----*/
 import CitySlider from "../components/CitySlider";
-import { loadUser } from "../store/actions/authActions";
 
 /*----- RESOURCES -----*/
 // https://reactjsexample.com/infinite-carousel-for-react/
@@ -23,15 +22,13 @@ class Landing extends Component {
   componentDidMount() {}
 
   render() {
-    const { user } = this.props;
-
     return (
       <Fragment>
         <Container maxWidth="sm">
           <Typography component="div">
             <Grid
               container
-              spacing={3}
+              spacing={2}
               direction="column"
               justify="space-between"
               alignItems="center"
@@ -75,10 +72,9 @@ class Landing extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.auth.user,
   error: state.cities.error, // cities is the name given in rootReducer.js to citiesReducer
   cities: state.cities.cities,
   pending: state.cities.pending
 });
 
-export default connect(mapStateToProps, { loadUser })(Landing);
+export default connect(mapStateToProps)(Landing);

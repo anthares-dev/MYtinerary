@@ -71,12 +71,18 @@ class CommentBox extends Component {
 
   render() {
     //console.log("cambio", this.props);
-
+    const host = window.location.host;
     const commentList = this.props.fetchedComments.map(comment => (
       <ListItem alignItems="flex-start" key={comment._id}>
-        <ListItemAvatar>
-          <Avatar alt={comment.name} src={comment.avatar} />
-        </ListItemAvatar>
+        {comment.avatar.includes("uploads") ? (
+          <ListItemAvatar>
+            <Avatar alt={comment.name} src={host + "/" + comment.avatar} />
+          </ListItemAvatar>
+        ) : (
+          <ListItemAvatar>
+            <Avatar alt={comment.name} src={comment.avatar} />
+          </ListItemAvatar>
+        )}
         <ListItemText
           primary={comment.text}
           secondary={

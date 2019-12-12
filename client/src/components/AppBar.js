@@ -21,6 +21,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 //import TimelineIcon from "@material-ui/icons/Timeline";
 import { makeStyles } from "@material-ui/core/styles";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment } from "react";
@@ -159,13 +160,35 @@ function Appbar() {
         )}
       </List>
       <List>
-        <ListItem key="5">
+        <ListItem
+          onClick={() => {
+            window.location.replace("https://ubiqum.com/");
+          }}
+          key="5"
+        >
           <ListItemIcon>
             <FavoriteIcon color="secondary" />
           </ListItemIcon>
           <ListItemText
             primary="MYtinerary"
             secondary="Made with love in Ubiqum, BCN / by Fulvio Vigilante"
+          />
+        </ListItem>
+
+        <ListItem
+          onClick={() => {
+            window.location.replace(
+              "https://github.com/anthares-dev/MYtinerary"
+            );
+          }}
+          key="6"
+        >
+          <ListItemIcon>
+            <GitHubIcon color="primary" />
+          </ListItemIcon>
+          <ListItemText
+            primary="GitHub"
+            secondary="Check Mytinerary repository "
           />
         </ListItem>
       </List>
