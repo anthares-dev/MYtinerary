@@ -61,15 +61,21 @@ router.post("/", upload.single("avatar"), (req, res) => {
   //console.log(req.file.path);
 
   const { name, email, password } = req.body; //? for getting data from the body
+  let avatar;
 
-  if (req.file.path !== null) {
-    var avatar = req.file.path;
+  if (!req.file) {
+    avatar = "";
   } else {
+    avatar = req.file.path;
   }
 
   //* Simple validation
   if (!name || !email || !password) {
     return res.status(400).json({ msg: "Please enter all fields" });
+  } else if (name && email && password && !avatar) {
+    //avatar = req.file.path;
+    return res.status(400).json({ msg: "Please upload your photo profile" });
+  } else {
   }
 
   //* Check for existing user (using mongoose findOne)

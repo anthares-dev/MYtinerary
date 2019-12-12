@@ -43,7 +43,7 @@ class CitySlider extends Component {
     var settings = {
       lazyRender: true,
       infinite: true,
-      initialSlide: 0,
+      slickGoTo: 0,
       dots: true,
       rows: 2,
       slidesPerRow: 2,
@@ -56,7 +56,7 @@ class CitySlider extends Component {
 
 const mapStateToProps = state => ({
   error: state.cities.error,
-  cities: state.cities.cities,
+  cities: state.cities.cities.filter(city => city.popularity == true),
   pending: state.cities.pending
 });
 

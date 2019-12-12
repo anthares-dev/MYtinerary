@@ -165,7 +165,7 @@ function Appbar() {
           </ListItemIcon>
           <ListItemText
             primary="MYtinerary"
-            secondary="Made with love in Ubiqum, BCN - by Fulvio Vigilante"
+            secondary="Made with love in Ubiqum, BCN / by Fulvio Vigilante"
           />
         </ListItem>
       </List>

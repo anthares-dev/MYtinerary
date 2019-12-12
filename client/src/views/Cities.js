@@ -21,7 +21,6 @@ and taking or dispatching only the one that you want.
 
 /*----- COMPONENTS/ACTIONS -----*/
 import Navbar from "../components/Navbar";
-import { loadUser } from "../store/actions/authActions";
 
 /*----- RESOURCES -----*/
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
