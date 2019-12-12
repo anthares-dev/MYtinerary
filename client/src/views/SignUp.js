@@ -204,15 +204,7 @@ class SignUp extends Component {
                     </Fragment>
                   )}
                 </Grid>
-                <Grid item xs={12}>
-                  <Typography
-                    component="p"
-                    variant="overline"
-                    color="textPrimary"
-                  >
-                    All fields are required
-                  </Typography>
-                </Grid>
+
                 <Grid item xs={12}>
                   <Button
                     type="submit"
