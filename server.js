@@ -36,7 +36,7 @@ mongoose
   .then(() => console.log("Connection to Mongo DB established"))
   .catch(err => console.log(err));
 
-app.use("/uploads", express.static("uploads"));
+app.use("*/uploads", express.static("uploads"));
 
 //* Using Routers defined in ./routes/api/
 //? app.use("api route", require("realtive path to the file where the route methods are defined"))
