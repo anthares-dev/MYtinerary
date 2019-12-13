@@ -1,3 +1,14 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
+import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux"; // connect component to  redux store.
+import PropTypes from "prop-types";
+import { clearErrors } from "../store/actions/errorActions";
+import { register } from "../store/actions/authActions";
+
+/*----- COMPONENTS/ -----*/
+import Navbar from "../components/Navbar";
+
 /*----- MATERIAL UI -----*/
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -7,17 +18,6 @@ import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Component, Fragment } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux"; // connect component to  redux store.
-import PropTypes from "prop-types";
-
-/*----- COMPONENTS/ACTIONS -----*/
-import { register } from "../store/actions/authActions";
-import Navbar from "../components/Navbar";
-import { clearErrors } from "../store/actions/errorActions";
 
 class SignUp extends Component {
   state = {
@@ -53,28 +53,26 @@ class SignUp extends Component {
     }
   }
 
-  onchange = e => {
+  onchangeHandler = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
   fileSelectorHandler = e => {
-    console.log(e.target.files[0]);
     this.setState({
       selectedFile: e.target.files[0],
       previewAvatar: URL.createObjectURL(e.target.files[0])
     });
   };
 
-  onSubmit = e => {
+  onsubmitHandler = e => {
     //* Clear errors
     this.props.clearErrors();
 
     e.preventDefault();
 
-    console.log(this.state.selectedFile);
-
+    //console.log(this.state.selectedFile);
     const newUser = new FormData();
     newUser.append("name", this.state.name);
     newUser.append("email", this.state.email);
@@ -96,9 +94,6 @@ class SignUp extends Component {
     
     };
 */
-    //console.log(this.state);
-    //console.log(new FormData());
-    //console.log(newUser);
 
     //* Attempt to register
     this.props.register(newUser);
@@ -106,7 +101,6 @@ class SignUp extends Component {
 
   render() {
     const previewAvatar = this.state.previewAvatar;
-    // console.log(previewAvatar);
 
     return (
       <Fragment>
@@ -127,7 +121,7 @@ class SignUp extends Component {
                 {this.state.msg}!
               </Typography>
             ) : null}
-            <form className="form" noValidate onSubmit={this.onSubmit}>
+            <form className="form" noValidate onSubmit={this.onsubmitHandler}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -140,7 +134,7 @@ class SignUp extends Component {
                     id="name"
                     label="Name"
                     autoFocus
-                    onChange={this.onchange}
+                    onChange={this.onchangeHandler}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -152,7 +146,7 @@ class SignUp extends Component {
                     label="Email Address"
                     name="email"
                     autoComplete="email"
-                    onChange={this.onchange}
+                    onChange={this.onchangeHandler}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -165,7 +159,7 @@ class SignUp extends Component {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    onChange={this.onchange}
+                    onChange={this.onchangeHandler}
                   />
                 </Grid>
                 <Grid item xs={12}>

@@ -1,3 +1,17 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
+import React, { Fragment, useEffect } from "react";
+import clsx from "clsx";
+import { connect, useSelector, useDispatch } from "react-redux";
+import {
+  addFavorites,
+  delFavorites
+} from "../store/actions/itinerariesActions";
+import { loadUser } from "../store/actions/authActions";
+import { fetchItinerariesId } from "../store/actions/profileActions";
+
+/*----- COMPONENTS/ -----*/
+import ActivitiesList from "./ActivitiesList";
+
 /*----- MATERIAL UI -----*/
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -22,20 +36,6 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment, useEffect } from "react";
-import clsx from "clsx";
-import { connect, useSelector, useDispatch } from "react-redux";
-
-/*----- COMPONENTS/ACTIONS -----*/
-import ActivitiesList from "./ActivitiesList";
-import {
-  addFavorites,
-  delFavorites
-} from "../store/actions/itinerariesActions";
-import { loadUser } from "../store/actions/authActions";
-import { fetchItinerariesId } from "../store/actions/profileActions";
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -75,18 +75,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ItininerariesList = ({ itineraries, activities }) => {
-  useEffect(() => {
-    dispatch(loadUser());
-  }, []);
-
-  const user = useSelector(state => state.auth.user);
-
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const [expandedId, setExpandedId] = React.useState(-1);
 
-  console.log(user);
+  const user = useSelector(state => state.auth.user);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  }, []);
 
   let favItin;
   if (user) {
@@ -96,8 +94,6 @@ const ItininerariesList = ({ itineraries, activities }) => {
   } else {
     favItin = [];
   }
-
-  console.log(favItin);
 
   const handleExpandClick = i => {
     setExpandedId(expandedId === i ? -1 : i);
@@ -111,7 +107,6 @@ const ItininerariesList = ({ itineraries, activities }) => {
       let itinerary_id = event.currentTarget.value;
 
       var isChecked = event.target.checked;
-
       if (isChecked === true) {
         dispatch(addFavorites(user_id, itinerary_id));
         dispatch(loadUser());
@@ -224,13 +219,8 @@ const ItininerariesList = ({ itineraries, activities }) => {
                     }
                   />
                 </IconButton>
-
-                {/*<Typography variant="body2" color="textSecondary" component="p">
-                  add to your favorites
-                </Typography>*/}
               </Fragment>
             )}
-
             {/* <IconButton aria-label="share">
               <ShareIcon />
             </IconButton>*/}
@@ -263,4 +253,4 @@ const ItininerariesList = ({ itineraries, activities }) => {
   );
 };
 
-export default connect()(ItininerariesList);
+export default ItininerariesList;

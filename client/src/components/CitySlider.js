@@ -1,14 +1,14 @@
-/*----- MATERIAL UI -----*/
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component } from "react";
 import { connect } from "react-redux"; // connect component to  redux store.
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+
+/*----- MATERIAL UI -----*/
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
 
 /*----- RESOURCES -----*/
 // https://www.npmjs.com/package/react-slick-slider

@@ -1,13 +1,17 @@
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Fragment } from "react";
-import Typography from "@material-ui/core/Typography";
 import Slider from "react-slick";
+
+/*----- COMPONENTS/ -----*/
+import CommentBox from "./CommentBox";
+
+/*----- MATERIAL UI -----*/
+import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import CommentBox from "./CommentBox";
 
 const ActivitiesList = ({ activities, itineraryId }) => {
   var settings = {
@@ -18,7 +22,7 @@ const ActivitiesList = ({ activities, itineraryId }) => {
   };
 
   var activitiesPerItinerary = activities.filter(
-    activit => activit.itinerary_id === itineraryId
+    activity => activity.itinerary_id === itineraryId
   );
 
   //console.log(activities);

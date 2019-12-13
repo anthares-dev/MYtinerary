@@ -1,3 +1,14 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
+import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { login } from "../store/actions/authActions";
+import { clearErrors } from "../store/actions/errorActions";
+
+/*----- COMPONENTS -----*/
+import Navbar from "../components/Navbar";
+
 /*----- MATERIAL UI -----*/
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -6,17 +17,6 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-
-/*----- COMPONENTS/ACTIONS/DEPENDENCIES -----*/
-import { login } from "../store/actions/authActions";
-import Navbar from "../components/Navbar";
-import { clearErrors } from "../store/actions/errorActions";
 
 class SignIn extends Component {
   state = {
@@ -54,13 +54,13 @@ class SignIn extends Component {
     }
   }
 
-  onchange = e => {
+  onchangeHandler = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
-  onSubmit = e => {
+  onsubmitHandler = e => {
     //* Clear errors
     this.props.clearErrors();
     e.preventDefault();
@@ -92,7 +92,7 @@ class SignIn extends Component {
                 {this.state.msg}!{" "}
               </Typography>
             ) : null}
-            <form className="form" noValidate onSubmit={this.onSubmit}>
+            <form className="form" noValidate onSubmit={this.onsubmitHandler}>
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <TextField
@@ -105,7 +105,7 @@ class SignIn extends Component {
                     name="email"
                     autoComplete="email"
                     autoFocus
-                    onChange={this.onchange}
+                    onChange={this.onchangeHandler}
                   />
                 </Grid>
                 <Grid item xs={12}>
@@ -119,7 +119,7 @@ class SignIn extends Component {
                     type="password"
                     id="password"
                     autoComplete="current-password"
-                    onChange={this.onchange}
+                    onChange={this.onchangeHandler}
                   />
                 </Grid>
 

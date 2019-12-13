@@ -1,18 +1,18 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux"; // connect component to  redux store.
+import { fetchItinerariesId } from "../store/actions/profileActions";
+import { fetchActivities } from "../store/actions/activitiesActions";
+
+/*----- COMPONENTS/ -----*/
+import Navbar from "../components/Navbar";
+import ItininerariesList from "../components/ItinerariesList";
+
 /*----- MATERIAL UI -----*/
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
-
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux"; // connect component to  redux store.
-
-/*----- COMPONENTS/ACTIONS -----*/
-import Navbar from "../components/Navbar";
-import ItininerariesList from "../components/ItinerariesList";
-import { fetchItinerariesId } from "../store/actions/profileActions";
-import { fetchActivities } from "../store/actions/activitiesActions";
 
 class Profile extends Component {
   constructor(props) {
@@ -26,7 +26,6 @@ class Profile extends Component {
 
   render() {
     var { favitineraries, activities } = this.props;
-    //console.log(favitineraries.length);
 
     return (
       <Fragment>

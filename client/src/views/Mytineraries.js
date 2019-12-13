@@ -1,3 +1,13 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux"; // connect component to  redux store.
+import { fetchItineraries } from "../store/actions/itinerariesActions";
+import { fetchActivities } from "../store/actions/activitiesActions";
+
+/*----- COMPONENTS/ -----*/
+import Navbar from "../components/Navbar";
+import ItininerariesList from "../components/ItinerariesList";
+
 /*----- MATERIAL UI -----*/
 import Box from "@material-ui/core/Box";
 import Card from "@material-ui/core/Card";
@@ -8,28 +18,14 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Paper from "@material-ui/core/Paper";
 
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux"; // connect component to  redux store.
-
-/*----- COMPONENTS/ACTIONS -----*/
-import Navbar from "../components/Navbar";
-import ItininerariesList from "../components/ItinerariesList";
-
-import { fetchItineraries } from "../store/actions/itinerariesActions";
-import { fetchActivities } from "../store/actions/activitiesActions";
-
 class MYtineraries extends Component {
   componentDidMount() {
-    //console.log("did mount");
-    console.log(this.props.match.params._id);
     var city_id = this.props.match.params._id;
     this.props.fetchItineraries(city_id);
     this.props.fetchActivities(city_id);
   }
 
   render() {
-    //console.log(this.props);
     const { city, itinerariesCity, activitiesCity } = this.props;
 
     return (
@@ -95,7 +91,6 @@ const mapStateToProps = state => {
   let path = window.location.pathname;
   //console.log(path.substring(path.lastIndexOf("/") + 1));
   return {
-    cities: state.cities.cities,
     city: state.cities.cities.find(city => "/cities/" + city._id === path),
     itinerariesCity: state.itineraries.itineraries,
     activitiesCity: state.activities.activities

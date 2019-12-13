@@ -1,3 +1,4 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -8,6 +9,7 @@ import {
 } from "../store/actions/commentActions";
 import { loadUser } from "../store/actions/authActions";
 
+/*----- MATERIAL UI -----*/
 import TextField from "@material-ui/core/TextField";
 import Avatar from "@material-ui/core/Avatar";
 import Grid from "@material-ui/core/Grid";
@@ -32,10 +34,8 @@ class CommentBox extends Component {
   }
 
   componentDidMount() {
-    //this.props.loadUser();
     const itinerary_id = this.props.itineraryId;
     //console.log(this.props.itineraryId);
-
     this.props.fetchAxiosComments(itinerary_id);
   }
 

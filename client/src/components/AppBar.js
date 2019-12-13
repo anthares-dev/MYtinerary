@@ -1,3 +1,9 @@
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
+import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../store/actions/authActions";
+
 /*----- MATERIAL UI -----*/
 import HomeIcon from "@material-ui/icons/Home";
 import LocationCityIcon from "@material-ui/icons/LocationCity";
@@ -19,17 +25,10 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import FaceIcon from "@material-ui/icons/Face";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-//import TimelineIcon from "@material-ui/icons/Timeline";
 import { makeStyles } from "@material-ui/core/styles";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
-import { connect, useSelector, useDispatch } from "react-redux";
-
-/*----- COMPONENTS/ACTIONS -----*/
-import { logout } from "../store/actions/authActions";
+//https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue
 
 const useStyles = makeStyles({
   avatar: {
@@ -43,7 +42,6 @@ const useStyles = makeStyles({
     width: "auto"
   }
 });
-//https://stackoverflow.com/questions/48443772/react-material-ui-bottomnavigation-component-routing-issue
 
 function Appbar() {
   const dispatch = useDispatch();
@@ -79,6 +77,43 @@ function Appbar() {
     }
     setState({ ...state, [side]: open });
   };
+
+  const authLinks = (
+    <div>
+      <MenuItem>{user ? `Welcome ${user.name} ` : ""}</MenuItem>
+      <Divider />
+
+      <MenuItem
+        component={Link}
+        onClick={() => {
+          handleClose();
+        }}
+        to={user ? `/profile/${user.id} ` : ""}
+      >
+        Profile
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          dispatch(logout());
+          handleClose();
+          window.location.replace("/");
+        }}
+      >
+        Log out
+      </MenuItem>
+    </div>
+  );
+
+  const guestLinks = (
+    <div>
+      <MenuItem onClick={handleClose} component={Link} to="/signup">
+        Register
+      </MenuItem>
+      <MenuItem onClick={handleClose} component={Link} to="/signin">
+        Log in
+      </MenuItem>
+    </div>
+  );
 
   const sideList = side => (
     <div
@@ -195,42 +230,6 @@ function Appbar() {
     </div>
   );
 
-  const authLinks = (
-    <div>
-      <MenuItem>{user ? `Welcome ${user.name} ` : ""}</MenuItem>
-      <Divider />
-
-      <MenuItem
-        component={Link}
-        onClick={() => {
-          handleClose();
-        }}
-        to={user ? `/profile/${user.id} ` : ""}
-      >
-        Profile
-      </MenuItem>
-      <MenuItem
-        onClick={() => {
-          dispatch(logout());
-          handleClose();
-          window.location.replace("/");
-        }}
-      >
-        Log out
-      </MenuItem>
-    </div>
-  );
-
-  const guestLinks = (
-    <div>
-      <MenuItem onClick={handleClose} component={Link} to="/signup">
-        Register
-      </MenuItem>
-      <MenuItem onClick={handleClose} component={Link} to="/signin">
-        Log in
-      </MenuItem>
-    </div>
-  );
   return (
     <Fragment>
       <Grid
@@ -287,4 +286,4 @@ function Appbar() {
   );
 }
 
-export default connect()(Appbar);
+export default Appbar;

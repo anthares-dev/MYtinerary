@@ -1,4 +1,4 @@
-// My entry point and the file executed by the back end server.
+//! My entry point and the file executed by the backend server.
 require("dotenv").config();
 const express = require("express"); //? web application framework for Node.js and designed to build web applications and APIs
 const app = express();
@@ -22,8 +22,8 @@ const cors = require("cors");
 app.use(cors()); // policy set up on the server that allows to serve third party origins
 
 const mongoose = require("mongoose"); //? library to help me manage my data structures and interactions in MongoDB
-const config = require("config"); //
-const db = process.env.MONGO_URI; // taking keys from default.json inside config folder
+const db = process.env.MONGO_URI; // taking key from .env file inside config folder
+//const config = require("config"); //
 //const db = require("./keys").MONGO_URI;
 
 //* Connecting to Mongo:
@@ -44,8 +44,7 @@ app.use("*/uploads", express.static("uploads"));
 app.use("/api/cities", require("./routes/api/cities"));
 
 app.use("/api/itineraries", require("./routes/api/itineraries"));
-
-app.use("/api/itineraries/:city_id", require("./routes/api/itineraries"));
+//app.use("/api/itineraries/:city_id", require("./routes/api/itineraries"));
 
 app.use("/api/activities", require("./routes/api/activities"));
 
