@@ -1,14 +1,4 @@
-/*----- MATERIAL UI -----*/
-import Box from "@material-ui/core/Box";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
-import Input from "@material-ui/core/Input";
-import Container from "@material-ui/core/Container";
-import CircularProgress from "@material-ui/core/CircularProgress";
-
-/*----- REACT/ROUTER/REDUX -----*/
+/*----- REACT/ROUTER/REDUX/ACTIONS -----*/
 import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
@@ -19,8 +9,18 @@ They are both functions that are mapping your store or your actions
 and taking or dispatching only the one that you want.
 */
 
-/*----- COMPONENTS/ACTIONS -----*/
+/*----- COMPONENTS -----*/
 import Navbar from "../components/Navbar";
+
+/*----- MATERIAL UI -----*/
+import Box from "@material-ui/core/Box";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardMedia from "@material-ui/core/CardMedia";
+import Typography from "@material-ui/core/Typography";
+import Input from "@material-ui/core/Input";
+import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 /*----- RESOURCES -----*/
 // https://code.tutsplus.com/tutorials/fetching-data-in-your-react-application--cms-30670
@@ -35,10 +35,6 @@ class Cities extends Component {
     };
   }
 
-  componentDidMount() {
-    //this.props.loadUser();
-  }
-
   handleChange = event => {
     console.log(event.target);
     this.setState({
@@ -46,15 +42,10 @@ class Cities extends Component {
     });
   };
 
-  handleClick = () => {
-    alert("To see the itineraries please login first.");
-  };
-
   render() {
     const { error, pending, cities } = this.props;
     //console.log(cities);
     //console.log(error);
-
     let isLoading = this.props.isLoading;
     //console.log("isLoading", isLoading);
 
@@ -72,7 +63,6 @@ class Cities extends Component {
                 onChange={this.handleChange}
                 value={this.searchTerm}
               />
-
               <Box mt={4}>
                 <CircularProgress color="primary" />
               </Box>
@@ -109,24 +99,6 @@ class Cities extends Component {
                         component={Link}
                         to={"/cities/" + city._id}
                       />
-                      {/*user ? (
-                        <CardMedia
-                          image={city.img}
-                          title={city.country}
-                          className="card-media"
-                          component={Link}
-                          to={"/cities/" + city._id}
-                        />
-                      ) : (
-                        <CardMedia
-                          image={city.img}
-                          title={city.country}
-                          className="card-media"
-                          component={Link}
-                          to={"/cities/" + city._id}
-                          //onClick={this.handleClick}
-                        />
-                      )*/}
                       <Typography fontSize="h8.fontSize">
                         {city.name}
                       </Typography>
@@ -152,7 +124,5 @@ const mapStateToProps = state => ({
   cities: state.cities.cities,
   pending: state.cities.pending
 });
-
-//export default connect(mapStateToProps, { loadUser })(Cities);
 
 export default connect(mapStateToProps)(Cities);

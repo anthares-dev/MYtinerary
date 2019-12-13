@@ -33,26 +33,30 @@ class Profile extends Component {
         <Container maxWidth="sm">
           <Typography component="div">
             {favitineraries.length === 0 ? (
-              <Box my={35}>
-                <Paper>
-                  <Typography variant="h5" component="h3">
-                    No favorite itineraries to show
-                  </Typography>
-                  <Typography component="p">
-                    Start browsing through itineraries and save them as
-                    favorites{" "}
-                  </Typography>
-                </Paper>
-              </Box>
+              <Fragment>
+                <Box my={35}>
+                  <Paper>
+                    <Typography variant="h5" component="h3">
+                      No favorite itineraries to show
+                    </Typography>
+                    <Typography component="p">
+                      Start browsing through itineraries and save them as
+                      favorites{" "}
+                    </Typography>
+                  </Paper>
+                </Box>
+              </Fragment>
             ) : (
               <Fragment>
-                <Box fontSize="h7.fontSize" textAlign="left" mb="3">
-                  Favorite MYtineraries:
+                <Box my={0}>
+                  <Box fontSize="h7.fontSize" textAlign="left" mb="3">
+                    Favorite MYtineraries:
+                  </Box>
+                  <ItininerariesList
+                    itineraries={favitineraries}
+                    activities={activities}
+                  />
                 </Box>
-                <ItininerariesList
-                  itineraries={favitineraries}
-                  activities={activities}
-                />
               </Fragment>
             )}
           </Typography>

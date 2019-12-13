@@ -1,3 +1,11 @@
+/*----- REACT/ROUTER/REDUX -----*/
+import React, { Fragment, Component } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux"; // connect component to  redux store.
+
+/*----- COMPONENTS -----*/
+import CitySlider from "../components/CitySlider";
+
 /*----- MATERIAL UI -----*/
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -6,21 +14,11 @@ import Fab from "@material-ui/core/Fab";
 import KeyboardArrowRightOutlinedIcon from "@material-ui/icons/KeyboardArrowRightOutlined";
 import Box from "@material-ui/core/Box";
 
-/*----- REACT/ROUTER/REDUX -----*/
-import React, { Fragment, Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux"; // connect component to  redux store.
-
-/*----- COMPONENTS/ACTIONS -----*/
-import CitySlider from "../components/CitySlider";
-
 /*----- RESOURCES -----*/
 // https://reactjsexample.com/infinite-carousel-for-react/
 // https://g787543.github.io/infinite-react-carousel/
 
 class Landing extends Component {
-  componentDidMount() {}
-
   render() {
     return (
       <Fragment>

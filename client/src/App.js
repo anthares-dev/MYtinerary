@@ -1,10 +1,15 @@
-/*----- MATERIAL UI -----*/
-import CssBaseline from "@material-ui/core/CssBaseline";
-
 /*----- REACT/ROUTER/REDUX -----*/
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux"; // connect component to  redux store.
+/*
+Connect will help you to dispatch and subscribe to the store at the same time.
+It takes two parameters: “mapStateToProps” and “mapDispatchToProps”.
+They are both functions that are mapping your store or your actions
+and taking or dispatching only the one that you want.
+*/
+import { loadUser } from "./store/actions/authActions";
+import { fetchCities } from "./store/actions/citiesActions";
 
 /*----- VIEWS -----*/
 import Landing from "./views/Landing";
@@ -14,10 +19,11 @@ import SignIn from "./views/SignIn";
 import SignUp from "./views/SignUp";
 import Profile from "./views/Profile";
 
-/*----- COMPONENTS/ACTIONS -----*/
+/*----- COMPONENTS -----*/
 import AppBar from "./components/AppBar";
-import { fetchCities } from "./store/actions/citiesActions";
-import { loadUser } from "./store/actions/authActions";
+
+/*----- MATERIAL UI -----*/
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 /*----- RESOURCES -----*/
 // https://codeburst.io/getting-started-with-react-router-5c978f70df91
@@ -27,19 +33,14 @@ class App extends Component {
     var url_string = window.location.href;
     var url = new URL(url_string);
     //console.log(url_string);
-
     var token = url.searchParams.get("token");
     //console.log(token);
-
     if (token || localStorage.getItem("token") !== null) {
       //console.log("is different");
-
       if (token) {
         //console.log("is token", token);
-
         localStorage.setItem("token", token);
         //console.log(localStorage.getItem("token"));
-
         window.history.replaceState(null, null, `${window.location.origin}`);
         //console.log(localStorage.getItem("token"));
       }
@@ -47,10 +48,9 @@ class App extends Component {
       //console.log("else");
     }
     // console.log(localStorage.getItem("token"));
-    this.timer = setTimeout(() => this.props.loadUser(), 0);
+    //this.timer = setTimeout(() => this.props.loadUser(), 0);
+    this.props.loadUser(); // with the refresh of the page, if there is a token the user will be loaded!
     this.props.fetchCities();
-
-    // with the refresh of the page, if there is a token the user will be loaded!
   }
 
   render() {
@@ -78,4 +78,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchCities, loadUser })(App);
+export default connect(null, { loadUser, fetchCities })(App);
