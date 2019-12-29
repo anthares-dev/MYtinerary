@@ -89,7 +89,7 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-//? cannot active serviceWorker because create issues with HTTP auth
+//? cannot active serviceWorker (setting to "register") because create issues with HTTP auth
 
 //* Add To Homescreen (not working because serviceWorker is unactive)
 var deferredPrompt;
