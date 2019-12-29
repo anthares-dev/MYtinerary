@@ -64,7 +64,9 @@ class SignIn extends Component {
     //* Clear errors
     this.props.clearErrors();
     e.preventDefault();
+
     const { email, password } = this.state;
+
     const user = {
       email,
       password

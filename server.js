@@ -23,7 +23,7 @@ app.use(cors()); // policy set up on the server that allows to serve third party
 
 const mongoose = require("mongoose"); //? library to help me manage my data structures and interactions in MongoDB
 const db = process.env.MONGO_URI; // taking key from .env file inside config folder
-//const config = require("config"); //
+const config = require("config"); //
 //const db = require("./keys").MONGO_URI;
 
 //* Connecting to Mongo:
