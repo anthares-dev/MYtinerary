@@ -85,7 +85,12 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-//! Add To Homescreen
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+
+//* Add To Homescreen
 var deferredPrompt;
 
 window.addEventListener("beforeinstallprompt", function(e) {
@@ -119,8 +124,3 @@ function addToHomeScreen() {
     deferredPrompt = null;
   });
 }
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
